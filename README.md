@@ -22,64 +22,47 @@ The `--profile himc` is only used if you have several profiles set up on your AW
 
 # 2. Make AMI with 1TB Volume (optional)
 
-The cloudformation template sets up the mounted volume for the jobs (see jobdefinition in template) and tells batch to use a custom AMI that has a mounted 1TB volume for the compute environment. See [aws-batch-genomics](https://aws.amazon.com/blogs/compute/building-high-throughput-genomic-batch-workflows-on-aws-batch-layer-part-3-of-4/) part 3 to see how to make a custom AMI. Also see the [cloudformation docs](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-batch-computeenvironment.html) for an exmaple of how to use a custom AMI as a compute environment for AWS batch.
+We need to make a custom AMI with a 1TB drive attached in order to run cellranger. We will use an existing custom AMI (ami id ami-0d36b4f4d3b46109a - this is used in production) instead of making a new custom AMI. For instructions on making the custom AMI see below. 
 
-While in the AWS console, go to the EC2 service section. Click "Instances" on the
-left-hand side panel. Then hit the blue "Launch Instance" button near the top of the page.
-Then, on the left menu, click on "AWS Marketplace".
-
-- Step 1 (choose AMI): select "Amazon ECS-Optimized Amazon Linux AMI".
-- Step 2 (choose an instance type): select t2.micro
-- Step 3 (skip)
-- Step 4 (add storage): Two entries must be made as per [this AWS tutorial](https://aws.amazon.com/blogs/compute/building-high-throughput-genomic-batch-workflows-on-aws-batch-layer-part-3-of-4/)
-Follow the screenshot they provide.
-
-**IMPORTANT:** Although 2 storage units are defined in the tutorial (one with 22GB and other with 1000GB):
-![AWS AMI Storage Setup](batch_ecs_setup.png)
-
-After running the proposed list of commands:
-
+The custom AMI image id needs to be put into the cloudformation JSON under the `ComputeEnvironment` key: 
 ```
-sudo yum -y update
-sudo mkfs -t ext4 /dev/xvdb
-sudo mkdir /docker_scratch
-sudo echo -e '/dev/xvdb\t/docker_scratch\text4\tdefaults\t0\t0' | sudo tee -a /etc/fstab
-sudo mount –a
-sudo stop ecs
-sudo rm -rf /var/lib/ecs/data/ecs_agent_data.json
-```
+    "ComputeEnvironment": {
+      "Type": "AWS::Batch::ComputeEnvironment",
+      "Properties": {
+        "Type": "MANAGED",
 
-If you run `df -h`, only the first mounted storage unit (in their case, the 22BG image) will be listed.
+        "ComputeResources": {
+          "Type": "EC2",
+          "MinvCpus": 0,
+          "DesiredvCpus": 0,
+          "MaxvCpus": 128,
+          "InstanceTypes": [
+            "optimal"
+          ],
+          "Subnets": [
+            {
+              "Ref": "Subnet"
+            }
+          ],
+          "SecurityGroupIds": [
+            {
+              "Ref": "SecurityGroup"
+            }
+          ],
+          "InstanceRole": {
+            "Ref": "IamInstanceProfile"
+          },
+          "ImageId": "ami-0d36b4f4d3b46109a"
+        },
 
-- Final Step (only steps 1, 2, and 4 needed prior to this): Click "Review and
-Launch" and then "Launch". You will be prompted to select an existing key pair
-or create a new pair.
-  - If creating a new key pair, ensure to save the pem file
-  for future use and run `chmod 400` on the pem file. You can then
-  hit "Launch Instance" and ssh into your instance.
-
-Again, in the EC2 service section, click "Instances" on the left-hand side panel.
-You should now see the instance you created in the last step. Select the instance,
-click "Actions" (near the blue "Launch Instance" button), hover over "Image", click
-"Create Image". Fill in the "Image name" field and click the "Create Image" button.
-
-Ensure to replace the AMI ID fields in the `cf_cellranger.json` file with the ID of the
-AMI you just created. To find the AMI ID, in the EC2 service section, under "Images"
-on the left-hand side panel, click "AMIs", and copy the AMI ID corresponding to
-the AMI you just created.
-
-Reminder: Don't forget to update the stack via the following command:
-`$ aws cloudformation update-stack --template-body file://cf_cellranger.json --stack-name cellranger-job --capabilities CAPABILITY_NAMED_IAM`
-
-
-Other helpful links:
-
-* [aws London pop-up video batch computing](https://www.youtube.com/watch?v=H8bmHU_z8Ac&t=662s)
-* [base2 genomics presentation for AWS re:invent](https://www.youtube.com/watch?v=8dApnlJLY54&t=2785s)
-
+        "ServiceRole": {
+          "Ref": "BatchServiceRole"
+        }
+      }
+    }
+  ```
 
 # 3. Build Stack using Cloudformation
-
 The following AWS CLI commands can be used to create and update the cloudformation stack on AWS.
 
 ### Create the stack
@@ -151,9 +134,11 @@ with `SI-GA-`
 
 # 7. Submit Batch Job using boto
 
-# System Requirements (from [10X Genomics](https://support.10xgenomics.com/single-cell-gene-expression/software/overview/system-requirements))
+# Additional Information
 
-# System Requirements
+## System Requirements (from [10X Genomics](https://support.10xgenomics.com/single-cell-gene-expression/software/overview/system-requirements))
+
+## System Requirements
 
 Cell Ranger
 Cell Ranger pipelines run on Linux systems that meet these minimum requirements:
@@ -175,7 +160,7 @@ bcl2fastq 2.17 or higher is preferred and supports most sequencers running RTA v
 
 All other software dependencies come bundled in the Cell Ranger package.
 
-# Components
+## Components
 
 Modified from from dockerfile: https://hub.docker.com/r/litd/docker-cellranger/
 
@@ -185,11 +170,66 @@ bcl2fastq2 v2.19 (06/13/2017)
 
 cellranger v2.1.0
 
-### To Do
+## Making Custom AMI
+The cloudformation template sets up the mounted volume for the jobs (see jobdefinition in template) and tells batch to use a custom AMI that has a mounted 1TB volume for the compute environment. See [aws-batch-genomics](https://aws.amazon.com/blogs/compute/building-high-throughput-genomic-batch-workflows-on-aws-batch-layer-part-3-of-4/) part 3 to see how to make a custom AMI. Also see the [cloudformation docs](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-batch-computeenvironment.html) for an exmaple of how to use a custom AMI as a compute environment for AWS batch.
 
+While in the AWS console, go to the EC2 service section. Click "Instances" on the
+left-hand side panel. Then hit the blue "Launch Instance" button near the top of the page.
+Then, on the left menu, click on "AWS Marketplace".
+
+- Step 1 (choose AMI): select "Amazon ECS-Optimized Amazon Linux AMI".
+- Step 2 (choose an instance type): select t2.micro
+- Step 3 (skip)
+- Step 4 (add storage): Two entries must be made as per [this AWS tutorial](https://aws.amazon.com/blogs/compute/building-high-throughput-genomic-batch-workflows-on-aws-batch-layer-part-3-of-4/)
+Follow the screenshot they provide.
+
+**IMPORTANT:** Although 2 storage units are defined in the tutorial (one with 22GB and other with 1000GB):
+
+![AWS AMI Storage Setup](batch_ecs_setup.png)
+
+After running the proposed list of commands:
+
+```
+sudo yum -y update
+sudo mkfs -t ext4 /dev/xvdb
+sudo mkdir /docker_scratch
+sudo echo -e '/dev/xvdb\t/docker_scratch\text4\tdefaults\t0\t0' | sudo tee -a /etc/fstab
+sudo mount –a
+sudo stop ecs
+sudo rm -rf /var/lib/ecs/data/ecs_agent_data.json
+```
+
+If you run `df -h`, only the first mounted storage unit (in their case, the 22BG image) will be listed.
+
+- Final Step (only steps 1, 2, and 4 needed prior to this): Click "Review and
+Launch" and then "Launch". You will be prompted to select an existing key pair
+or create a new pair.
+  - If creating a new key pair, ensure to save the pem file
+  for future use and run `chmod 400` on the pem file. You can then
+  hit "Launch Instance" and ssh into your instance.
+
+Again, in the EC2 service section, click "Instances" on the left-hand side panel.
+You should now see the instance you created in the last step. Select the instance,
+click "Actions" (near the blue "Launch Instance" button), hover over "Image", click
+"Create Image". Fill in the "Image name" field and click the "Create Image" button.
+
+Ensure to replace the AMI ID fields in the `cf_cellranger.json` file with the ID of the
+AMI you just created. To find the AMI ID, in the EC2 service section, under "Images"
+on the left-hand side panel, click "AMIs", and copy the AMI ID corresponding to
+the AMI you just created.
+
+Reminder: Don't forget to update the stack via the following command:
+`$ aws cloudformation update-stack --template-body file://cf_cellranger.json --stack-name cellranger-job --capabilities CAPABILITY_NAMED_IAM`
+
+
+Other helpful links:
+
+* [aws London pop-up video batch computing](https://www.youtube.com/watch?v=H8bmHU_z8Ac&t=662s)
+* [base2 genomics presentation for AWS re:invent](https://www.youtube.com/watch?v=8dApnlJLY54&t=2785s)
+
+### To Do
 * get jobs to write to different directories within the 1TB `docker_scratch` directory
 * set up AMI that can be ssh'd into
-
 * ~~run cellranger mkfastq and count on tiny-bcl as AWS batch job~~
 * ~~save cellranger outputs back to S3 bucket~~
 * ~~set up python script to actually run the cellranger commands~~
