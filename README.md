@@ -1,32 +1,26 @@
 # Cellranger AWS Pipeline
 
-This repo sets up and runs cellranger (mkfastq and count) on the tiny-bcl example using AWS batch. In a separate repo, [dockerized-cellranger](https://github.com/ismms-himc/dockerized_cellranger), we ran `cellranger mkfastq` and `cellranger count` in a docker container using the `tiny-bcl` example dataset (the image ran successfully on linux but not on mac).
+This repo sets up and runs cellranger (mkfastq and count) on the tiny-bcl example using AWS batch. In a separate repo, [dockerized-cellranger](https://github.com/ismms-himc/dockerized_cellranger), we ran `cellranger mkfastq` and `cellranger count` in a docker container using the `tiny-bcl` example dataset. This repo is also builds upon the tutorial branch of [cellranger-aws-pipeline](https://github.com/ismms-himc/cellranger-aws-pipeline/tree/tutorial).
 
-This repo is also where we are building upon the tutorial branch of [cellranger-aws-pipeline](https://github.com/ismms-himc/cellranger-aws-pipeline/tree/tutorial).
+# 1. Upload Data to S3 Bucket (optional)
+Nick uploaded the necessary data for running cellranger on tiny-bcl:
+* reference transcriptome
+* sample-sheet/simple-csv
+* tiny-bcl
+* cellranger 2.1.0 software (will be copied into docker container)
 
-Currently, we can get several jobs to run and share the same `docker_scratch` directory and have access to up to 64GB of memory. Next, we are working on getting jobs to run `cellranger mkfastq` and `cellranger count`.
+### Create a new S3 bucket.
+Nick has already made the bucket `cellranger-tiny-bucket` and uploaded the data (including the ouputs from mkfasq and count).
 
-## Pipeline Overview
-* step-1: Download bcl data and reference transcriptome from S3
-* step-2: Run single `cellranger mkfastq` job on tiny-bcl data
-* step-3: Run multiple `cellranger count` jobs on the tiny-bcl fastqs (use samplesheet)
+### How to upload data to S3 (optional)
+`aws s3 cp --recursive cellranger_bucket/ s3://cellranger-tiny-bucket --profile himc`
 
+### How to download from S3 (optional)
+`aws s3 cp --recursive s3://cellranger-tiny-bucket cellranger-tiny-bucket --profile himc`
 
-The steps required to submit jobs to AWS batch are discussed below.
+The `--profile himc` is only used if you have several profiles set up on your AWS CLI. 
 
-# 1. Upload Data to S3 Bucket or use existing S3 Bucket
-
-* Create a new S3 bucket.
-* Upload `refdata-cellranger-GRCh38-1.2.0` and `tiny-bcl` to S3 (~16GB) using `boto3`. This reference is not in the repo and the upload was done elsewhere.
-
-### Copy to S3
-aws s3 cp --recursive cellranger_bucket/ s3://cellranger-tiny-bucket --profile himc
-
-### Copy From S3 (optional)
-aws s3 ls s3://10x-data-backup --profile himc
-
-# 2. Make AMI with 1TB Volume
-
+# 2. Make AMI with 1TB Volume (optional)
 
 The cloudformation template sets up the mounted volume for the jobs (see jobdefinition in template) and tells batch to use a custom AMI that has a mounted 1TB volume for the compute environment. See [aws-batch-genomics](https://aws.amazon.com/blogs/compute/building-high-throughput-genomic-batch-workflows-on-aws-batch-layer-part-3-of-4/) part 3 to see how to make a custom AMI. Also see the [cloudformation docs](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-batch-computeenvironment.html) for an exmaple of how to use a custom AMI as a compute environment for AWS batch.
 
