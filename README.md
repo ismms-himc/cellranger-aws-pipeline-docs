@@ -65,12 +65,12 @@ The custom AMI image id needs to be put into the cloudformation JSON (*cf_cellra
 # 3. Build Stack using Cloudformation
 The following AWS CLI commands can be used to create and update the cloudformation stack on AWS.
 
-### Create the stack
+### Create the `cellranger-job` stack
 Creat the stack using the `cf_cellranger.json` cloudformation:
 
 `$ aws cloudformation create-stack --template-body file://cf_cellranger.json --stack-name cellranger-job --capabilities CAPABILITY_NAMED_IAM --profile himc`
 
-### Update the existing stack
+### Update the `cellranger-job` existing stack
 
 `$ aws cloudformation update-stack --template-body file://cf_cellranger.json --stack-name cellranger-job --capabilities CAPABILITY_NAMED_IAM --profile himc`
 
