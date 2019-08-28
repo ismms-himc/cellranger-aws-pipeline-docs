@@ -1,6 +1,6 @@
 # Cellranger AWS Pipeline
 
-  This repo is working towards deploying the 10X cellranger pipeline on AWS. In a separate repo, [dockerized-cellranger](https://github.com/ismms-himc/dockerized_cellranger), we ran `cellranger mkfastq` and `cellranger count` in a docker container using the `tiny-bcl` example dataset (the image ran successfully on linux but not on mac). However, the reference transcriptome (e.g. GRCh38) was included in the docker iamge, which made the image ~18GB and this is too large to run on AWS batch. We are working on a docker image that uses `boto` to copy the reference from S3 to a 1TB mounted volume (see `docker_scratch` below).
+  This repo is working towards deploying the 10X cellranger pipeline on AWS. In a separate repo, [dockerized-cellranger](https://github.com/ismms-himc/dockerized_cellranger), we ran `cellranger mkfastq` and `cellranger count` in a docker container using the `tiny-bcl` example dataset (the image ran successfully on linux but not on mac).
 
   This repo is also where we are building upon the tutorial branch of [cellranger-aws-pipeline](https://github.com/ismms-himc/cellranger-aws-pipeline/tree/tutorial).
 
