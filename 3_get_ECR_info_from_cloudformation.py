@@ -5,7 +5,7 @@ import json
 client_cf = boto3.client('cloudformation')
 client_batch = boto3.client('batch')
 
-stack_name = 'cellranger-tiny-job'
+stack_name = 'cellranger-job'
 
 # Get stack info from cloudformation
 ##############################################

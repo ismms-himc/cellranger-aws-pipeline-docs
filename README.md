@@ -68,11 +68,11 @@ The following AWS CLI commands can be used to create and update the cloudformati
 ### Create the stack
 Creat the stack using the `cf_cellranger.json` cloudformation:
 
-`$ aws cloudformation create-stack --template-body file://cf_cellranger.json --stack-name cellranger-tiny-job --capabilities CAPABILITY_NAMED_IAM --profile himc`
+`$ aws cloudformation create-stack --template-body file://cf_cellranger.json --stack-name cellranger-job --capabilities CAPABILITY_NAMED_IAM --profile himc`
 
 ### Update the existing stack
 
-`$ aws cloudformation update-stack --template-body file://cf_cellranger.json --stack-name cellranger-tiny-job --capabilities CAPABILITY_NAMED_IAM --profile himc`
+`$ aws cloudformation update-stack --template-body file://cf_cellranger.json --stack-name cellranger-job --capabilities CAPABILITY_NAMED_IAM --profile himc`
 
 # 4. Make and Run Docker Image that will be used as the Batch Job Definition
 Use the following docker commands to build and run the container. Here, `<URI>` refers to your _Account ID_.
@@ -219,7 +219,7 @@ on the left-hand side panel, click "AMIs", and copy the AMI ID corresponding to
 the AMI you just created.
 
 Reminder: Don't forget to update the stack via the following command:
-`$ aws cloudformation update-stack --template-body file://cf_cellranger.json --stack-name cellranger-tiny-job --capabilities CAPABILITY_NAMED_IAM`
+`$ aws cloudformation update-stack --template-body file://cf_cellranger.json --stack-name cellranger-job --capabilities CAPABILITY_NAMED_IAM`
 
 
 Other helpful links:
