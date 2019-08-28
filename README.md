@@ -14,7 +14,7 @@ Currently, we can get several jobs to run and share the same `docker_scratch` di
 
 The steps required to submit jobs to AWS batch are discussed below.
 
-# 1.
+# 1. Upload Data to S3 Bucket or use existing S3 Bucket
 
 aws s3 ls s3://10x-data-backup --profile himc
 
