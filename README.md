@@ -1,6 +1,6 @@
 # Cellranger AWS Pipeline
 
-  This repo runs the 10X cellranger pipeline on AWS using the tiny-bcl file. In a separate repo, [dockerized-cellranger](https://github.com/ismms-himc/dockerized_cellranger), we ran `cellranger mkfastq` and `cellranger count` in a docker container using the `tiny-bcl` example dataset (the image ran successfully on linux but not on mac). However, the reference transcriptome (e.g. GRCh38) was included in the docker iamge, which made the image ~18GB and this is too large to run on AWS batch. We are working on a docker image that uses `boto` to copy the reference from S3 to a 1TB mounted volume (see `docker_scratch` below).
+  This repo is working towards deploying the 10X cellranger pipeline on AWS. In a separate repo, [dockerized-cellranger](https://github.com/ismms-himc/dockerized_cellranger), we ran `cellranger mkfastq` and `cellranger count` in a docker container using the `tiny-bcl` example dataset (the image ran successfully on linux but not on mac). However, the reference transcriptome (e.g. GRCh38) was included in the docker iamge, which made the image ~18GB and this is too large to run on AWS batch. We are working on a docker image that uses `boto` to copy the reference from S3 to a 1TB mounted volume (see `docker_scratch` below).
 
   This repo is also where we are building upon the tutorial branch of [cellranger-aws-pipeline](https://github.com/ismms-himc/cellranger-aws-pipeline/tree/tutorial).
 
@@ -11,15 +11,6 @@
   * step-2: Run single `cellranger mkfastq` job on tiny-bcl data
   * step-3: Run multiple `cellranger count` jobs on the tiny-bcl fastqs (use samplesheet)
 
-  ### To Do
-
-  * get jobs to write to different directories within the 1TB `docker_scratch` directory
-  * set up AMI that can be ssh'd into
-
-  * ~~run cellranger mkfastq and count on tiny-bcl as AWS batch job~~
-  * ~~save cellranger outputs back to S3 bucket~~
-  * ~~set up python script to actually run the cellranger commands~~
-  * ~~test running jobs with higher memory requirements, we need about 30-60GB~~
 
 The steps required to submit jobs to AWS batch are discussed below.
 
@@ -36,7 +27,9 @@ The steps required to submit jobs to AWS batch are discussed below.
 
   `$ aws cloudformation update-stack --template-body file://cf_cellranger.json --stack-name cellranger-job --capabilities CAPABILITY_NAMED_IAM`
 
-  The cloudformation template sets up the mounted volume for the jobs (see jobdefinition in template) and tells batch to use a custom AMI that has a mounted 1TB volume for the compute environment. See [aws-batch-genomics](https://aws.amazon.com/blogs/compute/building-high-throughput-genomic-batch-workflows-on-aws-batch-layer-part-3-of-4/) part 3 to see how to make a custom AMI. Also see the [cloudformation docs](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-batch-computeenvironment.html) for an exmaple of how to use a custom AMI as a compute environment for AWS batch. Additional helpful links:
+  The cloudformation template sets up the mounted volume for the jobs (see jobdefinition in template) and tells batch to use a custom AMI that has a mounted 1TB volume for the compute environment. See [aws-batch-genomics](https://aws.amazon.com/blogs/compute/building-high-throughput-genomic-batch-workflows-on-aws-batch-layer-part-3-of-4/) part 3 to see how to make a custom AMI. Also see the [cloudformation docs](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-batch-computeenvironment.html) for an exmaple of how to use a custom AMI as a compute environment for AWS batch.
+
+  Other helpful links:
 
 * [aws London pop-up video batch computing](https://www.youtube.com/watch?v=H8bmHU_z8Ac&t=662s)
 * [base2 genomics presentation for AWS re:invent](https://www.youtube.com/watch?v=8dApnlJLY54&t=2785s)
@@ -46,9 +39,12 @@ The steps required to submit jobs to AWS batch are discussed below.
  * Create a new S3 bucket.
  * Upload `refdata-cellranger-GRCh38-1.2.0` and `tiny-bcl` to S3 (~16GB) using `boto3`. This reference is not in the repo and the upload was done elsewhere.
 
+** This was already done for my personal account
 
 # 3. Make and Run Docker Image that will be used as the Batch Job Definition
   Use the following docker commands to build and run the container. Here, `<URI>` refers to your _Account ID_.
+
+  *** Make sure you have the file `cellranger-2.1.0.tar.gz` in the directory (the file is ~700MB so it is not included in the repo).
 
   `$ docker build -t <URI>.dkr.ecr.us-east-1.amazonaws.com/awsbatch/cellranger-aws-pipeline .`
 
@@ -58,6 +54,8 @@ The steps required to submit jobs to AWS batch are discussed below.
 
 # 4. Create repository
    Run `python 1_make_ecr_dockerized_cellranger.py`.
+
+   ** This fails for me since I already create it.
 
 # 5. Push Image to AWS ECS
 
@@ -69,7 +67,7 @@ The steps required to submit jobs to AWS batch are discussed below.
 
   `$ docker push <URI>.dkr.ecr.us-east-1.amazonaws.com/awsbatch/cellranger-aws-pipeline`
 
-# 6. Create AMI
+# 6. Create Custom AMI
 While in the AWS console, go to the EC2 service section. Click "Instances" on the
 left-hand side panel. Then hit the blue "Launch Instance" button near the top of the page.
 Then, on the left menu, click on "AWS Marketplace".
@@ -181,3 +179,15 @@ Modified from from dockerfile: https://hub.docker.com/r/litd/docker-cellranger/
 bcl2fastq2 v2.19 (06/13/2017)
 
 cellranger v2.1.0
+
+
+
+### To Do
+
+  * get jobs to write to different directories within the 1TB `docker_scratch` directory
+  * set up AMI that can be ssh'd into
+
+  * ~~run cellranger mkfastq and count on tiny-bcl as AWS batch job~~
+  * ~~save cellranger outputs back to S3 bucket~~
+  * ~~set up python script to actually run the cellranger commands~~
+  * ~~test running jobs with higher memory requirements, we need about 30-60GB~~
