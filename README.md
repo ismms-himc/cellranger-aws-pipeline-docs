@@ -22,7 +22,7 @@ The `--profile himc` is only used if you have several profiles set up on your AW
 
 # 2. Make AMI with 1TB Volume (optional)
 
-We need to make a custom AMI with a 1TB drive attached in order to run cellranger. We will use an existing custom AMI (ami id ami-0d36b4f4d3b46109a - this is used in production) instead of making a new custom AMI. For instructions on making the custom AMI see below. 
+We need to make a custom AMI with a 1TB drive attached in order to run cellranger. We will use an existing custom AMI (ami id `ami-0d36b4f4d3b46109a` - this is used in production) instead of making a new custom AMI. For instructions on making the custom AMI see below. 
 
 The custom AMI image id needs to be put into the cloudformation JSON under the `ComputeEnvironment` key: 
 ```
