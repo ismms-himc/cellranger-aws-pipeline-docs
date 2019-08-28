@@ -16,7 +16,12 @@ The steps required to submit jobs to AWS batch are discussed below.
 
 # 1. Upload Data to S3 Bucket or use existing S3 Bucket
 
+### Copy to S3
+aws s3 cp --recursive cellranger_bucket/ s3://cellranger-tiny-bucket --profile himc
+
+### Copy From S3 (optional)
 aws s3 ls s3://10x-data-backup --profile himc
+
 
 # 2. Build Stack using Cloudformation and Make AMI with 1TB Volume
 
