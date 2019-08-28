@@ -222,7 +222,7 @@
           "InstanceRole": {
             "Ref": "IamInstanceProfile"
           },
-          "ImageId": "ami-dba2bda1"
+          "ImageId": "ami-0d36b4f4d3b46109a"
         },
 
         "ServiceRole": {
