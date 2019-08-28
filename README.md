@@ -62,8 +62,8 @@ The custom AMI image id needs to be put into the cloudformation JSON (*cf_cellra
     }
   ```
 
-# 3. Build Stack using Cloudformation
-The following AWS CLI commands can be used to create and update the cloudformation stack on AWS.
+# 3. Build Stack using Cloudformation (optional)
+The following AWS CLI commands can be used to create and update the cloudformation stack on AWS. Nick has already done this so this is optional.
 
 ### Create the `cellranger-job` stack
 Creat the stack using the `cf_cellranger.json` cloudformation:
@@ -75,20 +75,20 @@ Creat the stack using the `cf_cellranger.json` cloudformation:
 `$ aws cloudformation update-stack --template-body file://cf_cellranger.json --stack-name cellranger-job --capabilities CAPABILITY_NAMED_IAM --profile himc`
 
 # 4. Make and Run Docker Image that will be used as the Batch Job Definition
-Use the following docker commands to build and run the container. Here, `<URI>` refers to your _Account ID_.
+Use the following docker commands to build and run the container. Here, `<URI>` refers to your _Account ID_ (402084680610).
 
 *** Make sure you have the file `cellranger-2.1.0.tar.gz` in the directory (the file is ~700MB so it is not included in the repo).
 
-`$ docker build -t <URI>.dkr.ecr.us-east-1.amazonaws.com/awsbatch/cellranger-aws-pipeline .`
+`$ docker build -t 402084680610.dkr.ecr.us-east-1.amazonaws.com/awsbatch/cellranger-aws-pipeline .`
 
-`$ docker run -it --rm -p 8087:80 <URI>.dkr.ecr.us-east-1.amazonaws.com/awsbatch/cellranger-aws-pipeline`
+`$ docker run -it --rm -p 8087:80 402084680610.dkr.ecr.us-east-1.amazonaws.com/awsbatch/cellranger-aws-pipeline`
 
-See the next section for the commands to run within the container.
+... just points you the python repl (need to improve documentation of this) - just a sanity check that the docker container runs.
 
-# 5. Create repository
- Run `python 1_make_ecr_dockerized_cellranger.py`.
+# 5. Create repository (Optional)
 
- ** This fails for me since I already create it.
+ Run `python 1_make_ecr_dockerized_cellranger.py` (this should fail since it already exists).
+
 
 # 6. Push Image to AWS ECS
 
@@ -98,7 +98,7 @@ After the image has been built it needs to be pushed to AWS ECS. First auth cred
 
 This will return a long aws CLI command that you need to copy and paste into the terminal. You may need to remove `-e none` from the command if docker gives an error. Now that you have the proper credentials, you will be able to push the repository using the following command:
 
-`$ docker push <URI>.dkr.ecr.us-east-1.amazonaws.com/awsbatch/cellranger-aws-pipeline`
+`$ docker push 402084680610.dkr.ecr.us-east-1.amazonaws.com/awsbatch/cellranger-aws-pipeline`
 
 # 6. Run Cellranger Commands in Container (optional)
 
