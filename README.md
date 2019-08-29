@@ -134,6 +134,10 @@ with `SI-GA-`
 
 # 7. Submit Batch Job using boto
 
+Run the following command in the terminal to execute a batch job on AWS:
+
+`python 2_run_batch_job.py`
+
 # Additional Information
 
 ## System Requirements (from [10X Genomics](https://support.10xgenomics.com/single-cell-gene-expression/software/overview/system-requirements))
