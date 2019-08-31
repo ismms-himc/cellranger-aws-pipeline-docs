@@ -47,7 +47,7 @@ print(mounttarget_id)
 # ####################################
 # base_name = 'cellranger-dockerhub-nick-3GB'
 # params_dict = {}
-# params_dict['bucket'] = 'cellranger_bucket'
+# params_dict['bucket'] = 'cellranger-tiny-bucket'
 
 
 # # single-sample-job 1

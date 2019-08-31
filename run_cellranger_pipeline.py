@@ -61,13 +61,13 @@ os.chdir('scratch/tenant_1')
 ###########################################
 
 # refdata
-inst_bucket = 'cellranger_bucket'
+inst_bucket = 'cellranger-tiny-bucket'
 s3_folder = 'refdata-cellranger-GRCh38-1.2.0'
 s3_path = 's3://'+inst_bucket + '/' + s3_folder
 download_folder(s3_path, 'refdata-cellranger-GRCh38-1.2.0')
 
 # tiny-bcl
-inst_bucket = 'cellranger_bucket'
+inst_bucket = 'cellranger-tiny-bucket'
 s3_folder = 'tiny-bcl'
 s3_path = 's3://'+inst_bucket + '/' + s3_folder
 download_folder(s3_path, 'tiny-bcl')

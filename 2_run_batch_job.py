@@ -48,7 +48,7 @@ for inst_resource in resources:
 ####################################
 base_name = 'cellranger-UPLOAD-RESULTS'
 params_dict = {}
-params_dict['bucket'] = 'cellranger_bucket'
+params_dict['bucket'] = 'cellranger-tiny-bucket'
 
 # job 1
 #########################
