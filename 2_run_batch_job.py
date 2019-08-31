@@ -50,12 +50,12 @@ base_name = 'cellranger-UPLOAD-RESULTS'
 params_dict = {}
 params_dict['bucket'] = 'cellranger_bucket'
 
-# # job 1
-# #########################
-# batch_job_name = base_name + '-10GB'
-# job_response = client_batch.submit_job(jobDefinition=job_def_id_1,
-#                                        jobName=batch_job_name,
-#                                        jobQueue=job_queue_id)
+# job 1
+#########################
+batch_job_name = base_name + '-10GB'
+job_response = client_batch.submit_job(jobDefinition=job_def_id_1,
+                                       jobName=batch_job_name,
+                                       jobQueue=job_queue_id)
 
 # # job 2
 # #######################
@@ -65,12 +65,12 @@ params_dict['bucket'] = 'cellranger_bucket'
 #                                        jobQueue=job_queue_id)
 
 
-# job 3
-#######################
-batch_job_name = base_name + '-20GB'
-job_response = client_batch.submit_job(jobDefinition=job_def_id_3,
-                                       jobName=batch_job_name,
-                                       jobQueue=job_queue_id)
+# # job 3
+# #######################
+# batch_job_name = base_name + '-20GB'
+# job_response = client_batch.submit_job(jobDefinition=job_def_id_3,
+#                                        jobName=batch_job_name,
+#                                        jobQueue=job_queue_id)
 
 # # job 4
 # #######################
