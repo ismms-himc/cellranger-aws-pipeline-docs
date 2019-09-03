@@ -22,7 +22,7 @@ from common_utils.job_utils import generate_working_dir, delete_working_dir
 # # parse arguments
 # #
 # ###############################################################################
-# # the first element in the script name, the second is the first argument
+# # the first element is the script name, the second is the first argument
 # # the argument is specified by the cloudformation json
 # print('----------- CELLRANGER PIPELINE --------------\n\n')
 # print('parsing argument data\n------------------------------')
