@@ -36,7 +36,8 @@ params_dict['bucket'] = 'cellranger-tiny-bucket'
 batch_job_name = base_name + '-10GB'
 job_response = client_batch.submit_job(jobDefinition=job_def_id,
                                        jobName=batch_job_name,
-                                       jobQueue=job_queue_id)
+                                       jobQueue=job_queue_id,
+                                       parameters={'inst_key':'inst_value'})
 
 
 job_id_1 = job_response['jobId']
