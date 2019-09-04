@@ -24,11 +24,12 @@ for inst_resource in resources:
     job_queue_id = inst_resource['PhysicalResourceId'].split('/')[-1].split(':')[0]
 
 
-# single-sample-job initialization
+# parameters is a dictionary
 ####################################
 base_name = 'cellranger-UPLOAD-RESULTS'
 params_dict = {}
-params_dict['bucket'] = 'cellranger-tiny-bucket'
+# params_dict['bucket'] = 'cellranger-tiny-bucket'
+params_dict['inst_key'] = json.dumps({'inst_arg_key':'inst_arg_val'})
 
 # job 1
 #########################
@@ -37,8 +38,7 @@ batch_job_name = base_name + '-10GB'
 job_response = client_batch.submit_job(jobDefinition=job_def_id,
                                        jobName=batch_job_name,
                                        jobQueue=job_queue_id,
-                                       parameters={'inst_key':'inst_value'})
-
+                                       parameters=params_dict)
 
 job_id_1 = job_response['jobId']
 print('submitted job 1: ' + batch_job_name)

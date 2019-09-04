@@ -26,6 +26,9 @@ from common_utils.job_utils import generate_working_dir, delete_working_dir
 # the argument is specified by the cloudformation json
 print('----------- CELLRANGER PIPELINE --------------\n\n')
 print('parsing argument data\n------------------------------')
+
+print('sys.argv[1]')
+print(arg_string = sys.argv[1])
 try:
   arg_string = sys.argv[1]
   arg_dict = json.loads(arg_string)
