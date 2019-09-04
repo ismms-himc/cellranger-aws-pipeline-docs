@@ -11,7 +11,6 @@ stack_name = 'cellranger-job'
 ##############################################
 stack_info = client_cf.describe_stack_resources(StackName=stack_name)
 resources = stack_info['StackResources']
-
 for inst_resource in resources:
   resource_type = inst_resource['ResourceType']
   logical_resource_id = inst_resource['LogicalResourceId']
@@ -23,11 +22,11 @@ for inst_resource in resources:
   if resource_type == 'AWS::Batch::JobQueue':
     job_queue_id = inst_resource['PhysicalResourceId'].split('/')[-1].split(':')[0]
 
-
-# parameters is a dictionary
-####################################
+# pass information to job
 run_arguments = {'inst_arg_key':'inst_arg_val'}
 
+# the params_dict dictionary is passed to the job
+##################################################
 params_dict = {}
 params_dict['inst_key'] = json.dumps(run_arguments)
 
