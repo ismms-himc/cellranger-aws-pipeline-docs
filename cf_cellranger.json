@@ -158,7 +158,7 @@
           "Command": [
             "python3.5",
             "run_cellranger_pipeline.py",
-            "Ref::inst_argument"
+            "Ref::parameters"
           ],
 
            "MountPoints": [
