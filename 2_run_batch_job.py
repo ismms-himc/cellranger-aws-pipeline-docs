@@ -26,14 +26,15 @@ for inst_resource in resources:
 
 # parameters is a dictionary
 ####################################
-base_name = 'cellranger-UPLOAD-RESULTS'
+run_arguments = {'inst_arg_key':'inst_arg_val'}
+
 params_dict = {}
-# params_dict['bucket'] = 'cellranger-tiny-bucket'
-params_dict['inst_key'] = json.dumps({'inst_arg_key':'inst_arg_val'})
+params_dict['inst_key'] = json.dumps(run_arguments)
 
 # job 1
 #########################
 # this used to be the 10GB job (which had an out of memory error)
+base_name = 'cellranger-UPLOAD-RESULTS'
 batch_job_name = base_name + '-10GB'
 job_response = client_batch.submit_job(jobDefinition=job_def_id,
                                        jobName=batch_job_name,
