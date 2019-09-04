@@ -26,7 +26,7 @@ print('----------- CELLRANGER PIPELINE --------------\n\n')
 print('parsing argument data\n------------------------------')
 
 print('sys.argv[1]')
-print(arg_string = sys.argv[1])
+print(sys.argv[1])
 try:
   arg_string = sys.argv[1]
   arg_dict = json.loads(arg_string)
@@ -54,7 +54,6 @@ except:
     pass
 
 
-# run cellranger job
 
 # check available disk space
 cmd = "df -h"
