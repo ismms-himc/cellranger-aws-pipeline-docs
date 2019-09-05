@@ -132,6 +132,49 @@ To date (02/22/18), the following has been true of the sample sheets:
 - `Sample_ID` and `Index` columns have the same value and are always prefixed
 with `SI-GA-`
 
+#### FASTQ Naming Notes
+Notes taken from here: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/fastq-input#noproject
+
+Normal output directory:
+
+MKFASTQ_ID
+|-- MAKE_FASTQS_CS
+`-- outs
+    |-- fastq_path
+        |-- HFLC5BBXX
+            |-- test_sample1
+            |   |-- test_sample1_S1_L001_I1_001.fastq.gz
+            |   |-- test_sample1_S1_L001_R1_001.fastq.gz
+            |   |-- test_sample1_S1_L001_R2_001.fastq.gz
+            |   |-- test_sample1_S1_L002_I1_001.fastq.gz
+            |   |-- test_sample1_S1_L002_R1_001.fastq.gz
+            |   |-- test_sample1_S1_L002_R2_001.fastq.gz
+            |   |-- test_sample1_S1_L003_I1_001.fastq.gz
+            |   |-- test_sample1_S1_L003_R1_001.fastq.gz
+            |   `-- test_sample1_S1_L003_R2_001.fastq.gz
+            |-- test_sample2
+            |   |-- test_sample2_S2_L001_I1_001.fastq.gz
+            |   |-- test_sample2_S2_L001_R1_001.fastq.gz
+            |   |-- test_sample2_S2_L001_R2_001.fastq.gz
+            |   |-- test_sample2_S2_L002_I1_001.fastq.gz
+            |   |-- test_sample2_S2_L002_R1_001.fastq.gz
+            |   |-- test_sample2_S2_L002_R2_001.fastq.gz
+            |   |-- test_sample2_S2_L003_I1_001.fastq.gz
+            |   |-- test_sample2_S2_L003_R1_001.fastq.gz
+            |   `-- test_sample2_S2_L003_R2_001.fastq.gz
+        |-- Reports
+        |-- Stats
+        |-- Undetermined_S0_L001_I1_001.fastq.gz
+        ...
+        `-- Undetermined_S0_L003_R2_001.fastq.gz
+
+bcl2fastq (and mkfastq) assign names that include:
+  1) sample name
+  2) sample order
+  3) lane
+  4) read type
+  5) chunk
+
 # 7. Submit Batch Job using boto
 
 Run the following command in the terminal to execute a batch job on AWS:
