@@ -31,7 +31,7 @@ Laura is working on making a new seq-library-level spreadsheet. Below is the in-
 | S5_GEX_C  | S5  | BCL-5  | CR-3  |  
 
 ### scRNA-seq: Three Samples, Three Seq-Libraries, One Flowcell
-The first three rows represent an experiment that has three samples run in separate 10x chip lanes. The three libraries generated from the three lanes are multiplexed and run in a single flowcell, which generates a single BCL file. This single BCL file will need to be de-multiplexed, producing three sets of FASTQs that will produce three feature-barcode-matrices (FBMs). 
+The first three rows represent an experiment (e.g. Cell Ranger Run `CR-1`) that has three samples (`S1_GEX`, `S2_GEX`, `S3_GEX`) run in separate 10x chip lanes. The three libraries generated from the three lanes are multiplexed and run in a single flowcell, which generates a single BCL file (`BCL-1`). This single BCL file will need to be de-multiplexed, producing three sets of FASTQs that will produce three feature-barcode-matrices (FBMs). 
 
 ```
 BCL-1 -> FASTQs-1 -> FBM-1
