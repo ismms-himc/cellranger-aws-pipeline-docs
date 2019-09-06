@@ -40,14 +40,11 @@ BCL-1 -> FASTQs-1 -> FBM-1
 ### CITE-seq and Hashtagging: 2 Samples, 1 10x Lane, 3 Seq-Libraries (GEX, ADT, HTO), 1 Flowcell/BCL
 The second set of three rows represents a CITE-seq and hashtag experiment (`CR-2`) that has two samples (`S4`, `S5`) run in one 10x chip lane, which produces three libraries (`S4_GEX`, `S4_ADT`, `S4_HTO`)
 
-| Library  | Sample  | BCL  | Processing Run  |   
-|---|---|---|---|
-| S4_GEX  | S4  | BCL-2  | CR-2  |   
-| S4_ADT  | S4  | BCL-2  | CR-2  |   
-| S4_HTO  | S4  | BCL-2  | CR-2  |
-| S5_GEX  | S5  | BCL-2  | CR-2  |   
-| S5_ADT  | S5  | BCL-2  | CR-2  |   
-| S5_HTO  | S5  | BCL-2  | CR-2  |
+| Library  | Sample  | BCL  | Processing Run  |  Hashed |
+|---|---|---|---| -- |
+| S_GEX  | S4_S5  | BCL-2  | CR-2  |   |
+| S_ADT  | S4_S5  | BCL-2  | CR-2  |   |
+| S_HTO  | S4_S5  | BCL-2  | CR-2  |    |
 
 ```   
 mkfastq              count     de-hashtag
