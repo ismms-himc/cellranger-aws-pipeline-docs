@@ -1,7 +1,7 @@
 # mkfastq Notes
 This document discusses how mkfastq is run and is adapted from the [documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/mkfastq).
 
-We will run mkfastq using: `--id`, `--run`, and `csv`. See example below:
+We will run mkfastq using: `--run`, `--id`, and `csv`. See example below:
 
 ```
 $ cellranger mkfastq --run=/path/to/tiny_bcl \
