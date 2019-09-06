@@ -1,7 +1,7 @@
-# mkfastq Notes
+# Running mkfastq Notes
 This document discusses how mkfastq is run and is adapted from the [documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/mkfastq).
 
-We will run mkfastq using: `--run`, `--id`, and `csv`. See example below:
+We will run mkfastq using: `--run`, `--id`, and `csv`. See example below (full description in arguments below):
 
 ```
 $ cellranger mkfastq --run=/path/to/tiny_bcl \
@@ -9,12 +9,13 @@ $ cellranger mkfastq --run=/path/to/tiny_bcl \
                      --csv=cellranger-tiny-bcl-simple-1.2.0.csv
 ```
 
-We will use the preferred simple csv format. See below example:
+We will use the preferred simple csv format to describe how to demultiplex the flowcell. See below example:
 
 ```
 Lane,Sample,Index
 1,test_sample,SI-GA-A3
 ```
+In order to process custom oligos (e.g. ADT/HTO features) will will pass the actual oligo in the simple csv.
 
 # All mkfastq arguments
 
