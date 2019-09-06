@@ -4,8 +4,8 @@ This document discusses how mkfastq is run and is adapted from the [documentatio
 We will run mkfastq using: `--id`, `--run`, and `csv`. See example below:
 
 ```
-$ cellranger mkfastq --id=tiny-bcl \
-                     --run=/path/to/tiny_bcl \
+$ cellranger mkfastq --run=/path/to/tiny_bcl \
+                     --id=tiny-bcl \
                      --csv=cellranger-tiny-bcl-simple-1.2.0.csv
 ```
 
