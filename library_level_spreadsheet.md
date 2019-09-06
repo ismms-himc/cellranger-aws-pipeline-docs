@@ -37,10 +37,10 @@ BCL-1 -> FASTQs-1 -> FBM-1
       -> FASTQs-3 -> FBM-3
 ```
 
-### CITE-seq and Hashtagging: 2 Samples, 1 10x Lane, 3 Seq-Libraries (GEX, ADT, GEX), 1 Flowcell/BCL
+### CITE-seq and Hashtagging: 2 Samples, 1 10x Lane, 3 Seq-Libraries (GEX, ADT, HTO), 1 Flowcell/BCL
 The second set of three rows represents a CITE-seq and hashtag experiment (`CR-2`) that has two samples (`S4`, `S5`) run in one 10x chip lane, which produces three libraries (`S4_GEX`, `S4_ADT`, `S4_HTO`)
 
-| Library  | Sample  | BCL  | Cell Ranger Run  |   
+| Library  | Sample  | BCL  | Processing Run  |   
 |---|---|---|---|
 | S4_GEX  | S4  | BCL-2  | CR-2  |   
 | S4_ADT  | S4  | BCL-2  | CR-2  |   
@@ -51,9 +51,9 @@ The second set of three rows represents a CITE-seq and hashtag experiment (`CR-2
 
 ```   
 mkfastq              count     de-hashtag
-BCL-2 -> FASTQs-2_GEX -> FBM -> FBM_S4
-      -> FASTQs-2_GEX           FBM_S5
-      -> FASTQs-2_GEX    
+BCL-2 -> FASTQs_GEX -> FBM -> FBM_S4
+      -> FASTQs_ADT           FBM_S5
+      -> FASTQs_HTO    
 ```
 
 ### scRNA-seq (pooled run): One Sample, Three Seq-Libraries, Three Flowcell/BCLs
