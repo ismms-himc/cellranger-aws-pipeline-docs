@@ -4,8 +4,6 @@ This document discusses proposed changes to the organization of sequencing run s
 # Background
 The relationship between **biological samples** (e.g. a cell suspension extracted from a single biological source (blood, tissue, etc)., see [glossary](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/glossary)), **sequencing libraries** (e.g. the end product from a 10x chip lane), **BCL files** (e.g. generally multiplexed from several sequencing libraries), **FASTQs** (e.g. the product of de-multiplexing BCL files, sub-divided by lane and read) and **Cell Ranger pre-processing runs** (e.g. can utilize several BCL files for a pooled run) can be complicated. Two examples from the documentation are shown below.
 
-An additional common scenario is sequencing the same 'sequencing library' more than once. This is the reason why the 10x technicians are moving towards a FASTQ level organization (rather than a 'sequencing library' level).
-
 ### 2 Samples, 2 Seq-Libraries, 1 Seq-Run/Flowcell, 2 FBMs (Feature barcode matrices)
 ![alt text](https://support.10xgenomics.com/img/mkfastq-1.png "")
 
@@ -14,6 +12,8 @@ An additional common scenario is sequencing the same 'sequencing library' more t
 ### 1 Sample, 1 Seq-Library, 2 Seq-Run/Flowcells, 1 FBM
 ![alt text](https://support.10xgenomics.com/img/mkfastq-2.png "")
 "In this example, we have one 10x library sequenced on two flowcells. Note that after running cellranger mkfastq, we run a single instance of the pipeline on all the FASTQ files generated"
+
+The common scenario of sequencing the same 'sequencing library' more than once (in the above example) is the reason why the 10x technicians are moving towards a FASTQ level organization (rather than a 'sequencing library' level).
 
 ### Proposed Library-Level Spreadsheet
 Laura is working on making a new seq-library-level spreadsheet. Below is the in-progress outline for this spreadsheet along with some example configurations
