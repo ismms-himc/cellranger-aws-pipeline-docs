@@ -16,7 +16,7 @@ The relationship between **biological samples** (e.g. a cell suspension extracte
 The common scenario of sequencing the same 'sequencing library' more than once (in the above example) is the reason why the 10x technicians are moving towards a FASTQ level organization (rather than a 'sequencing library' level).
 
 ### Proposed 10X Technician Spreadsheets: FASTQ, Sample, Library Features, Features
-Laura is working on making a new FASTQ-level spreadsheet - we are not considering the granular run-level and read-level FASTQs as separate FASTQs and in this document referring to this set as a "FASTQ" or "set of FASTQs". Below is the in-progress outline for this spreadsheet along with some example configurations:
+These are the proposed spreadsheets that will be used by the 10x techs (not all experiment-related columns are shown). Laura is working on making a new FASTQ-level spreadsheet - we are not considering the granular run-level and read-level FASTQs as separate FASTQs and in this document referring to this set as a "FASTQ" or "set of FASTQs". Below is the in-progress outline for this spreadsheet along with some example configurations:
 
 #### FASTQ-Level Spreadsheet
 | FASTQs  | Loading Sample | Hashed Sample | 10x Lane ID | Library Type | BCL Run ID  | Cell Ranger Run  |   
@@ -49,7 +49,7 @@ Here we are defining a `Processing-Run` to consist of a set of Cell Ranger jobs 
 
 ### scRNA-seq: 3 Samples, 3 10x Lanes, 3 Seq-Libraries, 1 Flowcell/BCL
 These three rows represents an experiment (e.g. Cell Ranger Run `CR-1`) that has three samples (`S1`, `S2`, `S3`) run in separate 10x chip lanes. The three libraries generated from the three lanes are multiplexed and run in a single flowcell, which generates a single BCL file (`BCL-1`). This single BCL file will need to be de-multiplexed, producing three sets of FASTQs that will produce three 
--barcode-matrices (FBMs). 
+feature-barcode-matrices (FBMs). 
 
 | Library  | Sample  | BCL  | Cell Ranger Run  |   
 |---|---|---|---|
