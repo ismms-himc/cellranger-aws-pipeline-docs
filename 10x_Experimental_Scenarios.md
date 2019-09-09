@@ -30,13 +30,13 @@ Laura is working on making a new FASTQ-level spreadsheet - we are not considerin
 
 Features are designated to a library. This is because a CITE-seq run sequencing library will, in general, contain ADTs and HTOs. 
 
-#### Features Table
-| Feature name | Index |
+#### Library Features Table
+| Library Features| Index |
 |---|---|
 | HTO-1  | HTO-Index-1 |
 | CD8_HIMC-1_Lot-1  | ADT-Index-1 |  
 
-Feature names will contain the following pieces of information in an underscore separated name: 1) official gene symbol of the measured protein (or the protein instead if desired - otherwise other names will be stored as aliaes), 2) the unique HIMC id (e.g. HIMC-1), and the lot number (e.g. lot-1). 
+The Sample-Level Spreasheet above has links to Library Feature Tables - for convenience are stored as paired-columns rather than rows. The Library Features column will contain feature names. The names contain the following pieces of information in an underscore separated fashion: 1) official gene symbol of the measured protein (or the protein instead if desired - otherwise other names will be stored as aliaes), 2) the unique HIMC id (e.g. HIMC-1), and the lot number (e.g. lot-1). 
 
 ### scRNA-seq: 3 Samples, 3 10x Lanes, 3 Seq-Libraries, 1 Flowcell/BCL
 These three rows represents an experiment (e.g. Cell Ranger Run `CR-1`) that has three samples (`S1`, `S2`, `S3`) run in separate 10x chip lanes. The three libraries generated from the three lanes are multiplexed and run in a single flowcell, which generates a single BCL file (`BCL-1`). This single BCL file will need to be de-multiplexed, producing three sets of FASTQs that will produce three 
