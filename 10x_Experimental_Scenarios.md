@@ -1,4 +1,4 @@
-# Library Level Spreadsheet
+# 10x Experimental Scenarios
 This document discusses proposed changes to the organization of sequencing run spreadsheets used by HIMC technicians running the 10x assay and the computational team performing pre-processing. This document heavily references the [10x documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/mkfastq).
 
 # Background
