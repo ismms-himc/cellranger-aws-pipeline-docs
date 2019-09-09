@@ -4,12 +4,14 @@ This document discusses proposed changes to the organization of sequencing run s
 # Background
 The relationship between **biological samples** (e.g. a cell suspension extracted from a single biological source (blood, tissue, etc)., see [glossary](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/glossary)), **sequencing libraries** (e.g. the end product from a 10x chip lane), **BCL files** (e.g. generally multiplexed from several sequencing libraries), **FASTQs** (e.g. the product of de-multiplexing BCL files, sub-divided by lane and read) and **Cell Ranger pre-processing runs** (e.g. can utilize several BCL files for a pooled run) can be complicated. Two examples from the documentation are shown below.
 
-### Two Samples, Two Seq-Libraries, One Flowcell, Two Counts
+An additional common scenario is sequencing the same 'sequencing library' more than once. This is the reason why the 10x technicians are moving towards a FASTQ level organization (rather than a 'sequencing library' level).
+
+### 2 Samples, 2 Seq-Libraries, 1 Seq-Run/Flowcell, 2 FBMs (Feature barcode matrices)
 ![alt text](https://support.10xgenomics.com/img/mkfastq-1.png "")
 
 "In this example, we have two 10x libraries (each processed through a separate Chromium chip channel) that are multiplexed on a single flowcell. Note that after running cellranger mkfastq, we run a separate instance of the pipeline on each library"
 
-### Single Sample, Two Seq-Libraries, Two Flowcells, One Count
+### 1 Sample, 2 Seq-Libraries, 2 Seq-Run/Flowcells, 1 FBM
 ![alt text](https://support.10xgenomics.com/img/mkfastq-2.png "")
 "In this example, we have one 10x library sequenced on two flowcells. Note that after running cellranger mkfastq, we run a single instance of the pipeline on all the FASTQ files generated"
 
@@ -23,7 +25,8 @@ Laura is working on making a new seq-library-level spreadsheet. Below is the in-
 | S3_GEX  | S3  | BCL-1  | CR-1  |  
 
 ### scRNA-seq: 3 Samples, 3 10x Lanes, 3 Seq-Libraries, 1 Flowcell/BCL
-These three rows represents an experiment (e.g. Cell Ranger Run `CR-1`) that has three samples (`S1`, `S2`, `S3`) run in separate 10x chip lanes. The three libraries generated from the three lanes are multiplexed and run in a single flowcell, which generates a single BCL file (`BCL-1`). This single BCL file will need to be de-multiplexed, producing three sets of FASTQs that will produce three feature-barcode-matrices (FBMs). 
+These three rows represents an experiment (e.g. Cell Ranger Run `CR-1`) that has three samples (`S1`, `S2`, `S3`) run in separate 10x chip lanes. The three libraries generated from the three lanes are multiplexed and run in a single flowcell, which generates a single BCL file (`BCL-1`). This single BCL file will need to be de-multiplexed, producing three sets of FASTQs that will produce three 
+-barcode-matrices (FBMs). 
 
 | Library  | Sample  | BCL  | Cell Ranger Run  |   
 |---|---|---|---|
