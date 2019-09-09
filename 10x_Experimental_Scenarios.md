@@ -76,9 +76,9 @@ We will require at most two CSVs from the 10x technicians:
 
 ### 1. Custom Sheet CSV
 
-| Lane| Sample | Index | Library Type | Reference Transcriptome | Number of Cells |
-|---|---|---|---|---|---|
-| 1  | S1_GEX | SI-GA-A3 | Gene Expression | GRCh38 | 3000 |
+| Lane| Sample | Index | Library Type | Reference Transcriptome | Number of Cells | Chemistry |
+|---|---|---|---|---|---|---|
+| 1  | S1_GEX | SI-GA-A3 | Gene Expression | GRCh38 | 3000 | 5-prime_V2 |
 
 This CSV will be used to construct the simple csv input for mkfastq as well as the libraries csv for count. In addition the last two columns will be used to construct the additional arguments for cellranger count.
 
