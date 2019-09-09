@@ -11,7 +11,7 @@ An additional common scenario is sequencing the same 'sequencing library' more t
 
 "In this example, we have two 10x libraries (each processed through a separate Chromium chip channel) that are multiplexed on a single flowcell. Note that after running cellranger mkfastq, we run a separate instance of the pipeline on each library"
 
-### 1 Sample, 2 Seq-Libraries, 2 Seq-Run/Flowcells, 1 FBM
+### 1 Sample, 1 Seq-Library, 2 Seq-Run/Flowcells, 1 FBM
 ![alt text](https://support.10xgenomics.com/img/mkfastq-2.png "")
 "In this example, we have one 10x library sequenced on two flowcells. Note that after running cellranger mkfastq, we run a single instance of the pipeline on all the FASTQ files generated"
 
