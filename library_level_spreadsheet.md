@@ -24,14 +24,20 @@ Laura is working on making a new FASTQ-level spreadsheet - we are not considerin
 | S1_GEX  | S1  | False  | 1  | GEX  | BCL-1 | CR-1 |
 
 #### Sample-Level Spreadsheet
-| Sample name  | Loading Sample |  Sample-Meta-Data ... | HTO | Features Key | 
+| Sample name  | Loading Sample |  Sample-Meta-Data ... | HTO | Library Features | 
 |---|---|---|---|---|
-| S1_GEX  | S1_GEX | ... | -  | - |
+| S1_GEX  | S1_GEX | ... | HTO1  | LF-1 |
+
+Features are designated to a library. This is because a CITE-seq run sequencing library will, in general, contain ADTs and HTOs. 
 
 #### Features Table
-|   |  |   |  |  | 
+| LF-1  |  |   |  |  | 
+| Feature name | Index |   |  |  | 
 |---|---|---|---|---|
-|   | |  |  | |
+| HTO-1  | HI-1 |  |  | |
+| CD8_HIMC-1_Lot-1  | HI-1 |  |  | |
+
+Feature names will contain the following pieces of information in an underscore separated name: 1) official gene symbol of the measured protein (or the protein instead if desired - otherwise other names will be stored as aliaes), 2) 
 
 
 ### scRNA-seq: 3 Samples, 3 10x Lanes, 3 Seq-Libraries, 1 Flowcell/BCL
