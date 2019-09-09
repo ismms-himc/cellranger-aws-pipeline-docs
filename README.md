@@ -66,7 +66,7 @@ The custom AMI image id needs to be put into the cloudformation JSON (*cf_cellra
 The following AWS CLI commands can be used to create and update the cloudformation stack on AWS. Nick has already done this so this is optional.
 
 ### Create the `cellranger-job` stack
-Creat the stack using the `cf_cellranger.json` cloudformation:
+Create the stack using the `cf_cellranger.json` cloudformation:
 
 `$ aws cloudformation create-stack --template-body file://cf_cellranger.json --stack-name cellranger-job --capabilities CAPABILITY_NAMED_IAM --profile himc`
 
@@ -137,6 +137,7 @@ Notes taken from here: https://support.10xgenomics.com/single-cell-gene-expressi
 
 Normal output directory:
 
+```
 MKFASTQ_ID
 |-- MAKE_FASTQS_CS
 `-- outs
@@ -167,6 +168,7 @@ MKFASTQ_ID
         |-- Undetermined_S0_L001_I1_001.fastq.gz
         ...
         `-- Undetermined_S0_L003_R2_001.fastq.gz
+```
 
 bcl2fastq (and mkfastq) assign names that include:
   1) sample name
@@ -232,7 +234,7 @@ Follow the screenshot they provide.
 
 **IMPORTANT:** Although 2 storage units are defined in the tutorial (one with 22GB and other with 1000GB):
 
-![AWS AMI Storage Setup](batch_ecs_setup.png)
+![AWS AMI Storage Setup](https://github.com/ismms-himc/cellranger-aws-pipeline/blob/master/docs/batch_ecs_setup.png)
 
 After running the proposed list of commands:
 
