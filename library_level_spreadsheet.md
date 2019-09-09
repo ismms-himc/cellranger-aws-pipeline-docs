@@ -15,13 +15,24 @@ The relationship between **biological samples** (e.g. a cell suspension extracte
 
 The common scenario of sequencing the same 'sequencing library' more than once (in the above example) is the reason why the 10x technicians are moving towards a FASTQ level organization (rather than a 'sequencing library' level).
 
-### Proposed FASTQ-Level Spreadsheet
-Laura is working on making a new FASTQ-level spreadsheet - we are not considering the granular run-level and read-level FASTQs as separate FASTQs and in this document referring to this set as a "FASTQ" or "set of FASTQs". Below is the in-progress outline for this spreadsheet along with some example configurations
+### Proposed Spreadsheet: FASTQ- and Sample-Level
+Laura is working on making a new FASTQ-level spreadsheet - we are not considering the granular run-level and read-level FASTQs as separate FASTQs and in this document referring to this set as a "FASTQ" or "set of FASTQs". Below is the in-progress outline for this spreadsheet along with some example configurations:
 
+#### FASTQ-Level Spreadsheet
 | FASTQs  | Loading Sample | Hashed Sample | 10x Lane ID | Library Type | BCL Run ID  | Cell Ranger Run  |   
 |---|---|---|---|---|---|---|
 | S1_GEX  | S1  | False  | 1  | GEX  | BCL-1 | CR-1 |
-| S2_GEX  | S2  | False  | 2  | GEX  | BCL-1 | CR-1 |
+
+#### Sample-Level Spreadsheet
+| Sample name  | Loading Sample |  Sample-Meta-Data ... | HTO | Features Key | 
+|---|---|---|---|---|
+| S1_GEX  | S1_GEX | ... | -  | - |
+
+#### Features Table
+|   |  |   |  |  | 
+|---|---|---|---|---|
+|   | |  |  | |
+
 
 ### scRNA-seq: 3 Samples, 3 10x Lanes, 3 Seq-Libraries, 1 Flowcell/BCL
 These three rows represents an experiment (e.g. Cell Ranger Run `CR-1`) that has three samples (`S1`, `S2`, `S3`) run in separate 10x chip lanes. The three libraries generated from the three lanes are multiplexed and run in a single flowcell, which generates a single BCL file (`BCL-1`). This single BCL file will need to be de-multiplexed, producing three sets of FASTQs that will produce three 
