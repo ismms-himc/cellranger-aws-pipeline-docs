@@ -72,7 +72,12 @@ This document is only necessary for feature barcode runs. `id` unique id for the
 # Proposed Processing-Run Spreasheets
 Here we are defining a `Processing-Run` to consist of a set of Cell Ranger jobs performed on one or more BCL files to obtain one or more FBMs and/or TCR/BCR sequence analysis. These are the spreadsheets that are planned to be used as inputs for a specific `Processing-Run` to the rebuilt pipeline. They will be similar to the input spreadsheets that are directly given as arguments to Cell Ranger Mkfastq and Count, but will contain the additional information required all arguments (e.g. expected cell count) as well as a layout of how to run the full `Processing-Run` set of jobs.
 
-We 
+We need the following custom sample sheet in order to construct all the arguments for Cell Ranger Count:
+
+### Sample Sheet CSV
+| Lane| Sample | Index | Library Type | Reference Transcriptome | Number of Cells |
+|---|---|---|---|---|---|
+| 1  | S1_GEX | SI-GA-A3 | Gene Expression | GRCh38 | 3000 |
 
 # Enumeration of Scenarios
 
