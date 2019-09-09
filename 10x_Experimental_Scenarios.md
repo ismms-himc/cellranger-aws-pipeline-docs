@@ -15,7 +15,7 @@ The relationship between **biological samples** (e.g. a cell suspension extracte
 
 The common scenario of sequencing the same 'sequencing library' more than once (in the above example) is the reason why the 10x technicians are moving towards a FASTQ level organization (rather than a 'sequencing library' level).
 
-### Proposed Spreadsheet: FASTQ- and Sample-Level
+### Proposed 10X Technician Spreadsheets: FASTQ, Sample, Library Features, Features
 Laura is working on making a new FASTQ-level spreadsheet - we are not considering the granular run-level and read-level FASTQs as separate FASTQs and in this document referring to this set as a "FASTQ" or "set of FASTQs". Below is the in-progress outline for this spreadsheet along with some example configurations:
 
 #### FASTQ-Level Spreadsheet
@@ -24,11 +24,11 @@ Laura is working on making a new FASTQ-level spreadsheet - we are not considerin
 | S1_GEX  | H1_GEX  | False  | 1  | GEX  | BCL-1 | CR-1 |
 
 #### Sample-Level Spreadsheet
-| Sample name  | Loading Sample |  Sample-Meta-Data ... | HTO | Library Features | 
-|---|---|---|---|---|
-| S1_GEX  | H1_GEX | ... | HTO-1  | LF-1 |
+| Sample name  | Loading Sample |  Sample-Meta-Data ... | HTO | Expected Cell Number | Library Features | 
+|---|---|---|---|---|--|
+| S1_GEX  | H1_GEX | ... | HTO-1  | 5000 | LF-1 |
 
-Features are designated to a library. This is because a CITE-seq run sequencing library will, in general, contain ADTs and HTOs. 
+A CITE-seq run sequencing-library will, in general, contain ADTs and HTOs. The list of features assocaited with this sequencing library are stored in a separate `Library Features Table` (see below and foreign keys under the `Library Features` column). 
 
 #### Library Features Table
 | Library Features| Index |
@@ -36,7 +36,16 @@ Features are designated to a library. This is because a CITE-seq run sequencing 
 | HTO-1  | HTO-Index-1 |
 | CD8_HIMC-1_Lot-1  | ADT-Index-1 |  
 
-The Sample-Level Spreasheet above has links to Library Feature Tables - for convenience are stored as paired-columns rather than rows. The Library Features column will contain feature names. The names contain the following pieces of information in an underscore separated fashion: 1) official gene symbol of the measured protein (or the protein instead if desired - otherwise other names will be stored as aliaes), 2) the unique HIMC id (e.g. HIMC-1), and the lot number (e.g. lot-1). 
+The Sample-Level Spreasheet above has links to Library Feature Tables - for convenience are stored as paired-columns rather than rows. The Library Features column will contain a list of feature names. The number of features varies from library to library so this spreadsheet is expected to have pairs of columns of varying lengths.
+
+The `Library Features` feature names contain the following pieces of information in an underscore separated fashion: 1) official gene symbol of the measured protein (or the protein instead if desired - otherwise other names will be stored as aliaes), 2) the unique HIMC id (e.g. HIMC-1), and the lot number (e.g. lot-1). 
+
+The `Index` column contains the oligo index IDs that can be looked up in a different `Features Table`.
+
+### Proposed Processing-Run Spreasheets
+Here we are defining a `Processing-Run` to consist of a set of Cell Ranger jobs performed on one or more BCL files to obtain one or more FBMs and/or TCR/BCR sequence analysis. These are the spreadsheets that are planned to be used as inputs for a specific `Processing-Run` to the rebuilt pipeline. They will be similar to the input spreadsheets that are directly given as arguments to Cell Ranger Mkfastq and Count, but will contain the additional information required all arguments (e.g. expected cell count) as well as a layout of how to run the full `Processing-Run` set of jobs.
+
+
 
 ### scRNA-seq: 3 Samples, 3 10x Lanes, 3 Seq-Libraries, 1 Flowcell/BCL
 These three rows represents an experiment (e.g. Cell Ranger Run `CR-1`) that has three samples (`S1`, `S2`, `S3`) run in separate 10x chip lanes. The three libraries generated from the three lanes are multiplexed and run in a single flowcell, which generates a single BCL file (`BCL-1`). This single BCL file will need to be de-multiplexed, producing three sets of FASTQs that will produce three 
