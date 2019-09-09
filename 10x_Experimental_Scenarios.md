@@ -15,7 +15,7 @@ The relationship between **biological samples** (e.g. a cell suspension extracte
 
 The common scenario of sequencing the same 'sequencing library' more than once (in the above example) is the reason why the 10x technicians are moving towards a FASTQ level organization (rather than a 'sequencing library' level).
 
-### Proposed 10X Technician Spreadsheets: FASTQ, Sample, Library Features, Features
+# Proposed 10X Technician Spreadsheets: FASTQ, Sample, Library Features, Features
 These are the proposed spreadsheets that will be used by the 10x techs (not all experiment-related columns are shown). Laura is working on making a new FASTQ-level spreadsheet - we are not considering the granular run-level and read-level FASTQs as separate FASTQs and in this document referring to this set as a "FASTQ" or "set of FASTQs". Below is the in-progress outline for this spreadsheet along with some example configurations:
 
 #### FASTQ-Level Spreadsheet
@@ -44,10 +44,11 @@ The `Library Features` feature names contain the following pieces of information
 
 The `Index` column contains the oligo index IDs that can be looked up in a different `Features Table`.
 
-### Proposed Processing-Run Spreasheets
+# Proposed Processing-Run Spreasheets
 Here we are defining a `Processing-Run` to consist of a set of Cell Ranger jobs performed on one or more BCL files to obtain one or more FBMs and/or TCR/BCR sequence analysis. These are the spreadsheets that are planned to be used as inputs for a specific `Processing-Run` to the rebuilt pipeline. They will be similar to the input spreadsheets that are directly given as arguments to Cell Ranger Mkfastq and Count, but will contain the additional information required all arguments (e.g. expected cell count) as well as a layout of how to run the full `Processing-Run` set of jobs.
 
 
+# Enumeration of Scenarios
 
 ### scRNA-seq: 3 Samples, 3 10x Lanes, 3 Seq-Libraries, 1 Flowcell/BCL
 These three rows represents an experiment (e.g. Cell Ranger Run `CR-1`) that has three samples (`S1`, `S2`, `S3`) run in separate 10x chip lanes. The three libraries generated from the three lanes are multiplexed and run in a single flowcell, which generates a single BCL file (`BCL-1`). This single BCL file will need to be de-multiplexed, producing three sets of FASTQs that will produce three 
