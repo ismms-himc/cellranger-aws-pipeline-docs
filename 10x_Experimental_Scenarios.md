@@ -44,8 +44,7 @@ The `Library Features` feature names contain the following pieces of information
 
 The `Index` column contains the oligo index IDs that can be looked up in a different `Features Table`.
 
-# Proposed Processing-Run Spreasheets
-Here we are defining a `Processing-Run` to consist of a set of Cell Ranger jobs performed on one or more BCL files to obtain one or more FBMs and/or TCR/BCR sequence analysis. These are the spreadsheets that are planned to be used as inputs for a specific `Processing-Run` to the rebuilt pipeline. They will be similar to the input spreadsheets that are directly given as arguments to Cell Ranger Mkfastq and Count, but will contain the additional information required all arguments (e.g. expected cell count) as well as a layout of how to run the full `Processing-Run` set of jobs.
+# 10x Required CSVs
 
 ### Sample Sheet CSV
 | Lane| Sample | Index |
@@ -57,19 +56,23 @@ This table is in the format of the simple sample sheet for mkfastq. `Lane` refer
 ### Libraries CSV
 |  fastqs | sample  |  library_type |
 |---|---|---|
-| /path/to/fastqs/  |  S1_GEX_BCL-1 | Gene Expression  |
-| /path/to/fastqs/  |  S1_HTO_BCL-1 | Custom  |
+| /path/to/fastqs/ | S1_GEX_BCL-1 | Gene Expression |
+| /path/to/fastqs/ | S1_HTO_BCL-1 | Custom |
 
 `fastqs` give a path to the demultiplexed FASTQ files (cannot have comma-delimiited paths) - more than one path requres an additional row. `sample` is the sampe name assigned in the mkfastq simple sample sheet. `library_type` is self explanatory.
 
-
-
-
-
-
 ### Feature Reference CSV
 
-This document is only necessary for feature barcode runs.
+| id | name | read | pattern | sequence | feature_type | target_gene_id (optional) | target_gene_name (optional) |
+|---|---|---|---|---|---|---|---|
+|   |   |   |   |   |   |   |   |
+
+This document is only necessary for feature barcode runs. `id` unique id for the feature (can't collide with gene name), `name` human readable feature name (e.g. gene name), `read` specifies which sequencing read contains the sequence (e.g. R2), `pattern` specifies how to extract seq from read, `feature_type` (e.g. custom), `target_gene_id` and `target_gene_name` are CRISPR specific and optional.
+
+# Proposed Processing-Run Spreasheets
+Here we are defining a `Processing-Run` to consist of a set of Cell Ranger jobs performed on one or more BCL files to obtain one or more FBMs and/or TCR/BCR sequence analysis. These are the spreadsheets that are planned to be used as inputs for a specific `Processing-Run` to the rebuilt pipeline. They will be similar to the input spreadsheets that are directly given as arguments to Cell Ranger Mkfastq and Count, but will contain the additional information required all arguments (e.g. expected cell count) as well as a layout of how to run the full `Processing-Run` set of jobs.
+
+We 
 
 # Enumeration of Scenarios
 
