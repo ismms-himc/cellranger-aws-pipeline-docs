@@ -36,7 +36,7 @@ Features are designated to a library. This is because a CITE-seq run sequencing 
 | HTO-1  | HI-1 |
 | CD8_HIMC-1_Lot-1  | HI-1 |  
 
-Feature names will contain the following pieces of information in an underscore separated name: 1) official gene symbol of the measured protein (or the protein instead if desired - otherwise other names will be stored as aliaes), 2) 
+Feature names will contain the following pieces of information in an underscore separated name: 1) official gene symbol of the measured protein (or the protein instead if desired - otherwise other names will be stored as aliaes), 2) the unique HIMC id (e.g. HIMC-1), and the lot number (e.g. lot-1). 
 
 
 ### scRNA-seq: 3 Samples, 3 10x Lanes, 3 Seq-Libraries, 1 Flowcell/BCL
