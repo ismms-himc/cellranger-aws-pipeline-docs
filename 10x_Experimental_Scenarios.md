@@ -13,7 +13,7 @@ The relationship between **biological samples** (e.g. a cell suspension extracte
 [![Schematic of 1-sample, 2-seq-run workflow](https://support.10xgenomics.com/img/mkfastq-2.png "")](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/mkfastq#example_workflows)
 > In this example, we have one 10x library sequenced on two flowcells. Note that after running cellranger mkfastq, we run a single instance of the pipeline on all the FASTQ files generated
 
-The common scenario of sequencing the same 'sequencing library' more than once (in the above example) is the reason why the 10x technicians are moving towards a FASTQ-level organization (rather than a 'sequencing library' level).
+The common scenario of sequencing the same 'sequencing library' more than once (in the above example) is the reason why the 10x technicians are moving towards a FASTQ-level organization (rather than a 'sequencing library' a.k.a. 'pooled library' level).
 
 # Proposed 10X Technician Spreadsheets: FASTQ, Sample, Library Features, Features
 Below are proposed spreadsheets for use by the 10X techs (not all experiment-related columns are shown).
