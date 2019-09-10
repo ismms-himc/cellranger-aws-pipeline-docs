@@ -41,7 +41,7 @@ Below is the in-progress outline for this spreadsheet, along with some example c
 - `Processing Run`: name of the ["processing run"][`Processing-Run`] that the data is being organized under (a processing run consists of the jobs necessary to convert BCL inputs into FBM and TCR/VDJ outputs).
 
 ## Sample-Level Spreadsheet
-| Sample Name  | Loading Sample |  Sample Metadata ... | HTO | Expected Cell Number | Library |
+| Sample Name  | Loading Sample |  Sample Metadata ... | HTO | Expected Cell Number | Library Features |
 |---|---|---|---|---|---|
 | S1_GEX  | H1_GEX | ... | HTO-1  | 5000 | L-1 |
 
