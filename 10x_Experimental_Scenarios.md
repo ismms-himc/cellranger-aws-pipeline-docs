@@ -15,7 +15,7 @@ The relationship between **biological samples** (e.g. a cell suspension extracte
 
 The common scenario of sequencing the same 'sequencing library' more than once (in the above example) is the reason why the 10x technicians are moving towards a FASTQ-level organization (rather than a 'sequencing library' a.k.a. 'pooled library' level).
 
-# Proposed 10X Technician Spreadsheets: Sample, FASTQ, Library Features, Features
+# Proposed 10X Technician Spreadsheets
 Below are 4 proposed spreadsheets for use by the 10X techs (not all experiment-related columns are shown).
 
 ## 1. Sample-Level Spreadsheet
