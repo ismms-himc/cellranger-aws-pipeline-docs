@@ -106,6 +106,7 @@ This document is only necessary for feature barcode (FBM) runs:
 - `name`: human readable feature name (e.g. gene name)
 - `read`: specifies which sequencing read contains the sequence (e.g. R2)
 - `pattern`: specifies how to extract seq from read
+- `sequence`: Nucleotide barcode seq associated with this feature (e.g. antibody barcode or scRNA protospacer sequence)
 - `feature_type`: (e.g. custom <!-- more info? -->)
 - `target_gene_id`, `target_gene_name`: optional, CRISPR-specific.
 
