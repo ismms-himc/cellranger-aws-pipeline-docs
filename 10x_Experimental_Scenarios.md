@@ -71,7 +71,40 @@ The `Feature` names contain the following underscore-delimited components:
 
 The `Index` column contains the oligo index IDs that can be looked up in [the `Features Table`][Library Features Table].
 
-# 10x Required CSVs
+# `Processing-Run` Spreadsheets
+Here we define a `Processing-Run` as a set of Cell Ranger jobs performed on one or more BCL files to obtain one or more FBMs and/or TCR/BCR sequence analysis.
+
+A `Processing-Run` takes the spreadsheets below as inputs. They are similar to the spreadsheets that `cellranger mkfastq` and `count` take as inputs, but contain additional required arguments (e.g. expected cell count) as well as a layout of how to run the full `Processing-Run` set of jobs.
+
+## 1. Custom Sheet CSV
+
+| Lane| Sample | Index | Library Type | Reference Transcriptome | Number of Cells | Chemistry |
+|---|---|---|---|---|---|---|
+| 1  | S1_GEX | SI-GA-A3 | Gene Expression | GRCh38 | 3000 | 5-prime_V2 |
+
+This CSV will be used to construct [the sample sheet CSV input for `mkfastq`][10X Sample Sheet CSV] as well as [the libraries CSV for `count`][10X Libraries CSV]. The last two columns will be used to construct additional arguments for `cellranger count`.
+
+## 2. Feature Reference CSV 
+
+| id | name | read | pattern | sequence | feature_type | 
+|---|---|---|---|---|---|
+| CD3  | CD3_TotalSeqB  | R2  | 5PNNNNNNNNNN(BC)NNNNNNNNN  | AACAAGACCCTTGAG  | Antibody Capture  |  
+
+
+This document is only necessary for feature barcode (FBM) runs:
+- `id`: unique id for the feature (can't collide with gene name)
+- `name`: human readable feature name (e.g. gene name)
+- `read`: specifies which sequencing read contains the sequence (e.g. R2)
+- `pattern`: specifies how to extract seq from read
+- `sequence`: Nucleotide barcode seq associated with this feature (e.g. antibody barcode or scRNA protospacer sequence)
+- `feature_type`: (e.g. custom <!-- more info? -->)
+- `target_gene_id`, `target_gene_name`: are optional CRISPR-specific columns that are not shown in the example above.
+
+
+The 10x techs will produce the feature reference CSV (presumably via lookup tables). <!-- more info? -->
+
+
+# Cell Ranger Required CSVs
 
 ## Sample Sheet CSV
 | Lane| Sample | Index |
@@ -96,35 +129,7 @@ This table is in the format of the "simple samplesheet" consumed by `cellranger 
 
 ## Feature Reference CSV
 
-| id | name | read | pattern | sequence | feature_type | target_gene_id (optional) | target_gene_name (optional) |
-|---|---|---|---|---|---|---|---|
-|   |   |   |   |   |   |   |   |
-<!-- example row(s) -->
-
-This document is only necessary for feature barcode (FBM) runs:
-- `id`: unique id for the feature (can't collide with gene name)
-- `name`: human readable feature name (e.g. gene name)
-- `read`: specifies which sequencing read contains the sequence (e.g. R2)
-- `pattern`: specifies how to extract seq from read
-- `sequence`: Nucleotide barcode seq associated with this feature (e.g. antibody barcode or scRNA protospacer sequence)
-- `feature_type`: (e.g. custom <!-- more info? -->)
-- `target_gene_id`, `target_gene_name`: optional, CRISPR-specific.
-
-# `Processing-Run` Spreadsheets
-Here we define a `Processing-Run` as a set of Cell Ranger jobs performed on one or more BCL files to obtain one or more FBMs and/or TCR/BCR sequence analysis.
-
-A `Processing-Run` takes the spreadsheets below as inputs. They are similar to the spreadsheets that `cellranger mkfastq` and `count` take as inputs, but contain additional required arguments (e.g. expected cell count) as well as a layout of how to run the full `Processing-Run` set of jobs.
-
-## 1. Custom Sheet CSV
-
-| Lane| Sample | Index | Library Type | Reference Transcriptome | Number of Cells | Chemistry |
-|---|---|---|---|---|---|---|
-| 1  | S1_GEX | SI-GA-A3 | Gene Expression | GRCh38 | 3000 | 5-prime_V2 |
-
-This CSV will be used to construct [the sample sheet CSV input for `mkfastq`][10X Sample Sheet CSV] as well as [the libraries CSV for `count`][10X Libraries CSV]. The last two columns will be used to construct additional arguments for `cellranger count`.
-
-## 2. Feature Reference CSV (exactly as required by count)
-The 10x techs will produce the feature reference CSV (presumably via lookup tables). <!-- more info? -->
+This is exactly the same as the [Feature Reference CSV]
 
 # Enumeration of Scenarios
 <!-- which tables' schemas are being represented in these examples? -->
@@ -168,7 +173,7 @@ BCL-2 -> FASTQs_GEX -> FBM -> FBM_S4
 | S6_GEX_C  | S6  | BCL-5  | CR-3  |  
 
 
-
+[Feature Reference CSV]: #feature-reference-csv
 [Library Features Table]: #library-features-table
 [`Processing-Run`]: #processing-run-spreadsheets
 [10X Sample Sheet CSV]: #sample-sheet-csv
