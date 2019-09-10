@@ -16,9 +16,9 @@ The relationship between **biological samples** (e.g. a cell suspension extracte
 The common scenario of sequencing the same 'sequencing library' more than once (in the above example) is the reason why the 10x technicians are moving towards a FASTQ-level organization (rather than a 'sequencing library' a.k.a. 'pooled library' level).
 
 # Proposed 10X Technician Spreadsheets: Sample, FASTQ, Library Features, Features
-Below are proposed spreadsheets for use by the 10X techs (not all experiment-related columns are shown).
+Below are 4 proposed spreadsheets for use by the 10X techs (not all experiment-related columns are shown).
 
-## Sample-Level Spreadsheet
+## 1. Sample-Level Spreadsheet
 | Sample Name  | Loading Sample |  Sample Metadata ... | HTO | Expected Cell Number | Library Features |
 |---|---|---|---|---|---|
 | S1_GEX  | H1_GEX | ... | HTO-1  | 5000 | LF-1 |
@@ -29,7 +29,7 @@ A CITE-seq sequencing-library will, in general, contain ADTs and HTOs. <!-- Shou
 - `Library`: link to the [Library Features Table] below.
 <!-- other column descriptions? -->
 
-## FASTQ-Level Spreadsheet
+## 2. FASTQ-Level Spreadsheet
 Laura is working on making a new "FASTQ-oriented" spreadsheet, but that nomenclature is tricky: we're not considering individual run- and read-level FASTQs, but are referring to such a group collectively as a "FASTQ" or "set of FASTQs".
 
 Below is the in-progress outline for this spreadsheet, along with some example configurations:
@@ -52,7 +52,7 @@ Below is the in-progress outline for this spreadsheet, along with some example c
 - `Processing Run`: name of the ["processing run"][`Processing-Run`] that the data is being organized under (a processing run consists of the jobs necessary to convert BCL inputs into FBM and TCR/VDJ outputs).
 
 
-## Library Features Table
+## 3. Library Features Table
 | Library | Feature | Index |
 |---|---|---|
 | LF-1 | HTO-1   | HTO-Index-1 |
@@ -71,10 +71,13 @@ The `Feature` names contain the following underscore-delimited components:
 
 The `Index` column contains the oligo index IDs that can be looked up in [the `Features Table`][Library Features Table].
 
-# `Processing-Run` Spreadsheets
-Here we define a `Processing-Run` as a set of Cell Ranger jobs performed on one or more BCL files to obtain one or more FBMs and/or TCR/BCR sequence analysis.
+## 4. Features Table
+| HIMC Feature Name | Chemistry | Index Name | Sequence |  
+|---|---|---|---|
+| CD8_HIMC-1_Lot-1 | 5-prime | ADT-Index-1 | ACTG |  
 
-A `Processing-Run` takes the spreadsheets below as inputs. They are similar to the spreadsheets that `cellranger mkfastq` and `count` take as inputs, but contain additional required arguments (e.g. expected cell count) as well as a layout of how to run the full `Processing-Run` set of jobs.
+# Processing-Run Spreadsheets
+Here we define a `Processing-Run` as a set of Cell Ranger jobs performed on one or more BCL files to obtain one or more FBMs and/or TCR/BCR sequence analysis. A `Processing-Run` will take two spreadsheets (produced by the 10x techs) as inputs. The two spreadsheets are similar to the required spreadsheets that `cellranger mkfastq` and `count` take as inputs, but also contain additional information (e.g. expected cell count) as well as an implicit layout of running all jobs required to complete a  `Processing-Run` set of jobs.
 
 ## 1. Custom Sheet CSV
 
@@ -129,10 +132,15 @@ This table is in the format of the "simple samplesheet" consumed by `cellranger 
 
 ## Feature Reference CSV
 
-This is exactly the same as the [Feature Reference CSV]
+This is the same as the [Feature Reference CSV]
+
+# Output CSVs
+A single processing run will produce two output CSVs: 1) `Processing Status` and 2) `FASTQ meta-data
 
 # Enumeration of Scenarios
-<!-- which tables' schemas are being represented in these examples? -->
+
+<!-- which tables' schemas are being represented in these examples? --> 
+
 ## scRNA-seq: 3 Samples, 3 10x Lanes, 3 Seq-Libraries, 1 Flowcell/BCL
 These three rows represents an experiment (e.g. Cell Ranger Run `CR-1`) that has three samples (`S1`, `S2`, `S3`) run in separate 10x chip lanes. The three libraries generated from the three lanes are multiplexed and run in a single flowcell, which generates a single BCL file (`BCL-1`). This single BCL file will need to be de-multiplexed, producing three sets of FASTQs that will produce three 
 feature-barcode-matrices (FBMs). 
