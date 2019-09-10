@@ -43,7 +43,7 @@ Below is the in-progress outline for this spreadsheet, along with some example c
 ## Sample-Level Spreadsheet
 | Sample Name  | Loading Sample |  Sample Metadata ... | HTO | Expected Cell Number | Library Features |
 |---|---|---|---|---|---|
-| S1_GEX  | H1_GEX | ... | HTO-1  | 5000 | L-1 |
+| S1_GEX  | H1_GEX | ... | HTO-1  | 5000 | LF-1 |
 
 <!-- Difference b/t Sample name and Loading sample? -->
 A CITE-seq sequencing-library will, in general, contain ADTs and HTOs. <!-- Should there be an ADTs column? -->
@@ -54,11 +54,13 @@ A CITE-seq sequencing-library will, in general, contain ADTs and HTOs. <!-- Shou
 ## Library Features Table
 | Library | Feature | Index |
 |---|---|---|
-| L-1 | HTO-1 <!-- is this supposed to match the HTO column above? -->  | HTO-Index-1 |
-| L-1 | CD8_HIMC-1_Lot-1  | ADT-Index-1 |
+| LF-1 | HTO-1   | HTO-Index-1 |
+| LF-1 | HTO-2   | HTO-Index-2 |
+| LF-1 | HTO-3   | HTO-Index-3 |
+| LF-1 | CD8_HIMC-1_Lot-1  | ADT-Index-1 |
 | … | …  | … |
-| L-2 | CD3_HIMC-1_Lot-1  | ADT-Index-2 |
-| L-2 | CD4_HIMC-1_Lot-1  | ADT-Index-3 |
+| LF-2 | CD3_HIMC-1_Lot-1  | ADT-Index-2 |
+| LF-2 | CD4_HIMC-1_Lot-1  | ADT-Index-3 |
 
 Each library has a set of feature/index pairs associated with it, and these mappings are stored in the Library Features Table.
 
