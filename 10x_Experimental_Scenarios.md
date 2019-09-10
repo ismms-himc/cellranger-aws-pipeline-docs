@@ -15,8 +15,19 @@ The relationship between **biological samples** (e.g. a cell suspension extracte
 
 The common scenario of sequencing the same 'sequencing library' more than once (in the above example) is the reason why the 10x technicians are moving towards a FASTQ-level organization (rather than a 'sequencing library' a.k.a. 'pooled library' level).
 
-# Proposed 10X Technician Spreadsheets: FASTQ, Sample, Library Features, Features
+# Proposed 10X Technician Spreadsheets: Sample, FASTQ, Library Features, Features
 Below are proposed spreadsheets for use by the 10X techs (not all experiment-related columns are shown).
+
+## Sample-Level Spreadsheet
+| Sample Name  | Loading Sample |  Sample Metadata ... | HTO | Expected Cell Number | Library Features |
+|---|---|---|---|---|---|
+| S1_GEX  | H1_GEX | ... | HTO-1  | 5000 | LF-1 |
+
+<!-- Difference b/t Sample name and Loading sample? -->
+A CITE-seq sequencing-library will, in general, contain ADTs and HTOs. <!-- Should there be an ADTs column? -->
+- `Sample Metadata`: will include necessary Cell Ranger information like organism, reference transcriptome, etc.
+- `Library`: link to the [Library Features Table] below.
+<!-- other column descriptions? -->
 
 ## FASTQ-Level Spreadsheet
 Laura is working on making a new "FASTQ-oriented" spreadsheet, but that nomenclature is tricky: we're not considering individual run- and read-level FASTQs, but are referring to such a group collectively as a "FASTQ" or "set of FASTQs".
@@ -40,16 +51,6 @@ Below is the in-progress outline for this spreadsheet, along with some example c
 - `BCL Run ID`: name of the BCL file the FASTQs will be put into.
 - `Processing Run`: name of the ["processing run"][`Processing-Run`] that the data is being organized under (a processing run consists of the jobs necessary to convert BCL inputs into FBM and TCR/VDJ outputs).
 
-## Sample-Level Spreadsheet
-| Sample Name  | Loading Sample |  Sample Metadata ... | HTO | Expected Cell Number | Library Features |
-|---|---|---|---|---|---|
-| S1_GEX  | H1_GEX | ... | HTO-1  | 5000 | LF-1 |
-
-<!-- Difference b/t Sample name and Loading sample? -->
-A CITE-seq sequencing-library will, in general, contain ADTs and HTOs. <!-- Should there be an ADTs column? -->
-- `Sample Metadata`: will include necessary Cell Ranger information like organism, reference transcriptome, etc.
-- `Library`: link to the [Library Features Table] below.
-<!-- other column descriptions? -->
 
 ## Library Features Table
 | Library | Feature | Index |
