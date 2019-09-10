@@ -5,13 +5,13 @@ This document discusses proposed changes to the organization of sequencing run s
 The relationship between **biological samples** (e.g. a cell suspension extracted from a single biological source, see [glossary](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/glossary)), **sequencing libraries** (e.g. the end product from a 10x chip lane), **BCL files** (e.g. generally multiplexed from several sequencing libraries), **FASTQs** (e.g. the product of de-multiplexing BCL files, sub-divided by lane and read), **Cell Ranger pre-processing runs** (e.g. can utilize several BCL files for a pooled run), and **Cell Ranger outputs** (e.g. Feature barcode matrix (FBM), TCR/BCR contigs) can be complicated. Two examples from the documentation are shown below.
 
 ### 2 Samples, 2 Seq-Libraries, 1 Seq-Run/Flowcell, 2 FBMs
-![alt text](https://support.10xgenomics.com/img/mkfastq-1.png "")
+[![Schematic of 2-sample, 1-seq-run workflow](https://support.10xgenomics.com/img/mkfastq-1.png "")](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/mkfastq#example_workflows)
 
-"In this example, we have two 10x libraries (each processed through a separate Chromium chip channel) that are multiplexed on a single flowcell. Note that after running cellranger mkfastq, we run a separate instance of the pipeline on each library"
+> In this example, we have two 10x libraries (each processed through a separate Chromium chip channel) that are multiplexed on a single flowcell. Note that after running cellranger mkfastq, we run a separate instance of the pipeline on each library"
 
 ### 1 Sample, 1 Seq-Library, 2 Seq-Run/Flowcells, 1 FBM
-![alt text](https://support.10xgenomics.com/img/mkfastq-2.png "")
-"In this example, we have one 10x library sequenced on two flowcells. Note that after running cellranger mkfastq, we run a single instance of the pipeline on all the FASTQ files generated"
+[![Schematic of 1-sample, 2-seq-run workflow](https://support.10xgenomics.com/img/mkfastq-2.png "")](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/mkfastq#example_workflows)
+> In this example, we have one 10x library sequenced on two flowcells. Note that after running cellranger mkfastq, we run a single instance of the pipeline on all the FASTQ files generated"
 
 The common scenario of sequencing the same 'sequencing library' more than once (in the above example) is the reason why the 10x technicians are moving towards a FASTQ level organization (rather than a 'sequencing library' level).
 
