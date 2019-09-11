@@ -128,21 +128,21 @@ This spreadsheet shows the list of `Library Features` that are associated with a
 | HTO-3_H-103_3p_Lot-# | 3p | H-103 | ACTG |  
 | HTO-4_H-104_3p_Lot-# | 3p | H-104 | ACTG |  
 |   CD3_A-101_3p_Lot-# | 3p | A-101 | ACTG |  
-|   CD4_A-102_3p_Lot-# | 3p | ADT-Index-2 | ACTG |  
-|   CD5_A-103_3p_Lot-# | 3p | ADT-Index-3 | ACTG |  
+|   CD4_A-102_3p_Lot-# | 3p | A-102 | ACTG |  
+|   CD5_A-103_3p_Lot-# | 3p | A-103 | ACTG |  
 | ... | ... | ... | ... |  
 
 ### Columns
 - `HIMC Feature Name`: name of a feature (ADT or HTO) being measured
 - `Chemistry`: the type of chemistry this feature is made for
-- `Index Name`: the human readable name of the index oligo used to label this feature
-- `Sequence`: the actual oligo index sequence 
+- `Oligo`: the human readable name of the oligo used to label this feature
+- `Sequence`: the actual oligo sequence 
 
 ### Explanation of this spreadsheet
-This spreadsheet contains all features being used by the HIMC. Each `HIMC Feature Name` is unique. 
+This spreadsheet contains all features being used by the HIMC and each `HIMC Feature Name` is unique. 
 
 # Processing-Run CSVs
-A `Processing-Run` takes as input two spreadsheets (produced by the 10x techs) and one or more BCLs. The two spreadsheets are similar to the required spreadsheets that `cellranger mkfastq` and `count` take as inputs, but also contain additional information (e.g. expected cell count) as well as an implicit layout of running all jobs required to complete a  `Processing-Run` set of jobs.
+A `Processing-Run` takes as input two spreadsheets (produced by the 10x techs using value-lookups) and one or more BCLs. The two spreadsheets are similar to the required spreadsheets that `cellranger mkfastq` and `count` take as inputs, but also contain additional information (e.g. expected cell count) as well as an implicit layout of running all jobs required to complete a  `Processing-Run` set of jobs.
 
 ## 1. Custom Sheet CSV
 
@@ -156,9 +156,9 @@ A `Processing-Run` takes as input two spreadsheets (produced by the 10x techs) a
 - `Lane`: the 10x chip lane **I think we can just increment this**
 - `Sample`: the name of the Seq-Run-FASTQ set **(I think)** obtained from the [FASTQ-Level Spreadsheet]
 - `Index Name`: the name of the `Sample Index` obtained from the [FASTQ-Level Spreadsheet]
-- `Index Oligo`: the actual index oligo sequence obtained from a Sample Index Spreadsheet (** not documented yet **)
+- `Index Oligo`: the actual index oligo sequence obtained from a Sample Index Spreadsheet (**not documented yet**). The value will be `-` for GEX index oligos since Cell Ranger mkfastq knows the meaning the index names (e.g. `SI-GA-3`).
 - `Library Type`: the library type using the terminology acceptable to Cell Ranger Count (see [docs](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/feature-bc-analysis))
-- `Reference Transcriptome`: the reference transcriptome to align to
+- `Reference Transcriptome`: the reference transcriptome used for alignment
 - `Number of Cells`: the number of expected cells
 - `Chemistry`: the 10x kit chemistry version
 
@@ -170,20 +170,25 @@ This CSV will be used to construct both [the sample sheet CSV input for `mkfastq
 
 | id | name | read | pattern | sequence | feature_type | 
 |---|---|---|---|---|---|
-| HTO  | CD3_TotalSeqB  | R2  | 5PNNNNNNNNNN(BC)NNNNNNNNN  | AACAAGACCCTTGAG  | Antibody Capture  |  
-| CD3  | CD3_TotalSeqB  | R2  | 5PNNNNNNNNNN(BC)NNNNNNNNN  | AACAAGACCCTTGAG  | Antibody Capture  |  
+| HTO-1_H-101_3p_Lot-# | HTO-1 | R2  | 5PNNNNNNNNNN(BC)NNNNNNNNN  | AACAAGACCCTTGAG  | Custom  |  
+| HTO-2_H-101_3p_Lot-# | HTO-2 | R2  | 5PNNNNNNNNNN(BC)NNNNNNNNN  | CCCTTGAGAACAAGA  | Custom  |  
+| HTO-3_H-101_3p_Lot-# | HTO-3 | R2  | 5PNNNNNNNNNN(BC)NNNNNNNNN  | AACATTGAGACCCAG  | Custom  |  
+| HTO-4_H-101_3p_Lot-# | HTO-4 | R2  | 5PNNNNNNNNNN(BC)NNNNNNNNN  | TGAAACAAGACCCTG  | Custom  |  
+|   CD3_A-101_3p_Lot-# |   CD3 | R2  | 5PNNNNNNNNNN(BC)NNNNNNNNN  | AACAACTTGAGGACC  | Custom  |  
+|   CD4_A-102_3p_Lot-# |   CD4 | R2  | 5PNNNNNNNNNN(BC)NNNNNNNNN  | GGACCAAACAACTTG  | Custom  |  
+|   CD8_A-103_3p_Lot-# |   CD8 | R2  | 5PNNNNNNNNNN(BC)NNNNNNNNN  | GGACCACTTGAACAA  | Custom  |  
 
-This document is only necessary for feature barcode (FBM) runs:
-- `id`: unique id for the feature (can't collide with gene name)
-- `name`: human readable feature name (e.g. gene name)
+### Columns
+- `id`: the unique id for the feature (can't collide with gene name)
+- `name`: the human readable feature name (e.g. gene name, or hashtag number HTO-1)
 - `read`: specifies which sequencing read contains the sequence (e.g. R2)
 - `pattern`: specifies how to extract seq from read
-- `sequence`: Nucleotide barcode seq associated with this feature (e.g. antibody barcode or scRNA protospacer sequence)
-- `feature_type`: (e.g. custom <!-- more info? -->)
-- `target_gene_id`, `target_gene_name`: are optional CRISPR-specific columns that are not shown in the example above.
+- `sequence`: the nucleotide barcode seq associated with this feature (e.g. antibody barcode or scRNA protospacer sequence)
+- `feature_type`: the type (e.g. Custom) from the list of acceptable feature types: `Custom` (preferred),  `Antibody Capture`,  or `CRISPR Guide Capture` (see [docs](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/feature-bc-analysis))
+- (omitted columns )`target_gene_id`, `target_gene_name`: are optional CRISPR-specific columns that are not shown in the example above.
 
-
-The 10x techs will produce the feature reference CSV (presumably via lookup tables). <!-- more info? -->
+### Explanation of this Spreadsheet
+This document is only necessary for feature barcode (FBM) runs:
 
 
 # Cell Ranger Required CSVs
