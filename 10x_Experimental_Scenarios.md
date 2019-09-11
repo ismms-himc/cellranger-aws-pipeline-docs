@@ -42,7 +42,7 @@ Below are two experimental scenarios from 10x that have been paraphrased into ou
 
 The common scenario of sequencing the same 'sequencing library' more than once (in the above example) is the reason why the 10x technicians are moving towards a FASTQ-level organization (rather than a 'sequencing library' a.k.a. 'pooled library' level).
 
-# Proposed 10X Technician Spreadsheets
+# 10X Technician Spreadsheets
 Below are 4 proposed spreadsheets for use by the 10X techs (not all experiment-related columns are shown).
 
 ## 1. Sample-Level Spreadsheet
@@ -70,9 +70,9 @@ This is the Seq-Run-FASTQ Set level spreadsheet (see [Glossary]) that 10x techs 
 
 | FASTQs  | Loading Sample | Hashed Sample | 10x Lane ID | Library Type | BCL Run ID  | Processing Run  | Library Features |
 |---|---|---|---|---|---|---|---|
-| H1_XL-1_BCL-1_GEX | H1 | True  | XL-1  | GEX  | BCL-1 | CR-1 | LF-1
-| H1_XL-1_BCL-1_ADT | H1 | True  | XL-1  | ADT  | BCL-1 | CR-1 | LF-1
-| H1_XL-1_BCL-1_HTO | H1 | True  | XL-1  | HTO  | BCL-1 | CR-1 | LF-1
+| H1_XL-1_BCL-1_GEX | H1 | True  | XL-1  | GEX  | BCL-1 | CR-1 | LF-1 |
+| H1_XL-1_BCL-1_ADT | H1 | True  | XL-1  | ADT  | BCL-1 | CR-1 | LF-1 | 
+| H1_XL-1_BCL-1_HTO | H1 | True  | XL-1  | HTO  | BCL-1 | CR-1 | LF-1 |
 
 ### Columns
 - `FASTQs`: name of the Seq-Run-FASTQ Set that is the result of a single sequencing run.
@@ -94,15 +94,14 @@ This is the Seq-Run-FASTQ Set level spreadsheet (see [Glossary]) that 10x techs 
 This spreadsheet shows three Seq-Run-FASTQ Sets that are obtained from processing the outputs from a single 10x chip lane (e.g. `XL-1`) to generate three sequencing libraries (`GEX`, `ADT`, and `HTO`), merging into a pooled library, sequencing, and then de-multiplexing the BCL file. Note, that the four biological samples from the [Sample-Level Spreadsheet] are not indicated in this table - this sample-level information will only be obtained after de-hashing after the Processing-Run.
 
 ## 3. Library Features Table
-| Library | Feature | Index |
-|---|---|---|
-| LF-1 | HTO-1   | HTO-Index-1 |
-| LF-1 | HTO-2   | HTO-Index-2 |
-| LF-1 | HTO-3   | HTO-Index-3 |
-| LF-1 | CD8_HIMC-1_Lot-1  | ADT-Index-1 |
-| … | …  | … |
-| LF-2 | CD3_HIMC-1_Lot-1  | ADT-Index-2 |
-| LF-2 | CD4_HIMC-1_Lot-1  | ADT-Index-3 |
+| Library | Feature | Index | Labeled Sample |
+|---|---|---|---|
+| LF-1 | HTO-1   | HTO-Index-1 | S1 |
+| LF-1 | HTO-2   | HTO-Index-2 | S2 |
+| LF-1 | HTO-3   | HTO-Index-3 | S3 |
+| LF-1 | CD3_HIMC-1_Lot-1  | ADT-Index-1 | - |
+| LF-1 | CD4_HIMC-2_Lot-1  | ADT-Index-2 | - |
+| LF-1 | CD8_HIMC-3_Lot-1  | ADT-Index-3 | - |
 
 Each library has a set of feature/index pairs associated with it, and these mappings are stored in the Library Features Table.
 
