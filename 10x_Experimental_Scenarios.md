@@ -48,10 +48,10 @@ Below are 4 proposed spreadsheets for use by the 10X techs (not all experiment-r
 ## 1. Sample-Level Spreadsheet
 | Sample Name | Loading Sample | Expected Cell Number | Reference Transcriptome | Chemistry | HTO | Library Features |
 |---|---|---|---|---|---|---|
-| S1  | H1 | 3000 | GRCh38 | 3-prime | HTO-1 | LF-1 |
-| S2  | H1 | 4000 | GRCh38 | 3-prime | HTO-2 | LF-1 |
-| S3  | H1 | 5000 | GRCh38 | 3-prime | HTO-3 | LF-1 |
-| S4  | H1 | 6000 | GRCh38 | 3-prime | HTO-4 | LF-1 |
+| S1  | H1 | 3000 | GRCh38 | 3p | HTO-1 | LF-1 |
+| S2  | H1 | 4000 | GRCh38 | 3p | HTO-2 | LF-1 |
+| S3  | H1 | 5000 | GRCh38 | 3p | HTO-3 | LF-1 |
+| S4  | H1 | 6000 | GRCh38 | 3p | HTO-4 | LF-1 |
 
 ### Columns
 - `Sample Name`: the name of the biological sample being processed (see [Glossary])
@@ -71,15 +71,15 @@ This is the Seq-Run-FASTQ Set level spreadsheet (see [Glossary]) that 10x techs 
 | FASTQs  | Loading Sample | Sample Index | Hashed Sample | 10x Lane ID | Library Type | BCL Run ID  | Processing Run  | Library Features |
 |---|---|---|---|---|---|---|---|---|
 | H1_XL-1_BCL-1_GEX | H1 | SI-GA-A3 | True  | XL-1  | GEX  | BCL-1 | CR-1 | LF-1 |
-| H1_XL-1_BCL-1_ADT | H1 | RPI-1 | True  | XL-1  | ADT  | BCL-1 | CR-1 | LF-1 | 
-| H1_XL-1_BCL-1_HTO | H1 | D700-1 | True  | XL-1  | HTO  | BCL-1 | CR-1 | LF-1 |
+| H1_XL-1_BCL-1_ADT | H1 | RPI-1    | True  | XL-1  | ADT  | BCL-1 | CR-1 | LF-1 | 
+| H1_XL-1_BCL-1_HTO | H1 | D700-1   | True  | XL-1  | HTO  | BCL-1 | CR-1 | LF-1 |
 
 ### Columns
 - `FASTQs`: name of the Seq-Run-FASTQ Set that is the result of a single sequencing run.
   - Composed of the `Loading Sample` name, the `10x Lane ID`, the `BCL Run ID`, and `Library Type`
   - Tracking the `BCL Run ID` allows us to handle the common scenario where the same sequencing pool (e.g. tube of liquid) is sequenced more than once (more than one aliquot is taken from the tube and run on the sequencer).
 - `Loading Sample`: name of the sample that is loaded into a 10x chip lane (can consist of several biolofical samples via hashing).
-- `Sample Index`: the index that is used to label the sequencing library when pooling the library into a pooled library. 10x GEX libraries have index names like `S1-GA-A3`; ADT have `RPI-1`, and HTO have `D700-1`
+- `Sample Index`: the index that is used to label the sequencing library when pooling the library into a pooled library. 10x GEX libraries have index names like `S1-GA-A3` (4 different oligos); ADT have `RPI` (single 6bp oligo), and HTO have `D700` (single 8bp oligo)
 - `Hashed Sample`: True/False, indicates whether hashing has been done (will be redundant with the `Loading Sample` naming convention).
 - `10x Lane ID`: lane number a sample is loaded into
   - necessary for situations where the same sample is loaded into several lanes (to measure more cells from a sample)
@@ -95,23 +95,25 @@ This is the Seq-Run-FASTQ Set level spreadsheet (see [Glossary]) that 10x techs 
 This spreadsheet shows three Seq-Run-FASTQ Sets that are obtained from processing the outputs from a single 10x chip lane (e.g. `XL-1`) to generate three sequencing libraries (`GEX`, `ADT`, and `HTO`), merging into a pooled library, sequencing, and then de-multiplexing the BCL file. Note, that the four biological samples from the [Sample-Level Spreadsheet] are not indicated in this table - this sample-level information will only be obtained after de-hashing after the Processing-Run.
 
 ## 3. Library Features Table
-| Library Features | HIMC Feature Name | Index | Labeled Sample |
+| Library Features | HIMC Feature Name | Oligo ID | Labeled Sample |
 |---|---|---|---|
-| LF-1 | HTO-1_HIMC-1_Lot-1   | HTO-Index-1 | S1 |
-| LF-1 | HTO-2_HIMC-2_Lot-1   | HTO-Index-2 | S2 |
-| LF-1 | HTO-3_HIMC-3_Lot-1   | HTO-Index-3 | S3 |
-| LF-1 | HTO-4_HIMC-4_Lot-1   | HTO-Index-3 | S4 |
-| LF-1 | CD3_HIMC-5_Lot-1  | ADT-Index-1 | - |
-| LF-1 | CD4_HIMC-6_Lot-1  | ADT-Index-2 | - |
-| LF-1 | CD8_HIMC-7_Lot-1  | ADT-Index-3 | - |
+| LF-1 | HTO-1_H-101_3p_Lot-# | H-101 | S1 |
+| LF-1 | HTO-2_H-102_3p_Lot-# | H-102 | S2 |
+| LF-1 | HTO-3_H-103_3p_Lot-# | H-103 | S3 |
+| LF-1 | HTO-4_H-104_3p_Lot-# | H-104 | S4 |
+| LF-1 |   CD3_A-101_3p_Lot-# | A-101 | - |
+| LF-1 |   CD4_A-102_3p_Lot-# | A-102 | - |
+| LF-1 |   CD8_A-103_3p_Lot-# | A-103 | - |
 
 ### Columns
 - `Library Features`: this is the name of the list of features used in a library and is referenced by the `Library Features` columns in the previous two spredsheets: [Sample-Level Spreadsheet] and [FASTQ-Level Spreadsheet].
 
 - `HIMC Feature Name`: name of a feature (ADT or HTO) being measured
- - official gene symbol of the measured protein (or the protein instead if desired - otherwise other names will be stored as aliases)
-  - the unique HIMC id (e.g. HIMC-1), and the lot number (e.g. lot-1). 
- - `Index`: the oligo index IDs that can be looked up in [4. Features Table]
+  - official gene symbol of the measured protein 
+  - the unique HIMC oligo id (e.g. HIMC-1)
+  - chemistry
+  - the lot number (e.g. lot-1). 
+- `Oligo ID`: the ID of the oligo sequence that was conjugated to the antibody (ADT or HTO).
 - `Labeled Sample`: the sample that is being labeled by a feature - this is only used for HTOs and is redundant with the information in the [Sample-Level Spreadsheet]
  
 ### Explanation of this spreadsheet
@@ -119,15 +121,15 @@ This spreadsheet shows the list of `Library Features` that are associated with a
 
 
 ## 4. Features Table
-| HIMC Feature Name | Chemistry | Index Name | Sequence |  
+| HIMC Feature Name | Chemistry | Oligo ID | Oligo Sequence |  
 |---|---|---|---|
-| HTO-1_HIMC-1_Lot-1 | 5-prime | ADT-Index-1 | ACTG |  
-| HTO-2_HIMC-2_Lot-1 | 5-prime | ADT-Index-1 | ACTG |  
-| HTO-3_HIMC-3_Lot-1 | 5-prime | ADT-Index-1 | ACTG |  
-| HTO-4_HIMC-4_Lot-1 | 5-prime | ADT-Index-1 | ACTG |  
-| CD3_HIMC-5_Lot-1 | 5-prime | ADT-Index-1 | ACTG |  
-| CD4_HIMC-6_Lot-1 | 5-prime | ADT-Index-2 | ACTG |  
-| CD8_HIMC-7_Lot-1 | 5-prime | ADT-Index-3 | ACTG |  
+| HTO-1_H-101_3p_Lot-# | 3p | H-101 | ACTG |  
+| HTO-2_H-102_3p_Lot-# | 3p | H-102 | ACTG |  
+| HTO-3_H-103_3p_Lot-# | 3p | H-103 | ACTG |  
+| HTO-4_H-104_3p_Lot-# | 3p | H-104 | ACTG |  
+|   CD3_A-101_3p_Lot-# | 3p | A-101 | ACTG |  
+|   CD4_A-102_3p_Lot-# | 3p | ADT-Index-2 | ACTG |  
+|   CD5_A-103_3p_Lot-# | 3p | ADT-Index-3 | ACTG |  
 | ... | ... | ... | ... |  
 
 ### Columns
@@ -144,18 +146,31 @@ A `Processing-Run` takes as input two spreadsheets (produced by the 10x techs) a
 
 ## 1. Custom Sheet CSV
 
-| Lane| Sample | Index | Library Type | Reference Transcriptome | Number of Cells | Chemistry |
-|---|---|---|---|---|---|---|
-| 1  | H1_XL-1_BCL-1_GEX | SI-GA-A3 | Gene Expression | GRCh38 | 18000 | 5-prime_V2 |
-| 2  | H1_XL-1_BCL-1_ADT | RPI-1 | Custom | GRCh38 | 18000 | 5-prime_V2 |
-| 3  | H1_XL-1_BCL-1_HTO | D700-1 | Custom | GRCh38 | 18000 | 5-prime_V2 |
+| Lane| Sample | Index Name | Index Oligo | Library Type | Reference Transcriptome | Number of Cells | Chemistry |
+|---|---|---|---|---|---|---|---|
+| 1  | H1_XL-1_BCL-1_GEX | SI-GA-A3 | `-` | Gene Expression | GRCh38 | 18000 | 5-prime_V2 |
+| 2  | H1_XL-1_BCL-1_ADT | RPI-1 | ACTGTT | Custom | GRCh38 | 18000 | 5-prime_V2 |
+| 3  | H1_XL-1_BCL-1_HTO | D700-1 | ACTGTTGG | Custom | GRCh38 | 18000 | 5-prime_V2 |
 
-This CSV will be used to construct [the sample sheet CSV input for `mkfastq`][10X Sample Sheet CSV] as well as [the libraries CSV for `count`][10X Libraries CSV]. The last two columns will be used to construct additional arguments for `cellranger count`.
+### Columns
+- `Lane`: the 10x chip lane **I think we can just increment this**
+- `Sample`: the name of the Seq-Run-FASTQ set **(I think)** obtained from the [FASTQ-Level Spreadsheet]
+- `Index Name`: the name of the `Sample Index` obtained from the [FASTQ-Level Spreadsheet]
+- `Index Oligo`: the actual index oligo sequence obtained from a Sample Index Spreadsheet (** not documented yet **)
+- `Library Type`: the library type using the terminology acceptable to Cell Ranger Count (see [docs](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/feature-bc-analysis))
+- `Reference Transcriptome`: the reference transcriptome to align to
+- `Number of Cells`: the number of expected cells
+- `Chemistry`: the 10x kit chemistry version
+
+### Explanation of this spreadsheet
+
+This CSV will be used to construct both [the sample sheet CSV input for `mkfastq`][10X Sample Sheet CSV] and [the libraries CSV for `count`][10X Libraries CSV]. The `Reference Transcriptome` and `Number of Cells` columns will be used to construct additional arguments for `cellranger count`. Additionally, the `Index Name` value will be used for GEX libraries, while the `Index Oligo` value will be used for Custom libraries (ADT/HTO).
 
 ## 2. Feature Reference CSV 
 
 | id | name | read | pattern | sequence | feature_type | 
 |---|---|---|---|---|---|
+| HTO  | CD3_TotalSeqB  | R2  | 5PNNNNNNNNNN(BC)NNNNNNNNN  | AACAAGACCCTTGAG  | Antibody Capture  |  
 | CD3  | CD3_TotalSeqB  | R2  | 5PNNNNNNNNNN(BC)NNNNNNNNN  | AACAAGACCCTTGAG  | Antibody Capture  |  
 
 This document is only necessary for feature barcode (FBM) runs:
