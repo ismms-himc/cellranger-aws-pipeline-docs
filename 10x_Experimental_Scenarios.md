@@ -17,7 +17,7 @@ The relationships between components in 10x single cell assay can be complicated
 
 * **FASTQs**: the products of de-multiplexing BCL files
 
-* **Seq-Run-FASTQ Set**: a set of FASTQs that have been de-multiplexed from a single BCL file that give data for a single indexed sequencing library. This set consists of lane- and read-specific FASTQs. 
+* **Seq-Run-FASTQ Set**: a set of FASTQs that have been de-multiplexed from a single BCL file that give data for a single indexed sequencing library (e.g. a single GEX or ADT library). This set consists of lane- and read-specific FASTQs. 
 
 * **FBM-FASTQ Set**: a set of FASTQs that will be used to generate a single FBM (feature barcode matrix). If the same pooled library is sequenced multiple times (producing multiple BCL files) we will need to combine multiple Seq-Run-FASTQ sets (see above) into a single FBM.
 
@@ -43,7 +43,7 @@ Below are two experimental scenarios from 10x that have been paraphrased into ou
 The common scenario of sequencing the same 'sequencing library' more than once (in the above example) is the reason why the 10x technicians are moving towards a FASTQ-level organization (rather than a 'sequencing library' a.k.a. 'pooled library' level).
 
 # 10X Technician Spreadsheets
-Below are 4 proposed spreadsheets for use by the 10X techs (not all experiment-related columns are shown).
+Below are 4 proposed spreadsheets for use by the 10X techs (not all experiment-related columns are shown). The spreadsheets produced in these three sections ([10x Technician Spreadsheets], [Processing-Run CSVs], and [Cell Ranger Required CSVs]) are all based on the same example: Four biological samples that are hashed together, measure three surface markers (3 ADTs), and are run on a single 10x chip lane. 
 
 ## 1. Sample-Level Spreadsheet
 | Sample Name | Loading Sample | Expected Cell Number | Reference Transcriptome | Chemistry | HTO | Library Features |
@@ -188,40 +188,50 @@ This CSV will be used to construct both [the sample sheet CSV input for `mkfastq
 - (omitted columns )`target_gene_id`, `target_gene_name`: are optional CRISPR-specific columns that are not shown in the example above.
 
 ### Explanation of this Spreadsheet
-This document is only necessary for feature barcode (FBM) runs:
-
+This spreadsheet is only necessary for feature barcoding (or CITE-seq) runs. It contains information on all the features used in a sequencing library. **I'm not sure how we will handle cases where different feature labeling schemes are pooled into a single sequencing pool (or if this ever happens).**
 
 # Cell Ranger Required CSVs
 
-## Sample Sheet CSV
+## 1. Sample Sheet CSV
 | Lane| Sample | Index |
 |---|---|---|
-| 1  | S1_GEX | SI-GA-A3 |
+| 1  | H1_XL-1_BCL-1_GEX | SI-GA-A3 |
+| 1  | H1_XL-1_BCL-1_ADT | ACTGTT |
+| 1  | H1_XL-1_BCL-1_HTO | ACTGTTGG |
 
-This table is in the format of the "simple samplesheet" consumed by `cellranger mkfastq`:
+### Columns
 - `Lane` refers to the 10x chip lane.
 - `Sample` refers to our loading sample name (the BCL name will be appended automatically by `mkfastq`; TODO: verify this).
 - `Index` refers to the oligos used to de-multiplex the BCL
   - When processing custom oligos (e.g. ADT/HTO), pass the actual oligo sequences here.
+ 
+### Explanation of this spreadsheet
+This table is in the format of the "simple samplesheet" consumed by `cellranger mkfastq` (see 10x docs).
 
-## Libraries CSV
+## 2. Libraries CSV
 |  FASTQs | Sample  |  Library Type |
 |---|---|---|
-| /path/to/fastqs/ | S1_GEX_BCL-1 | Gene Expression |
-| /path/to/fastqs/ | S1_HTO_BCL-1 | Custom |
+| /path/to/fastqs/ | H1_XL-1_BCL-1_GEX | Gene Expression |
+| /path/to/fastqs/ | H1_XL-1_BCL-1_ADT | Custom |
+| /path/to/fastqs/ | H1_XL-1_BCL-1_HTO | Custom |
 
+### Columns
 - `FASTQs`: path to demultiplexed FASTQ files (cannot have comma-delimiited paths; more than one path requres an additional row).
 - `Sample` is the sample name assigned in the `mkfastq` simple samplesheet.
-- `Library Type` should be self-explanatory. <!-- Can we enumerate the possibilities here? Are they referenced anywhere else, or is this just a free-form "Notes" type of field? -->
+- `Library Type` from documentation "The FASTQ data will be interpreted using the rows from the feature reference file that have a ‘feature_type’ that matches this library_type. This field is case-sensitive, and must match a valid library type as described in the Library / Feature Types section. Must be Gene Expression for the gene expression libraries. Must be one of Custom, Antibody Capture, or CRISPR Guide Capture for Feature Barcoding libraries."
 
-## Feature Reference CSV
+### Explanation of this table 
+This table is used by Cell Ranger Count to know which `FBM-FASTQ Set` (which is composed of at least one `Seq-Run-FASTQ Sets` from different sequencing runs, see [Glossary]) to aggregate into a single FBM, which includes GEX, ADT, and HTO data.
 
-This is the same as the [Feature Reference CSV]
+## 3. Feature Reference CSV
+
+This is the same as the [Feature Reference CSV] that is produced by the 10x techs.
 
 # Output CSVs
-A single processing run will produce two output CSVs: 1) `Processing Status` and 2) `FASTQ meta-data`
+A single processing run will produce (at least) two output CSVs: 1) `Processing Status` and 2) `FASTQ meta-data`
 
 ## Processing-Run Status CSV
+
 
 ## Processing-Run Meta-Data CSV
 
@@ -271,11 +281,14 @@ BCL-2 -> FASTQs_GEX -> FBM -> FBM_S4
 
 
 [Glossary]: #glossary
+[10x Technician Spreadsheets]: #10x-technician-spreadsheets
+[Processing-Run CSVs]: #processing-run-csvs
+[Cell Ranger Required CSVs]: #cell-ranger-required-csvs
 [Feature Reference CSV]: #feature-reference-csv
 [Library Features Table]: #3-library-features-table
 [`Processing-Run`]: #processing-run-spreadsheets
-[10X Sample Sheet CSV]: #sample-sheet-csv
-[10X Libraries CSV]: #libraries-csv
+[10X Sample Sheet CSV]: #1-sample-sheet-csv
+[10X Libraries CSV]: #2-libraries-csv
 [Processing-Run Status CSV]: #processing-run-status-csv
 [Processing-Run Meta-Data CSV]: #processing-run-meta-data-csv
 [Sample-Level Spreadsheet]: #1-sample-Level-spreadsheet
