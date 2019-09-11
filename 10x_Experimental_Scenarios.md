@@ -94,22 +94,33 @@ This is the Seq-Run-FASTQ Set level spreadsheet (see [Glossary]) that 10x techs 
 This spreadsheet shows three Seq-Run-FASTQ Sets that are obtained from processing the outputs from a single 10x chip lane (e.g. `XL-1`) to generate three sequencing libraries (`GEX`, `ADT`, and `HTO`), merging into a pooled library, sequencing, and then de-multiplexing the BCL file. Note, that the four biological samples from the [Sample-Level Spreadsheet] are not indicated in this table - this sample-level information will only be obtained after de-hashing after the Processing-Run.
 
 ## 3. Library Features Table
-| Library | Feature | Index | Labeled Sample |
+| Library Features | Feature | Index | Labeled Sample |
 |---|---|---|---|
 | LF-1 | HTO-1   | HTO-Index-1 | S1 |
 | LF-1 | HTO-2   | HTO-Index-2 | S2 |
 | LF-1 | HTO-3   | HTO-Index-3 | S3 |
+| LF-1 | HTO-4   | HTO-Index-3 | S4 |
 | LF-1 | CD3_HIMC-1_Lot-1  | ADT-Index-1 | - |
 | LF-1 | CD4_HIMC-2_Lot-1  | ADT-Index-2 | - |
 | LF-1 | CD8_HIMC-3_Lot-1  | ADT-Index-3 | - |
 
+### Columns
+- `Library Features`: this is the name of the list of features used in a library and is referenced by the `Library Features` columns in the previous two spredsheets: [Sample-Level Spreadsheet] and [FASTQ-Level Spreadsheet].
+
+- `Feature`: name of a feature (ADT or HTO) being measured
+ - official gene symbol of the measured protein (or the protein instead if desired - otherwise other names will be stored as aliases)
+  - the unique HIMC id (e.g. HIMC-1), and the lot number (e.g. lot-1).
+  
+ - `Index`: the oligo index IDs that can be looked up in [4. Features Table]
+
+ 
+
+### Explanation of this spreadsheet
+
 Each library has a set of feature/index pairs associated with it, and these mappings are stored in the Library Features Table.
 
-The `Feature` names contain the following underscore-delimited components:
-1) official gene symbol of the measured protein (or the protein instead if desired - otherwise other names will be stored as aliases)
-2) the unique HIMC id (e.g. HIMC-1), and the lot number (e.g. lot-1).
 
-The `Index` column contains the oligo index IDs that can be looked up in [the `Features Table`][Library Features Table].
+
 
 ## 4. Features Table
 | HIMC Feature Name | Chemistry | Index Name | Sequence |  
@@ -235,3 +246,5 @@ BCL-2 -> FASTQs_GEX -> FBM -> FBM_S4
 [Processing-Run Status CSV]: #processing-run-status-csv
 [Processing-Run Meta-Data CSV]: #processing-run-meta-data-csv
 [Sample-Level Spreadsheet]: #1-sample-Level-spreadsheet
+[FASTQ-Level Spreadsheet]: #2-fastq-Level-spreadsheet
+[Features Table]: #4-features-table
