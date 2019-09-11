@@ -9,11 +9,11 @@ The relationships between components in 10x single cell assay can be complicated
 
 * **loading sample**: the sample loaded into a 10x lane, which is usually the biological sample but may be a hash of many biological samples
 
-* **sequencing libraries**: the end product(s) from a 10x chip lane. A single 10x lane can produce a single (e.g. GEX) or multiple sequencing libraries (e.g. GEX and VDJ; or GEX, ADT, and HTO). These sequencing libraries will either be pooled into a single pooled sample and sequenced or run on separate sequencing runs (e.g. as is the case for VDJ and GEX which require different sequencing conditions)
+* **sequencing libraries**: the end product(s) from a 10x chip lane. A single 10x lane can produce a single (e.g. GEX) or multiple sequencing libraries (e.g. GEX and VDJ; or GEX, ADT, and HTO). These sequencing libraries will either be pooled into a single pooled library and sequenced or run on separate sequencing runs (e.g. as is the case for VDJ and GEX which require different sequencing conditions)
 
-* **pooled sample**: a combination of several indexed sequencing libraries (from several 10x chip lanes) for loading into a sequencer and obtaining a BCL file
+* **pooled library**: a combination of several indexed sequencing libraries (from several 10x chip lanes) for loading into a sequencer and obtaining a BCL file
 
-* **BCL files**: contains sequencing information on a pooled sample (e.g. set of multiplexed sequencing libraries)
+* **BCL files**: contains sequencing information on a pooled library (e.g. set of multiplexed sequencing libraries)
 
 * **FASTQs**: the products of de-multiplexing BCL files
 
