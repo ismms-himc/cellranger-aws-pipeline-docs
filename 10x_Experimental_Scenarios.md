@@ -42,23 +42,25 @@ The common scenario of sequencing the same 'sequencing library' more than once (
 Below are 4 proposed spreadsheets for use by the 10X techs (not all experiment-related columns are shown).
 
 ## 1. Sample-Level Spreadsheet
-| Sample Name  | Loading Sample |  Reference Transcriptome | HTO | Expected Cell Number | Library Features |
-|---|---|---|---|---|---|
-| S1_GEX  | H1_GEX | GRCh38 | HTO-1  | 3000 | LF-1 |
-| S2_GEX  | H1_GEX | GRCh38 | HTO-2  | 5000 | LF-1 |
-| S3_GEX  | H1_GEX | GRCh38 | HTO-3  | 7000 | LF-1 |
+| Sample Name | Loading Sample | Expected Cell Number | Reference Transcriptome | Chemistry | HTO | Library Features |
+|---|---|---|---|---|---|---|
+| S1_GEX  | H1_GEX | 3000 | GRCh38 | 3-prime | HTO-1 | LF-1 |
+| S2_GEX  | H1_GEX | 5000 | GRCh38 | 3-prime | HTO-2 | LF-1 |
+| S3_GEX  | H1_GEX | 7000 | GRCh38 | 3-prime | HTO-3 | LF-1 |
 
 ### Columns
 - `Sample Name`: the name of the biological sample being processed (see [Glossary])
-- `Lading Sample`: the name of the sample being loaded into the 10x chip (see [Glossary])
-
-- `HTO`: the name of the hash tag oligo (HTO) that is used to label this sample
+- `Loading Sample`: the name of the sample being loaded into the 10x chip (see [Glossary])
+- `Expected Cell Number`: the estimated number of cells in the loaded sample
+- `Reference Transcriptome`: the reference transcriptome that reads are aligned to (very big files on AWS S3 buckets)
 - `Chemistry`: the name of the 10x kit chemistry being used (e.g. 5-prime)
-- `Refernce Transcriptome`: the reference transcriptome that reads are aligned to (very big files on AWS S3 buckets)
-- `Expected Cell Number`
-- `Library Features`: link to the [Library Features Table] below
+- `HTO`: the name of the hash tag oligo (HTO) that is used to label this sample, the value will be `-` for a non-hashed sample
+- `Library Features`: this links a sample to its list of features in the [Library Features Table]. The value is `-` if we are not measuring any ADTs or HTOs
 
-The rows in this spreadsheet are biological samples. A CITE-seq sequencing-library will, in general, contain ADTs and HTOs. 
+### Explanation of this Spreadsheet
+This spreadsheet shows three biological samples that are being hashed into a single loading sample (`H1_GEX`). Each sample is labeled with a different HTO (e.g. `HTO-1`) and share a common list of `Library Features` (e.g. all ADTs and HTOs used in the hashed `Loading Sample`: `H1_GEX`).
+
+. A CITE-seq sequencing-library will, in general, contain ADTs and HTOs. 
 
 ## 2. FASTQ-Level Spreadsheet
 Laura is working on making a new "FASTQ-oriented" spreadsheet, but that nomenclature is tricky: we're not considering individual run- and read-level FASTQs, but are referring to such a group collectively as a "FASTQ" or "set of FASTQs".
