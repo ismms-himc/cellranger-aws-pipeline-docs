@@ -1,5 +1,5 @@
 # 10x Experimental Scenarios
-This document discusses proposed changes to the variou spreadsheets used by HIMC techs who are running the assay, the computational team performing pre-processing, and the Cell Ranger software (e.g. we should shift to the most general input spreadsheet as arguments). This document heavily references the [10x documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/mkfastq), defines schemas for the various spreadsheets used by all parties, and contains several example spreadsheets that represent different common experimental scenarios.
+This document discusses proposed changes to the various spreadsheets used by HIMC techs who are running the assay, the computational team performing pre-processing, and the Cell Ranger software (e.g. we should shift to the most general input spreadsheet as arguments). This document heavily references the [10x documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/mkfastq), defines schemas for the various spreadsheets used by all parties, and contains several example spreadsheets that represent different common experimental scenarios.
 
 # Glossary
 
@@ -17,7 +17,7 @@ The relationships between components in 10x single cell assay can be complicated
 
 * **FASTQs**: the product of de-multiplexing BCL files, sub-divided by lane and read
 
-* **Processing-Run**: a set of cellranger mkfastq and count runs that take as input: 1) one or more BCL files and 2) Processing-Run Input CSV files; and produces as output: 1) FASTQs, 2) FBMs (feature barcode matrices) and if applicable TCR/BCR data, 3) Processing-Run Status CSV which lists out all jobs in the Processing-Run as well as where to find outputs 4) Processing-Run Meta-Data CSV relevant metadata (still being sorted out) for 10x techs.
+* **Processing-Run**: a set of cellranger mkfastq and count runs that take as input: 1) one or more BCL files and 2) Processing-Run Input CSV files. The Processing-Run produces the following outputs: 1) FASTQs, 2) FBMs (feature barcode matrices) and if applicable TCR/BCR data, 3) [Processing-Run Status CSV] which lists out all jobs in the Processing-Run as well as where to find outputs 4) Processing-Run Meta-Data CSV relevant metadata (still being sorted out) for 10x techs.
 
 * **Cell Ranger outputs**: Feature barcode matrix (FBM) which can be the product of several sequencing runs and BCL files, TCR/BCR contigs
 
@@ -99,7 +99,7 @@ The `Index` column contains the oligo index IDs that can be looked up in [the `F
 | CD8_HIMC-1_Lot-1 | 5-prime | ADT-Index-1 | ACTG |  
 
 # Processing-Run Spreadsheets
-Here we define a `Processing-Run` as a set of Cell Ranger jobs performed on one or more BCL files to obtain one or more FBMs and/or TCR/BCR sequence analysis. A `Processing-Run` will take two spreadsheets (produced by the 10x techs) as inputs. The two spreadsheets are similar to the required spreadsheets that `cellranger mkfastq` and `count` take as inputs, but also contain additional information (e.g. expected cell count) as well as an implicit layout of running all jobs required to complete a  `Processing-Run` set of jobs.
+A `Processing-Run` takes as input two spreadsheets (produced by the 10x techs) and one or more BCLs. The two spreadsheets are similar to the required spreadsheets that `cellranger mkfastq` and `count` take as inputs, but also contain additional information (e.g. expected cell count) as well as an implicit layout of running all jobs required to complete a  `Processing-Run` set of jobs.
 
 ## 1. Custom Sheet CSV
 
@@ -157,7 +157,10 @@ This table is in the format of the "simple samplesheet" consumed by `cellranger 
 This is the same as the [Feature Reference CSV]
 
 # Output CSVs
-A single processing run will produce two output CSVs: 1) `Processing Status` and 2) `FASTQ meta-data
+A single processing run will produce two output CSVs: 1) `Processing Status` and 2) `FASTQ meta-data`
+
+## Processing-Run Status CSV
+
 
 # Enumeration of Scenarios
 
@@ -203,6 +206,7 @@ BCL-2 -> FASTQs_GEX -> FBM -> FBM_S4
 | S6_GEX_C  | S6  | BCL-5  | CR-3  |  
 
 
+[Processing-Run Status CSV]: #processing-run-status-csv
 [Glossary]: #glossary
 [Feature Reference CSV]: #feature-reference-csv
 [Library Features Table]: #library-features-table
