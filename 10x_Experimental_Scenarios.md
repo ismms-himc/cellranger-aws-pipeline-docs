@@ -84,11 +84,12 @@ This is the Seq-Run-FASTQ Set level spreadsheet (see [Glossary]) that 10x techs 
   - becomes part of the FASTQs' names
 - `Library Type`: type of library being prepared (e.g. GEX, ADT)
   - **we haven't decided whether chemistry and version may or may not be included, e.g. GEX_5-prime**
+  - as far as I know, we can use Total-Seq antibodies to combine ADT and HTO data into the same library (I think the convention is to call these libraries `-AH`)
 - `BCL Run ID`: name of the BCL file the FASTQs will be put into **or** some short-hand ID
 - `Processing Run`: the name of the ["processing run"][`Processing-Run`] (see [Glossary]) that the data is being organized under (e.g. all jobs necessary to convert BCL(s) into FBM(s) and TCR/VDJ output(s)).
 
 ### Explanation of this spreadsheet
-
+This spreadsheet shows three Seq-Run-FASTQ Sets that are obtained from processing the outputs from a single 10x chip lane (e.g. `XL-1`) to generate three sequencing libraries (`GEX`, `ADT`, and `HTO`), merging into a pooled library, sequencing, and then de-multiplexing the BCL file. 
 
 ## 3. Library Features Table
 | Library | Feature | Index |
