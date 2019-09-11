@@ -9,7 +9,7 @@ The relationships between components in 10x single cell assay can be complicated
 
 * **loading sample**: the sample loaded into a 10x lane, which is usually the biological sample but may be a hash of many biological samples
 
-* **sequencing libraries**: the end product from a 10x chip lane
+* **sequencing libraries**: the end product(s) from a 10x chip lane. A single 10x lane can produce a single (e.g. GEX) or multiple sequencing libraries (e.g. GEX and VDJ; or GEX, ADT, and HTO). These sequencing libraries will either be pooled into a single pooled sample and sequenced or run on separate sequencing runs (e.g. as is the case for VDJ and GEX which require different sequencing conditions)
 
 * **pooled sample**: a combination of several indexed sequencing libraries (from several 10x chip lanes) for loading into a sequencer and obtaining a BCL file
 
@@ -109,17 +109,12 @@ This spreadsheet shows three Seq-Run-FASTQ Sets that are obtained from processin
 
 - `Feature`: name of a feature (ADT or HTO) being measured
  - official gene symbol of the measured protein (or the protein instead if desired - otherwise other names will be stored as aliases)
-  - the unique HIMC id (e.g. HIMC-1), and the lot number (e.g. lot-1).
-  
+  - the unique HIMC id (e.g. HIMC-1), and the lot number (e.g. lot-1). 
  - `Index`: the oligo index IDs that can be looked up in [4. Features Table]
-
+- `Labeled Sample`: the sample that is being labeled by a feature - this is only used for HTOs and is redundant with the information in the [Sample-Level Spreadsheet]
  
-
 ### Explanation of this spreadsheet
-
-Each library has a set of feature/index pairs associated with it, and these mappings are stored in the Library Features Table.
-
-
+This spreadsheet shows the list of `Library Features` that is associated with a loading sample (e.g. `H1`), the subsequent sequencing libraries 
 
 
 ## 4. Features Table
