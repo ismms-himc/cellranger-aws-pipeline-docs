@@ -4,7 +4,7 @@ This document discusses proposed changes to the organization of spreadsheets use
 # Background
 The relationships between: 
 
-* **biological samples**: a cell suspension extracted from a single biological source, see [glossary](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/glossary)) 
+* **biological samples**: a cell suspension extracted from a single biological source, see [glossary](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/glossary)
 
 * **loading sample**: the sample loaded into a 10x lane, which is usually the biological sample but may be a hash of many biological samples
 
