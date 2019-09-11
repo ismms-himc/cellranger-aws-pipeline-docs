@@ -58,9 +58,7 @@ Below are 4 proposed spreadsheets for use by the 10X techs (not all experiment-r
 - `Library Features`: this links a sample to its list of features in the [Library Features Table]. The value is `-` if we are not measuring any ADTs or HTOs
 
 ### Explanation of this Spreadsheet
-This spreadsheet shows three biological samples that are being hashed into a single loading sample (`H1_GEX`). Each sample is labeled with a different HTO (e.g. `HTO-1`) and share a common list of `Library Features` (e.g. all ADTs and HTOs used in the hashed `Loading Sample`: `H1_GEX`).
-
-. A CITE-seq sequencing-library will, in general, contain ADTs and HTOs. 
+This spreadsheet shows three biological samples that are being hashed into a single loading sample (`H1_GEX`). Each sample is labeled with a different HTO (e.g. `HTO-1`) and share a common list of `Library Features` (e.g. all ADTs and HTOs used in the hashed `Loading Sample` `H1_GEX`).
 
 ## 2. FASTQ-Level Spreadsheet
 Laura is working on making a new "FASTQ-oriented" spreadsheet, but that nomenclature is tricky: we're not considering individual run- and read-level FASTQs, but are referring to such a group collectively as a "FASTQ" or "set of FASTQs".
