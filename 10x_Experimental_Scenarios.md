@@ -1,10 +1,12 @@
 # 10x Experimental Scenarios
-This document discusses proposed changes to the organization of spreadsheets used by HIMC techs who are running the assay, used by the computational team performing pre-processing, and used by Cell Ranger software (e.g. we should shift to the most general input spreadsheet as arguments). This document heavily references the [10x documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/mkfastq), documents the type of spreadsheets used by all parties, and contains several example spreadsheets that represent different experimental scenarios.
+This document discusses proposed changes to the variou spreadsheets used by HIMC techs who are running the assay, the computational team performing pre-processing, and the Cell Ranger software (e.g. we should shift to the most general input spreadsheet as arguments). This document heavily references the [10x documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/mkfastq), defines schemas for the various spreadsheets used by all parties, and contains several example spreadsheets that represent different common experimental scenarios.
 
 # Background
-The relationships between: 
+The relationships between components in 10x single cell assay can be complicated (see [Glossary] Below)
 
-* **biological samples**: a cell suspension extracted from a single biological source, see [glossary](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/glossary)
+# Glossary
+
+* **biological samples**: a cell suspension extracted from a single biological source, see [10x-Glossary](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/glossary)
 
 * **loading sample**: the sample loaded into a 10x lane, which is usually the biological sample but may be a hash of many biological samples
 
@@ -22,7 +24,8 @@ The relationships between:
 
 * **Sample-Level Outputs**: FBMs and VDJ data that has been re-organized into sample level data. This usually consists of copying sample level data out of the Processing Run, but for hashing runs requires manual de-hashing (post-Cell Ranger step).
 
-can be pretty complicated. Two examples from the documentation are shown below.
+# 10x Examples from Documentation
+Below are two experimental scenarios from 10x that have been paraphrased into our vocabulary (see [Glossary]). 
 
 ### 2 Samples, 2 Seq-Libraries, 1 Seq-Run/Flowcell, 2 FBMs
 [![Schematic of 2-sample, 1-seq-run workflow](https://support.10xgenomics.com/img/mkfastq-1.png "")](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/mkfastq#example_workflows)
@@ -201,6 +204,7 @@ BCL-2 -> FASTQs_GEX -> FBM -> FBM_S4
 | S6_GEX_C  | S6  | BCL-5  | CR-3  |  
 
 
+[Glossary]: #glossary
 [Feature Reference CSV]: #feature-reference-csv
 [Library Features Table]: #library-features-table
 [`Processing-Run`]: #processing-run-spreadsheets
