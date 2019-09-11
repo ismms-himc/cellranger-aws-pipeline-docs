@@ -33,6 +33,7 @@ Below are two experimental scenarios from 10x that have been paraphrased into ou
 
 ### 1 Sample, 1 Seq-Library, 2 Seq-Run, 1 FBM
 [![Schematic of 1-sample, 2-seq-run workflow](https://support.10xgenomics.com/img/mkfastq-2.png "")](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/mkfastq#example_workflows)
+
 > In this example, we have one 10x library sequenced on two flowcells. Note that after running cellranger mkfastq, we run a single instance of the pipeline on all the FASTQ files generated.
 
 The common scenario of sequencing the same 'sequencing library' more than once (in the above example) is the reason why the 10x technicians are moving towards a FASTQ-level organization (rather than a 'sequencing library' a.k.a. 'pooled library' level).
@@ -41,15 +42,23 @@ The common scenario of sequencing the same 'sequencing library' more than once (
 Below are 4 proposed spreadsheets for use by the 10X techs (not all experiment-related columns are shown).
 
 ## 1. Sample-Level Spreadsheet
-| Sample Name  | Loading Sample |  Sample Metadata ... | HTO | Expected Cell Number | Library Features |
+| Sample Name  | Loading Sample |  Reference Transcriptome | HTO | Expected Cell Number | Library Features |
 |---|---|---|---|---|---|
-| S1_GEX  | H1_GEX | ... | HTO-1  | 5000 | LF-1 |
+| S1_GEX  | H1_GEX | GRCh38 | HTO-1  | 3000 | LF-1 |
+| S2_GEX  | H1_GEX | GRCh38 | HTO-2  | 5000 | LF-1 |
+| S3_GEX  | H1_GEX | GRCh38 | HTO-3  | 7000 | LF-1 |
 
+### Columns
+- `Sample Name`: the name of the biological sample being processed (see [Glossary])
+- `Lading Sample`: the name of the sample being loaded into the 10x chip (see [Glossary])
 
-The rows in this spreadsheet are biological samples. A CITE-seq sequencing-library will, in general, contain ADTs and HTOs. <!-- Should there be an ADTs column? -->
-- `Sample Metadata`: will include necessary Cell Ranger information like organism, reference transcriptome, etc.
-- `Library`: link to the [Library Features Table] below.
+- `HTO`: the name of the hash tag oligo (HTO) that is used to label this sample
+- `Chemistry`: the name of the 10x kit chemistry being used (e.g. 5-prime)
+- `Refernce Transcriptome`: the reference transcriptome that reads are aligned to (very big files on AWS S3 buckets)
+- `Expected Cell Number`
+- `Library Features`: link to the [Library Features Table] below
 
+The rows in this spreadsheet are biological samples. A CITE-seq sequencing-library will, in general, contain ADTs and HTOs. 
 
 ## 2. FASTQ-Level Spreadsheet
 Laura is working on making a new "FASTQ-oriented" spreadsheet, but that nomenclature is tricky: we're not considering individual run- and read-level FASTQs, but are referring to such a group collectively as a "FASTQ" or "set of FASTQs".
