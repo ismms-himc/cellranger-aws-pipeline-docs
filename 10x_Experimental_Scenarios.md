@@ -2,7 +2,25 @@
 This document discusses proposed changes to the organization of spreadsheets used by HIMC techs who are running the assay, used by the computational team performing pre-processing, and used by Cell Ranger software (e.g. we should shift to the most general input spreadsheet as arguments). This document heavily references the [10x documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/mkfastq), documents the type of spreadsheets used by all parties, and contains several example spreadsheets that represent different experimental scenarios.
 
 # Background
-The relationship between **biological samples** (e.g. a cell suspension extracted from a single biological source, see [glossary](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/glossary)), **loading sample** (e.g. the sample loaded into a 10x lane, which may be a hash of many biological samples), **sequencing libraries** (e.g. the end product from a 10x chip lane), **pooled asmple** (e.g. a combination of indexed sequencing libraries for loading into sequencer), **BCL files** (e.g. contains sequencing information on set of multiplexed sequencing libraries), **FASTQs** (e.g. the product of de-multiplexing BCL files, sub-divided by lane and read), **Cell Ranger pre-processing runs** (e.g. can utilize several BCL files for a pooled run), and **Cell Ranger outputs** (e.g. Feature barcode matrix (FBM), TCR/BCR contigs) can be complicated. Two examples from the documentation are shown below.
+The relationships between: 
+
+* **biological samples**: a cell suspension extracted from a single biological source, see [glossary](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/glossary)) 
+
+* **loading sample**: the sample loaded into a 10x lane, which may be a hash of many biological samples)
+
+* **sequencing libraries**: the end product from a 10x chip lane
+
+* **pooled asmple**: a combination of indexed sequencing libraries for loading into sequencer
+
+* **BCL files**: contains sequencing information on set of multiplexed sequencing libraries
+
+* **FASTQs**: the product of de-multiplexing BCL files, sub-divided by lane and read
+
+* **Cell Ranger pre-processing runs**: can utilize several BCL files for a pooled run
+
+* **Cell Ranger outputs**: Feature barcode matrix (FBM) which can be the product of several sequencing runs and BCL files, TCR/BCR contigs) 
+
+can be pretty complicated. Two examples from the documentation are shown below.
 
 ### 2 Samples, 2 Seq-Libraries, 1 Seq-Run/Flowcell, 2 FBMs
 [![Schematic of 2-sample, 1-seq-run workflow](https://support.10xgenomics.com/img/mkfastq-1.png "")](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/mkfastq#example_workflows)
