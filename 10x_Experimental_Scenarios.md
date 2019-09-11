@@ -48,9 +48,9 @@ Below are 4 proposed spreadsheets for use by the 10X techs (not all experiment-r
 ## 1. Sample-Level Spreadsheet
 | Sample Name | Loading Sample | Expected Cell Number | Reference Transcriptome | Chemistry | HTO | Library Features |
 |---|---|---|---|---|---|---|
-| S1_GEX  | H1_GEX | 3000 | GRCh38 | 3-prime | HTO-1 | LF-1 |
-| S2_GEX  | H1_GEX | 5000 | GRCh38 | 3-prime | HTO-2 | LF-1 |
-| S3_GEX  | H1_GEX | 7000 | GRCh38 | 3-prime | HTO-3 | LF-1 |
+| S1  | H1 | 3000 | GRCh38 | 3-prime | HTO-1 | LF-1 |
+| S2  | H1 | 5000 | GRCh38 | 3-prime | HTO-2 | LF-1 |
+| S3  | H1 | 7000 | GRCh38 | 3-prime | HTO-3 | LF-1 |
 
 ### Columns
 - `Sample Name`: the name of the biological sample being processed (see [Glossary])
@@ -67,27 +67,28 @@ This spreadsheet shows three biological samples that are being hashed into a sin
 ## 2. FASTQ-Level Spreadsheet
 This is the Seq-Run-FASTQ Set level spreadsheet (see [Glossary]) that 10x techs will use to keep track of FASTQs produced from a sequencing run of a given pooled library. 
 
-The nomenclature is tricky: we're not considering individual run- and read-level FASTQs, but are referring to such a group collectively as a "FASTQ" or "set of FASTQs".
-
 | FASTQs  | Loading Sample | Hashed Sample | 10x Lane ID | Library Type | BCL Run ID  | Processing Run  |   
 |---|---|---|---|---|---|---|
-| H1_GEX_BCL-1 | H1_GEX  | False  | 1  | GEX  | BCL-1 | CR-1 |
+| H1_XL-1_BCL-1_GEX | H1 | True  | XL-1  | GEX  | BCL-1 | CR-1 |
+| H1_XL-1_BCL-1_ADT | H1 | True  | XL-1  | ADT  | BCL-1 | CR-1 |
+| H1_XL-1_BCL-1_HTO | H1 | True  | XL-1  | HTO  | BCL-1 | CR-1 |
 
 ### Columns
-- `FASTQs`: name of the "set of FASTQs" that will be fed to a single `cellranger count` run.
-  - Composed of the `Loading Sample` name appended with the `BCL Run ID`.
-  - Allows us to handle the common scenario where the same sequencing library (e.g. tube of liquid that can be aliquoted from) is sequenced more than once.
-- `Loading Sample`: name of the sample that is loaded into a 10x chip lane (can consist of several samples via hashing).
+- `FASTQs`: name of the Seq-Run-FASTQ Set that is the result of a single sequencing run.
+  - Composed of the `Loading Sample` name, the `10x Lane ID`, the `BCL Run ID`, and `Library Type`
+  - Tracking the `BCL Run ID` allows us to handle the common scenario where the same sequencing pool (e.g. tube of liquid) is sequenced more than once (more than one aliquot is taken from the tube and run on the sequencer).
+- `Loading Sample`: name of the sample that is loaded into a 10x chip lane (can consist of several biolofical samples via hashing).
 - `Hashed Sample`: True/False, indicates whether hashing has been done (will be redundant with the `Loading Sample` naming convention).
 - `10x Lane ID`: lane number a sample is loaded into
-  - necessary for situations where the same sample is loaded into several lanes
-  - (becomes part of the FASTQs' names in that case)
+  - necessary for situations where the same sample is loaded into several lanes (to measure more cells from a sample)
+  - becomes part of the FASTQs' names
 - `Library Type`: type of library being prepared (e.g. GEX, ADT)
-  - Chemistry and version may or may not be included, e.g. GEX_5-prime.
-- `BCL Run ID`: name of the BCL file the FASTQs will be put into.
-- `Processing Run`: name of the ["processing run"][`Processing-Run`] that the data is being organized under (a processing run consists of the jobs necessary to convert BCL inputs into FBM and TCR/VDJ outputs).
+  - **we haven't decided whether chemistry and version may or may not be included, e.g. GEX_5-prime**
+- `BCL Run ID`: name of the BCL file the FASTQs will be put into **or** some short-hand ID
+- `Processing Run`: the name of the ["processing run"][`Processing-Run`] (see [Glossary]) that the data is being organized under (e.g. all jobs necessary to convert BCL(s) into FBM(s) and TCR/VDJ output(s)).
 
 ### Explanation of this spreadsheet
+
 
 ## 3. Library Features Table
 | Library | Feature | Index |
