@@ -230,10 +230,39 @@ This is the same as the [Feature Reference CSV] that is produced by the 10x tech
 # Output CSVs
 A single processing run will produce (at least) two output CSVs: 1) `Processing Status` and 2) `FASTQ meta-data`
 
-## Processing-Run Status CSV
+## 1. Processing-Run Status CSV
 
+| Job  | Status  | Output Path  | Download Link  |   
+|---|---|---|---|
+| mkfastq_BCL-1  | Finished  | s3/path/to/fastqs  | pre-signed-URL  | 
+| count_S1  | Pending  | s3/path/to/fbm  | pre-signed-URL  | 
 
-## Processing-Run Meta-Data CSV
+### Columns
+- `Job`: the name of the job
+  - for `mkfastq` the name will be `mkfastq` and the name of the bcl file
+  - for `count` the name will be `count` and the sample name. Since we can combine FASTQ data from multiple sequencing runs into a single FBM for a single sample (e.g. the `FBM-FASTQ Set`) we will name this job based on the sample name.
+  - **need to decide on VDJ convension**
+- `Status`: the current status of the job 
+  - can be: `Pending`, `In-Progress`, `Finished`, or `Failed` 
+- `Output Path`: path on the S3 bucket to the outputs of the job
+- `Download Link`: a pre-signed URL for downloading the data off S3 buckets
+
+### Explanation of this spreadsheet
+This spreadsheet shows the status of the jobs associated with a single Processing-Run. This spreadsheet serves three purposes: 
+
+1) Provide the 10x techs and computational teams with a simple way of checking the status of a Processing Run
+2) Provide the pipeline a way to access the state of the Processing Run. For instance, it is a common scenario to receive multiple BCLs from the same sample (e.g. multiple sequencing runs) and we will need to start processing (e.g. get the number of reads from the FASTQs) before we obtain all BCLs. We would like to be able to add additional BCLs to a Processing-Run bucket and tell the Processing-Run job to complete the necesssary jobs that are available to complete. 
+
+## 2. Processing-Run FASTQ Meta-Data CSV
+
+We can produce this spreadsheet as a modified copy of the [Custom Sheet CSV] that is used as input to a Processing-Run. We can append FASTQ meta-data such as reads-per-cell. 
+
+**need to document this**
+
+## 3. Processing-Run Sample Meta-Data CSV
+This will give meta-data on loading sample level data. For a hashed sample, we will have to wait until manual de-hashing (not documented here) is run to get the individual samples from the hashed loading sample - otherwise a loading sample is a single biological sample. 
+
+<!-- Nick is currently here --> 
 
 # Enumeration of Scenarios
 
@@ -289,8 +318,10 @@ BCL-2 -> FASTQs_GEX -> FBM -> FBM_S4
 [`Processing-Run`]: #processing-run-spreadsheets
 [10X Sample Sheet CSV]: #1-sample-sheet-csv
 [10X Libraries CSV]: #2-libraries-csv
-[Processing-Run Status CSV]: #processing-run-status-csv
-[Processing-Run Meta-Data CSV]: #processing-run-meta-data-csv
+[Processing-Run Status CSV]: #1-processing-run-status-csv
+[Processing-Run FASTQ Meta-Data CSV]: #2-processing-run-fastq-meta-data-csv
+[Processing-Run Sample Meta-Data CSV]: #3-processing-run-sample-meta-data-csv
 [Sample-Level Spreadsheet]: #1-sample-Level-spreadsheet
 [FASTQ-Level Spreadsheet]: #2-fastq-Level-spreadsheet
 [Features Table]: #4-features-table
+[Custom Sheet CSV]: #1-custom-sheet-csv
