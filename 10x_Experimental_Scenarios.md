@@ -71,15 +71,15 @@ This is the Seq-Run-FASTQ Set level spreadsheet (see [Glossary]) that 10x techs 
 | FASTQs  | Loading Sample | Sample Index | Hashed Sample | 10x Lane ID | Library Type | BCL Run ID  | Processing Run  | Library Features |
 |---|---|---|---|---|---|---|---|---|
 | H1_XL-1_BCL-1_GEX | H1 | SI-GA-A3 | True  | XL-1  | GEX  | BCL-1 | CR-1 | LF-1 |
-| H1_XL-1_BCL-1_ADT | H1 | ADT-Index | True  | XL-1  | ADT  | BCL-1 | CR-1 | LF-1 | 
-| H1_XL-1_BCL-1_HTO | H1 | HTO-Index | True  | XL-1  | HTO  | BCL-1 | CR-1 | LF-1 |
+| H1_XL-1_BCL-1_ADT | H1 | RPI-1 | True  | XL-1  | ADT  | BCL-1 | CR-1 | LF-1 | 
+| H1_XL-1_BCL-1_HTO | H1 | D700-1 | True  | XL-1  | HTO  | BCL-1 | CR-1 | LF-1 |
 
 ### Columns
 - `FASTQs`: name of the Seq-Run-FASTQ Set that is the result of a single sequencing run.
   - Composed of the `Loading Sample` name, the `10x Lane ID`, the `BCL Run ID`, and `Library Type`
   - Tracking the `BCL Run ID` allows us to handle the common scenario where the same sequencing pool (e.g. tube of liquid) is sequenced more than once (more than one aliquot is taken from the tube and run on the sequencer).
 - `Loading Sample`: name of the sample that is loaded into a 10x chip lane (can consist of several biolofical samples via hashing).
-- `Sample Index`: the index that is used to label the sequencing library when pooling the library into a pooled library
+- `Sample Index`: the index that is used to label the sequencing library when pooling the library into a pooled library. 10x GEX libraries have index names like `S1-GA-A3`; ADT have `RPI-1`, and HTO have `D700-1`
 - `Hashed Sample`: True/False, indicates whether hashing has been done (will be redundant with the `Loading Sample` naming convention).
 - `10x Lane ID`: lane number a sample is loaded into
   - necessary for situations where the same sample is loaded into several lanes (to measure more cells from a sample)
@@ -147,8 +147,8 @@ A `Processing-Run` takes as input two spreadsheets (produced by the 10x techs) a
 | Lane| Sample | Index | Library Type | Reference Transcriptome | Number of Cells | Chemistry |
 |---|---|---|---|---|---|---|
 | 1  | H1_XL-1_BCL-1_GEX | SI-GA-A3 | Gene Expression | GRCh38 | 18000 | 5-prime_V2 |
-| 2  | H1_XL-1_BCL-1_ADT | ADT-index | Custom | GRCh38 | 18000 | 5-prime_V2 |
-| 3  | H1_XL-1_BCL-1_HTO | HTO-index | Custom | GRCh38 | 18000 | 5-prime_V2 |
+| 2  | H1_XL-1_BCL-1_ADT | RPI-1 | Custom | GRCh38 | 18000 | 5-prime_V2 |
+| 3  | H1_XL-1_BCL-1_HTO | D700-1 | Custom | GRCh38 | 18000 | 5-prime_V2 |
 
 This CSV will be used to construct [the sample sheet CSV input for `mkfastq`][10X Sample Sheet CSV] as well as [the libraries CSV for `count`][10X Libraries CSV]. The last two columns will be used to construct additional arguments for `cellranger count`.
 
