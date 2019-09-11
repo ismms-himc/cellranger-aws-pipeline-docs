@@ -6,19 +6,19 @@ The relationships between:
 
 * **biological samples**: a cell suspension extracted from a single biological source, see [glossary](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/glossary)) 
 
-* **loading sample**: the sample loaded into a 10x lane, which may be a hash of many biological samples)
+* **loading sample**: the sample loaded into a 10x lane, which is usually the biological sample but may be a hash of many biological samples
 
 * **sequencing libraries**: the end product from a 10x chip lane
 
-* **pooled asmple**: a combination of indexed sequencing libraries for loading into sequencer
+* **pooled sample**: a combination of several indexed sequencing libraries for loading into sequencer and obtaining a BCL file
 
 * **BCL files**: contains sequencing information on set of multiplexed sequencing libraries
 
 * **FASTQs**: the product of de-multiplexing BCL files, sub-divided by lane and read
 
-* **Cell Ranger pre-processing runs**: can utilize several BCL files for a pooled run
+* **Cell Ranger pre-processing runs**: can take as input one or more BCL files as well as HIMC's Proecssing Run CSV files
 
-* **Cell Ranger outputs**: Feature barcode matrix (FBM) which can be the product of several sequencing runs and BCL files, TCR/BCR contigs) 
+* **Cell Ranger outputs**: Feature barcode matrix (FBM) which can be the product of several sequencing runs and BCL files, TCR/BCR contigs
 
 can be pretty complicated. Two examples from the documentation are shown below.
 
