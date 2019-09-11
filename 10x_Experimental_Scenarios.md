@@ -15,7 +15,11 @@ The relationships between components in 10x single cell assay can be complicated
 
 * **BCL files**: contains sequencing information on a pooled sample (e.g. set of multiplexed sequencing libraries)
 
-* **FASTQs**: the product of de-multiplexing BCL files, sub-divided by lane and read
+* **FASTQs**: the products of de-multiplexing BCL files
+
+* **Seq-Run-FASTQ Set**: a set of FASTQs that have been de-multiplexed from a single BCL file that give data for a single indexed sequencing library. This set consists of lane- and read-specific FASTQs. 
+
+* **FBM-FASTQ Set**: a set of FASTQs that will be used to generate a single FBM (feature barcode matrix). If the same pooled library is sequenced multiple times (producing multiple BCL files) we will need to combine multiple Seq-Run-FASTQ sets (see above) into a single FBM.
 
 * **Processing-Run**: a set of cellranger mkfastq and count runs that take as input: 1) one or more BCL files and 2) Processing-Run Input CSV files. The Processing-Run produces the following outputs: 1) FASTQs, 2) FBMs (feature barcode matrices) and if applicable TCR/BCR data, 3) [Processing-Run Status CSV] which lists out all jobs in the Processing-Run as well as where to find outputs 4) [Processing-Run Meta-Data CSV] relevant metadata (still being sorted out) for 10x techs.
 
@@ -57,18 +61,19 @@ Below are 4 proposed spreadsheets for use by the 10X techs (not all experiment-r
 - `HTO`: the name of the hash tag oligo (HTO) that is used to label this sample, the value will be `-` for a non-hashed sample
 - `Library Features`: this links a sample to its list of features in the [Library Features Table]. The value is `-` if we are not measuring any ADTs or HTOs
 
-### Explanation of this Spreadsheet
+### Explanation of this spreadsheet
 This spreadsheet shows three biological samples that are being hashed into a single loading sample (`H1_GEX`). Each sample is labeled with a different HTO (e.g. `HTO-1`) and share a common list of `Library Features` (e.g. all ADTs and HTOs used in the hashed `Loading Sample` `H1_GEX`).
 
 ## 2. FASTQ-Level Spreadsheet
-Laura is working on making a new "FASTQ-oriented" spreadsheet, but that nomenclature is tricky: we're not considering individual run- and read-level FASTQs, but are referring to such a group collectively as a "FASTQ" or "set of FASTQs".
+This is the Seq-Run-FASTQ Set level spreadsheet (see [Glossary]) that 10x techs will use to keep track of FASTQs produced from a sequencing run of a given pooled library. 
 
-Below is the in-progress outline for this spreadsheet, along with some example configurations:
+The nomenclature is tricky: we're not considering individual run- and read-level FASTQs, but are referring to such a group collectively as a "FASTQ" or "set of FASTQs".
 
 | FASTQs  | Loading Sample | Hashed Sample | 10x Lane ID | Library Type | BCL Run ID  | Processing Run  |   
 |---|---|---|---|---|---|---|
 | H1_GEX_BCL-1 | H1_GEX  | False  | 1  | GEX  | BCL-1 | CR-1 |
 
+### Columns
 - `FASTQs`: name of the "set of FASTQs" that will be fed to a single `cellranger count` run.
   - Composed of the `Loading Sample` name appended with the `BCL Run ID`.
   - Allows us to handle the common scenario where the same sequencing library (e.g. tube of liquid that can be aliquoted from) is sequenced more than once.
@@ -82,6 +87,7 @@ Below is the in-progress outline for this spreadsheet, along with some example c
 - `BCL Run ID`: name of the BCL file the FASTQs will be put into.
 - `Processing Run`: name of the ["processing run"][`Processing-Run`] that the data is being organized under (a processing run consists of the jobs necessary to convert BCL inputs into FBM and TCR/VDJ outputs).
 
+### Explanation of this spreadsheet
 
 ## 3. Library Features Table
 | Library | Feature | Index |
