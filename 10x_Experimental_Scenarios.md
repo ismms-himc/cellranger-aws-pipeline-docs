@@ -26,12 +26,12 @@ The relationships between components in 10x single cell assay can be complicated
 # 10x Examples from Documentation
 Below are two experimental scenarios from 10x that have been paraphrased into our vocabulary (see [Glossary]). 
 
-### 2 Samples, 2 Seq-Libraries, 1 Seq-Run/Flowcell, 2 FBMs
+### 2 Samples, 2 Seq-Libraries, 1 Seq-Run, 2 FBMs
 [![Schematic of 2-sample, 1-seq-run workflow](https://support.10xgenomics.com/img/mkfastq-1.png "")](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/mkfastq#example_workflows)
 
 > In this example, we have two 10x libraries (each processed through a separate Chromium chip channel) that are multiplexed on a single flowcell. Note that after running `cellranger mkfastq`, we run a separate instance of the pipeline on each library
 
-### 1 Sample, 1 Seq-Library, 2 Seq-Run/Flowcells, 1 FBM
+### 1 Sample, 1 Seq-Library, 2 Seq-Run, 1 FBM
 [![Schematic of 1-sample, 2-seq-run workflow](https://support.10xgenomics.com/img/mkfastq-2.png "")](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/mkfastq#example_workflows)
 > In this example, we have one 10x library sequenced on two flowcells. Note that after running cellranger mkfastq, we run a single instance of the pipeline on all the FASTQ files generated.
 
@@ -45,11 +45,11 @@ Below are 4 proposed spreadsheets for use by the 10X techs (not all experiment-r
 |---|---|---|---|---|---|
 | S1_GEX  | H1_GEX | ... | HTO-1  | 5000 | LF-1 |
 
-<!-- Difference b/t Sample name and Loading sample? -->
-A CITE-seq sequencing-library will, in general, contain ADTs and HTOs. <!-- Should there be an ADTs column? -->
+
+The rows in this spreadsheet are biological samples. A CITE-seq sequencing-library will, in general, contain ADTs and HTOs. <!-- Should there be an ADTs column? -->
 - `Sample Metadata`: will include necessary Cell Ranger information like organism, reference transcriptome, etc.
 - `Library`: link to the [Library Features Table] below.
-<!-- other column descriptions? -->
+
 
 ## 2. FASTQ-Level Spreadsheet
 Laura is working on making a new "FASTQ-oriented" spreadsheet, but that nomenclature is tricky: we're not considering individual run- and read-level FASTQs, but are referring to such a group collectively as a "FASTQ" or "set of FASTQs".
