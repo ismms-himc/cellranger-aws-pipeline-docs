@@ -221,7 +221,7 @@ BCL-2 -> FASTQs_GEX -> FBM -> FBM_S4
 
 [Glossary]: #glossary
 [Feature Reference CSV]: #feature-reference-csv
-[Library Features Table]: #library-features-table
+[Library Features Table]: #3-library-features-table
 [`Processing-Run`]: #processing-run-spreadsheets
 [10X Sample Sheet CSV]: #sample-sheet-csv
 [10X Libraries CSV]: #libraries-csv
