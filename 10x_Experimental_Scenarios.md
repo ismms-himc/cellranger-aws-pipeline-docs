@@ -1,10 +1,9 @@
 # 10x Experimental Scenarios
 This document discusses proposed changes to the variou spreadsheets used by HIMC techs who are running the assay, the computational team performing pre-processing, and the Cell Ranger software (e.g. we should shift to the most general input spreadsheet as arguments). This document heavily references the [10x documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/mkfastq), defines schemas for the various spreadsheets used by all parties, and contains several example spreadsheets that represent different common experimental scenarios.
 
-# Background
-The relationships between components in 10x single cell assay can be complicated (see [Glossary] Below)
-
 # Glossary
+
+The relationships between components in 10x single cell assay can be complicated. As a first step, we define a common vocabulary for ourselves below. We have ordered entities based on their natural progression during the experiment and data-processing steps.  
 
 * **biological samples**: a cell suspension extracted from a single biological source, see [10x-Glossary](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/glossary)
 
@@ -12,13 +11,13 @@ The relationships between components in 10x single cell assay can be complicated
 
 * **sequencing libraries**: the end product from a 10x chip lane
 
-* **pooled sample**: a combination of several indexed sequencing libraries for loading into a sequencer and obtaining a BCL file
+* **pooled sample**: a combination of several indexed sequencing libraries (from several 10x chip lanes) for loading into a sequencer and obtaining a BCL file
 
-* **BCL files**: contains sequencing information on set of multiplexed sequencing libraries
+* **BCL files**: contains sequencing information on a pooled sample (e.g. set of multiplexed sequencing libraries)
 
 * **FASTQs**: the product of de-multiplexing BCL files, sub-divided by lane and read
 
-* **Processing-Run**: a set of cellranger mkfastq and count runs that take as input: 1) one or more BCL files and 2) HIMC's Proecssing-Run Input CSV files; and produces as output: 1) FASTQs, 2) FBMs (feature barcode matrices) and if applicable TCR/BCR data, 3) Processing-Run Status CSV which lists out all jobs in the Processing-Run as well as where to find outputs 4) Processing-Run Meta-Data CSV relevant metadata (still being sorted out) for 10x techs.
+* **Processing-Run**: a set of cellranger mkfastq and count runs that take as input: 1) one or more BCL files and 2) Processing-Run Input CSV files; and produces as output: 1) FASTQs, 2) FBMs (feature barcode matrices) and if applicable TCR/BCR data, 3) Processing-Run Status CSV which lists out all jobs in the Processing-Run as well as where to find outputs 4) Processing-Run Meta-Data CSV relevant metadata (still being sorted out) for 10x techs.
 
 * **Cell Ranger outputs**: Feature barcode matrix (FBM) which can be the product of several sequencing runs and BCL files, TCR/BCR contigs
 
