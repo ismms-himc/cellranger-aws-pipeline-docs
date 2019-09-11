@@ -10,15 +10,17 @@ The relationships between:
 
 * **sequencing libraries**: the end product from a 10x chip lane
 
-* **pooled sample**: a combination of several indexed sequencing libraries for loading into sequencer and obtaining a BCL file
+* **pooled sample**: a combination of several indexed sequencing libraries for loading into a sequencer and obtaining a BCL file
 
 * **BCL files**: contains sequencing information on set of multiplexed sequencing libraries
 
 * **FASTQs**: the product of de-multiplexing BCL files, sub-divided by lane and read
 
-* **Cell Ranger pre-processing runs**: can take as input one or more BCL files as well as HIMC's Proecssing Run CSV files
+* **Processing-Run**: a set of cellranger mkfastq and count runs that take as input: 1) one or more BCL files and 2) HIMC's Proecssing-Run Input CSV files; and produces as output: 1) FASTQs, 2) FBMs (feature barcode matrices) and if applicable TCR/BCR data, 3) Processing-Run Status CSV which lists out all jobs in the Processing-Run as well as where to find outputs 4) Processing-Run Meta-Data CSV relevant metadata (still being sorted out) for 10x techs.
 
 * **Cell Ranger outputs**: Feature barcode matrix (FBM) which can be the product of several sequencing runs and BCL files, TCR/BCR contigs
+
+* **Sample-Level Outputs**: FBMs and VDJ data that has been re-organized into sample level data. This usually consists of copying sample level data out of the Processing Run, but for hashing runs requires manual de-hashing (post-Cell Ranger step).
 
 can be pretty complicated. Two examples from the documentation are shown below.
 
