@@ -6,31 +6,6 @@ This document proposes schemas and vocabulary to be used across:
 
 Below are schemas and example data for various spreadsheets used by all parties, and [a glossary](#glossary) of relevant terms. This document heavily references the [10x documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/mkfastq) as well.
 
-# Glossary
-
-The relationships between components in 10x single cell assay can be complicated. As a first step, we define a common vocabulary for ourselves below. We have ordered entities based on their natural progression during the experiment and data-processing steps.  
-
-* **biological samples**: a cell suspension extracted from a single biological source, see [10x-Glossary](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/glossary)
-
-* **loading sample**: the sample loaded into a 10x lane, which is usually the biological sample but may be a hash of many biological samples
-
-* **sequencing libraries**: the end product(s) from a 10x chip lane. A single 10x lane can produce a single (e.g. GEX) or multiple sequencing libraries (e.g. GEX and VDJ; or GEX, ADT, and HTO). These sequencing libraries will either be pooled into a single pooled library and sequenced or run on separate sequencing runs (e.g. as is the case for VDJ and GEX which require different sequencing conditions)
-
-* **pooled library**: a combination of several indexed sequencing libraries (from several 10x chip lanes) for loading into a sequencer and obtaining a BCL file
-
-* **BCL files**: contains sequencing information on a pooled library (e.g. set of multiplexed sequencing libraries)
-
-* **FASTQs**: the products of de-multiplexing BCL files
-
-* **Seq-Run-FASTQ Set**: a set of FASTQs that have been de-multiplexed from a single BCL file that give data for a single indexed sequencing library (e.g. a single GEX or ADT library). This set consists of lane- and read-specific FASTQs. 
-
-* **FBM-FASTQ Set**: a set of FASTQs that will be used to generate a single FBM (feature barcode matrix). If the same pooled library is sequenced multiple times (producing multiple BCL files) we will need to combine multiple Seq-Run-FASTQ sets (see above) into a single FBM.
-
-* **Processing-Run**: a set of cellranger mkfastq and count runs that take as input: 1) one or more BCL files and 2) Processing-Run Input CSV files. The Processing-Run produces the following outputs: 1) FASTQs, 2) FBMs (feature barcode matrices) and if applicable TCR/BCR data, 3) [Processing-Run Status CSV] which lists out all jobs in the Processing-Run as well as where to find outputs 4) [Processing-Run Meta-Data CSV] relevant metadata (still being sorted out) for 10x techs.
-
-* **Cell Ranger outputs**: Feature barcode matrix (FBM) which can be the product of several sequencing runs and BCL files, TCR/BCR contigs
-
-* **Sample-Level Outputs**: FBMs and VDJ data that has been re-organized into sample level data. This usually consists of copying sample level data out of the Processing Run, but for hashing runs requires manual de-hashing (post-Cell Ranger step).
 
 # 10x Examples from Documentation
 Below are two experimental scenarios from 10x that have been paraphrased into our vocabulary (see [Glossary]). 
@@ -313,7 +288,31 @@ BCL-2 -> FASTQs_GEX -> FBM -> FBM_S4
 | S6_GEX_B  | S6  | BCL-4  | CR-3  |   
 | S6_GEX_C  | S6  | BCL-5  | CR-3  |  
 
+# Glossary
 
+The relationships between components in 10x single cell assay can be complicated. As a first step, we define a common vocabulary for ourselves below. We have ordered entities based on their natural progression during the experiment and data-processing steps.  
+
+* **biological samples**: a cell suspension extracted from a single biological source, see [10x-Glossary](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/glossary)
+
+* **loading sample**: the sample loaded into a 10x lane, which is usually the biological sample but may be a hash of many biological samples
+
+* **sequencing libraries**: the end product(s) from a 10x chip lane. A single 10x lane can produce a single (e.g. GEX) or multiple sequencing libraries (e.g. GEX and VDJ; or GEX, ADT, and HTO). These sequencing libraries will either be pooled into a single pooled library and sequenced or run on separate sequencing runs (e.g. as is the case for VDJ and GEX which require different sequencing conditions)
+
+* **pooled library**: a combination of several indexed sequencing libraries (from several 10x chip lanes) for loading into a sequencer and obtaining a BCL file
+
+* **BCL files**: contains sequencing information on a pooled library (e.g. set of multiplexed sequencing libraries)
+
+* **FASTQs**: the products of de-multiplexing BCL files
+
+* **Seq-Run-FASTQ Set**: a set of FASTQs that have been de-multiplexed from a single BCL file that give data for a single indexed sequencing library (e.g. a single GEX or ADT library). This set consists of lane- and read-specific FASTQs. 
+
+* **FBM-FASTQ Set**: a set of FASTQs that will be used to generate a single FBM (feature barcode matrix). If the same pooled library is sequenced multiple times (producing multiple BCL files) we will need to combine multiple Seq-Run-FASTQ sets (see above) into a single FBM.
+
+* **Processing-Run**: a set of cellranger mkfastq and count runs that take as input: 1) one or more BCL files and 2) Processing-Run Input CSV files. The Processing-Run produces the following outputs: 1) FASTQs, 2) FBMs (feature barcode matrices) and if applicable TCR/BCR data, 3) [Processing-Run Status CSV] which lists out all jobs in the Processing-Run as well as where to find outputs 4) [Processing-Run Meta-Data CSV] relevant metadata (still being sorted out) for 10x techs.
+
+* **Cell Ranger outputs**: Feature barcode matrix (FBM) which can be the product of several sequencing runs and BCL files, TCR/BCR contigs
+
+* **Sample-Level Outputs**: FBMs and VDJ data that has been re-organized into sample level data. This usually consists of copying sample level data out of the Processing Run, but for hashing runs requires manual de-hashing (post-Cell Ranger step).
 
 [Glossary]: #glossary
 [10x Technician Spreadsheets]: #10x-technician-spreadsheets
