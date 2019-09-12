@@ -3,9 +3,9 @@ This document proposes schemas and vocabulary to be used across:
 * spreadsheets used by HIMC techs running assays
 * the computational team's pre-processing pipelines
 * the Cell Ranger software
+* spreadsheets sent to users with download links
 
 Below are schemas and example data for various spreadsheets used by all parties, and [a glossary](#glossary) of relevant terms. This document heavily references the [10x documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/mkfastq) as well.
-
 
 # Examples from 10x Documentation
 Below are two experimental scenarios from 10x that have been paraphrased into our vocabulary (see [Glossary]). 
