@@ -45,7 +45,10 @@ Below are 4 proposed spreadsheets for use by the 10X techs (not all experiment-r
 ### Explanation of this spreadsheet
 This spreadsheet shows four biological samples that are being hashed into a single loading sample (`H1_GEX`). Each sample is labeled with a different HTO (e.g. `HTO-1`) and share a common list of `Library Features` (e.g. all ADTs and HTOs used in the hashed `Loading Sample` `H1_GEX`).
 
-## 2. FASTQ-Level Spreadsheet
+## 2. Library-Level Spreadsheet
+The 10x techs are concerned with tracking library-level information. But we will not document the spreadsheet. In our example the three FASTQs are generated from the three libraries (GEX, ADT, HTO) after a single sequencing run. 
+
+## 3. FASTQ-Level Spreadsheet
 This is the Seq-Run-FASTQ Set level spreadsheet (see [Glossary]) that 10x techs will use to keep track of FASTQs produced from a sequencing run of a given pooled library. 
 
 | FASTQs  | Loading Sample | Sample Index | Hashed Sample | 10x Lane ID | Library Type | BCL Run ID  | Processing Run  | Library Features |
@@ -74,7 +77,7 @@ This is the Seq-Run-FASTQ Set level spreadsheet (see [Glossary]) that 10x techs 
 ### Explanation of this spreadsheet
 This spreadsheet shows three Seq-Run-FASTQ Sets that are obtained from processing the outputs from a single 10x chip lane (e.g. `XL-1`) to generate three sequencing libraries (`GEX`, `ADT`, and `HTO`), merging into a pooled library, sequencing, and then de-multiplexing the BCL file. Note, that the four biological samples from the [Sample-Level Spreadsheet] are not indicated in this table - this sample-level information will only be obtained after de-hashing after the Processing-Run.
 
-## 3. Library Features Table
+## 4. Library Features Table
 | Library Features | HIMC Feature Name | Oligo ID | Labeled Sample |
 |---|---|---|---|
 | LF-1 | HTO-1_H-101_3p_Lot-# | H-101 | S1 |
@@ -100,7 +103,7 @@ This spreadsheet shows three Seq-Run-FASTQ Sets that are obtained from processin
 This spreadsheet shows the list of `Library Features` that are associated with a loading sample (e.g. `H1`) and its subsequent sequencing libraries (`GEX`, `ADT`, `HTO`). This list is linked to specific samples and libraries in the two spreadsheets: [Sample-Level Spreadsheet] and [FASTQ-Level Spreadsheet].
 
 
-## 4. Features Table
+## 5. Features Table
 | HIMC Feature Name | Chemistry | Oligo ID | Oligo Sequence |  
 |---|---|---|---|
 | HTO-1_H-101_3p_Lot-# | 3p | H-101 | ACTG |  
