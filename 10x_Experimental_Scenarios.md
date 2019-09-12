@@ -149,13 +149,13 @@ This spreadsheet contains all features being used by the HIMC and each `HIMC Fea
 # Processing-Run CSVs
 A `Processing-Run` takes as input two spreadsheets (produced by the 10x techs using value-lookups) and one or more BCLs. The two spreadsheets are similar to the required spreadsheets that `cellranger mkfastq` and `count` take as inputs, but also contain additional information (e.g. expected cell count) as well as an implicit layout of running all jobs required to complete a  `Processing-Run` set of jobs.
 
-## 1. Custom Sheet CSV
+## 1. HIMC Sample Sheet
 
-| Lane| Sample | Index Name | Index Oligo | Library Type | Reference Transcriptome | Number of Cells | Chemistry |
-|---|---|---|---|---|---|---|---|
-| 1  | H1_XL-1_BCL-1_GEX | SI-GA-A3 | `-` | Gene Expression | GRCh38 | 18000 | 5-prime_V2 |
-| 2  | H1_XL-1_BCL-1_ADT | RPI-1 | ACTGTT | Custom | GRCh38 | 18000 | 5-prime_V2 |
-| 3  | H1_XL-1_BCL-1_HTO | D700-1 | ACTGTTGG | Custom | GRCh38 | 18000 | 5-prime_V2 |
+| Lane| Sample | Index Name | Index Oligo | Library Type | Reference Transcriptome | Number of Cells | Chemistry | Library Features |
+|---|---|---|---|---|---|---|---|---|
+| 1  | H1_XL-1_BCL-1_GEX | SI-GA-A3 | `-` | Gene Expression | GRCh38 | 18000 | 5-prime_V2 | LF-1 |
+| 2  | H1_XL-1_BCL-1_ADT | RPI-1 | ACTGTT | Custom | GRCh38 | 18000 | 5-prime_V2 | LF-1 |
+| 3  | H1_XL-1_BCL-1_HTO | D700-1 | ACTGTTGG | Custom | GRCh38 | 18000 | 5-prime_V2 | LF-1 |
 
 ### Columns
 - `Lane`: the 10x chip lane **I think we can just increment this**
@@ -171,19 +171,20 @@ A `Processing-Run` takes as input two spreadsheets (produced by the 10x techs us
 
 This CSV will be used to construct both [the sample sheet CSV input for `mkfastq`][10X Sample Sheet CSV] and [the libraries CSV for `count`][10X Libraries CSV]. The `Reference Transcriptome` and `Number of Cells` columns will be used to construct additional arguments for `cellranger count`. Additionally, the `Index Name` value will be used for GEX libraries, while the `Index Oligo` value will be used for Custom libraries (ADT/HTO).
 
-## 2. Feature Reference CSV 
+## 2. HIMC Feature Reference CSV 
 
-| id | name | read | pattern | sequence | feature_type | 
-|---|---|---|---|---|---|
-| HTO-1_H-101_3p_Lot-# | HTO-1 | R2  | 5PNNNNNNNNNN(BC)NNNNNNNNN  | AACAAGACCCTTGAG  | Custom  |  
-| HTO-2_H-101_3p_Lot-# | HTO-2 | R2  | 5PNNNNNNNNNN(BC)NNNNNNNNN  | CCCTTGAGAACAAGA  | Custom  |  
-| HTO-3_H-101_3p_Lot-# | HTO-3 | R2  | 5PNNNNNNNNNN(BC)NNNNNNNNN  | AACATTGAGACCCAG  | Custom  |  
-| HTO-4_H-101_3p_Lot-# | HTO-4 | R2  | 5PNNNNNNNNNN(BC)NNNNNNNNN  | TGAAACAAGACCCTG  | Custom  |  
-|   CD3_A-101_3p_Lot-# |   CD3 | R2  | 5PNNNNNNNNNN(BC)NNNNNNNNN  | AACAACTTGAGGACC  | Custom  |  
-|   CD4_A-102_3p_Lot-# |   CD4 | R2  | 5PNNNNNNNNNN(BC)NNNNNNNNN  | GGACCAAACAACTTG  | Custom  |  
-|   CD8_A-103_3p_Lot-# |   CD8 | R2  | 5PNNNNNNNNNN(BC)NNNNNNNNN  | GGACCACTTGAACAA  | Custom  |  
+| Library Features | id | name | read | pattern | sequence | feature_type | 
+|---|---|---|---|---|---|---|
+| LF-1 | HTO-1_H-101_3p_Lot-# | HTO-1 | R2  | seq-pattern  | AACAAGACCCTTGAG  | Custom  |  
+| LF-1 | HTO-2_H-101_3p_Lot-# | HTO-2 | R2  | seq-pattern  | CCCTTGAGAACAAGA  | Custom  |  
+| LF-1 | HTO-3_H-101_3p_Lot-# | HTO-3 | R2  | seq-pattern  | AACATTGAGACCCAG  | Custom  |  
+| LF-1 | HTO-4_H-101_3p_Lot-# | HTO-4 | R2  | seq-pattern  | TGAAACAAGACCCTG  | Custom  |  
+| LF-1 |   CD3_A-101_3p_Lot-# |   CD3 | R2  | seq-pattern  | AACAACTTGAGGACC  | Custom  |  
+| LF-1 |   CD4_A-102_3p_Lot-# |   CD4 | R2  | seq-pattern  | GGACCAAACAACTTG  | Custom  |  
+| LF-1 |   CD8_A-103_3p_Lot-# |   CD8 | R2  | seq-pattern  | GGACCACTTGAACAA  | Custom  |  
 
 ### Columns
+- `Library Features`: name of the list of features used in a library
 - `id`: the unique id for the feature (can't collide with gene name)
 - `name`: the human readable feature name (e.g. gene name, or hashtag number HTO-1)
 - `read`: specifies which sequencing read contains the sequence (e.g. R2)
