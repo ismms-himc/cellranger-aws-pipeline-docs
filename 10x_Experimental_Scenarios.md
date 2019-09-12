@@ -1,5 +1,10 @@
 # 10x Experimental Scenarios
-This document discusses proposed changes to the various spreadsheets used by HIMC techs who are running the assay, the computational team performing pre-processing, and the Cell Ranger software (e.g. we should shift to the most general input spreadsheet as arguments). This document heavily references the [10x documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/mkfastq), defines schemas for the various spreadsheets used by all parties, and contains several example spreadsheets that represent different common experimental scenarios.
+This document proposes schemas and vocabulary to be used across: 
+* spreadsheets used by HIMC techs running assays
+* the computational team's pre-processing pipelines
+* the Cell Ranger software
+
+Below are schemas and example data for various spreadsheets used by all parties, and [a glossary](#glossary) of relevant terms. This document heavily references the [10x documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/mkfastq) as well.
 
 # Glossary
 
