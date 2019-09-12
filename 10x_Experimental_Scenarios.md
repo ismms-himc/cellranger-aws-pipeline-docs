@@ -225,7 +225,7 @@ A single processing run will produce (at least) two output CSVs: 1) `Processing 
 - `Job`: the name of the job
   - for `mkfastq` the name will be `mkfastq` and the name of the bcl file
   - for `count` the name will be `count` and the sample name. Since we can combine FASTQ data from multiple sequencing runs into a single FBM for a single sample (e.g. the `FBM-FASTQ Set`) we will name this job based on the sample name.
-  - **need to decide on VDJ convension**
+  - **need to decide on VDJ convention**
 - `Status`: the current status of the job 
   - can be: `Pending`, `In-Progress`, `Finished`, or `Failed` 
 - `Output Path`: path on the S3 bucket to the outputs of the job
