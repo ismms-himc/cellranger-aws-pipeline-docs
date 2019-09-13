@@ -55,9 +55,9 @@ This is the Seq-Run-FASTQ Set level spreadsheet (see [Glossary]) that 10x techs 
 
 | FASTQs  | Loading Sample | Sample Index | Hashed Sample | 10x Lane ID | Library Type | BCL Run ID  | Processing Run  | Library Features |
 |---|---|---|---|---|---|---|---|---|
-| H1_XL-1_BCL-1_GEX | H1 | SI-GA-A3 | True  | XL-1  | GEX  | BCL-1 | CR-1 | LF-1 |
-| H1_XL-1_BCL-1_ADT | H1 | RPI-1    | True  | XL-1  | ADT  | BCL-1 | CR-1 | LF-1 | 
-| H1_XL-1_BCL-1_HTO | H1 | D700-1   | True  | XL-1  | HTO  | BCL-1 | CR-1 | LF-1 |
+| H1_XL1_BCL1_GEX | H1 | SI-GA-A3 | True  | XL1  | GEX  | BCL1 | CR-1 | LF-1 |
+| H1_XL1_BCL1_ADT | H1 | RPI1    | True  | XL1  | ADT  | BCL1 | CR-1 | LF-1 | 
+| H1_XL1_BCL1_HTO | H1 | D7001   | True  | XL1  | HTO  | BCL1 | CR-1 | LF-1 |
 
 ### Columns
 - `FASTQs`: name of the Seq-Run-FASTQ Set that is the result of a single sequencing run.
@@ -133,9 +133,9 @@ A `Processing-Run` takes as input two spreadsheets (produced by the 10x techs us
 
 | Lane| Sample | Index Name | Index Oligo | Library Type | Reference Transcriptome | Number of Cells | Chemistry | Library Features |
 |---|---|---|---|---|---|---|---|---|
-| 1  | H1_XL-1_BCL-1_GEX | SI-GA-A3 | `-` | Gene Expression | GRCh38 | 18000 | 5-prime_V2 | LF-1 |
-| 2  | H1_XL-1_BCL-1_ADT | RPI-1 | ACTGTT | Custom | GRCh38 | 18000 | 5-prime_V2 | LF-1 |
-| 3  | H1_XL-1_BCL-1_HTO | D700-1 | ACTGTTGG | Custom | GRCh38 | 18000 | 5-prime_V2 | LF-1 |
+| 1  | H1_XL1_BCL1_GEX | SI-GA-A3 | `-` | Gene Expression | GRCh38 | 18000 | 5-prime_V2 | LF-1 |
+| 2  | H1_XL1_BCL1_ADT | RPI1 | ACTGTT | Custom | GRCh38 | 18000 | 5-prime_V2 | LF-1 |
+| 3  | H1_XL1_BCL1_HTO | D7001 | ACTGTTGG | Custom | GRCh38 | 18000 | 5-prime_V2 | LF-1 |
 
 ### Columns
 - `Lane`: the 10x chip lane - **I think we can just increment this**
@@ -182,9 +182,9 @@ This spreadsheet is only necessary for feature barcoding (or CITE-seq) runs. It 
 ## 1. Sample Sheet CSV
 | Lane| Sample | Index |
 |---|---|---|
-| 1  | H1_XL-1_BCL-1_GEX | SI-GA-A3 |
-| 1  | H1_XL-1_BCL-1_ADT | ACTGTT |
-| 1  | H1_XL-1_BCL-1_HTO | ACTGTTGG |
+| 1  | H1_XL1_BCL1_GEX | SI-GA-A3 |
+| 1  | H1_XL1_BCL1_ADT | ACTGTT |
+| 1  | H1_XL1_BCL1_HTO | ACTGTTGG |
 
 ### Columns
 - `Lane` refers to the 10x chip lane.
@@ -198,9 +198,9 @@ This table is in the format of the "simple samplesheet" consumed by `cellranger 
 ## 2. Libraries CSV
 |  FASTQs | Sample  |  Library Type |
 |---|---|---|
-| /path/to/fastqs/ | H1_XL-1_BCL-1_GEX | Gene Expression |
-| /path/to/fastqs/ | H1_XL-1_BCL-1_ADT | Custom |
-| /path/to/fastqs/ | H1_XL-1_BCL-1_HTO | Custom |
+| /path/to/fastqs/ | H1_XL1_BCL1_GEX | Gene Expression |
+| /path/to/fastqs/ | H1_XL1_BCL1_ADT | Custom |
+| /path/to/fastqs/ | H1_XL1_BCL1_HTO | Custom |
 
 ### Columns
 - `FASTQs`: path to demultiplexed FASTQ files (cannot have comma-delimiited paths; more than one path requres an additional row).
@@ -221,7 +221,7 @@ A single processing run will produce (at least) two output CSVs: 1) `Processing 
 
 | Job  | Status  | Output Path  | Download Link  |   
 |---|---|---|---|
-| mkfastq_BCL-1  | Finished  | s3/path/to/zipped/fastqs  | pre-signed-URL  | 
+| mkfastq_BCL1  | Finished  | s3/path/to/zipped/fastqs  | pre-signed-URL  | 
 | count_S1  | Pending  | s3/path/to/fbm  | pre-signed-URL  | 
 
 ### Columns
@@ -256,17 +256,17 @@ This will give meta-data on loading sample level data. For a hashed sample, we w
 <!-- which tables' schemas are being represented in these examples? --> 
 
 ## scRNA-seq: 3 Samples, 3 10x Lanes, 3 Seq-Libraries, 1 Flowcell/BCL
-These three rows represents an experiment (e.g. Cell Ranger Run `CR-1`) that has three samples (`S1`, `S2`, `S3`) run in separate 10x chip lanes. The three libraries generated from the three lanes are multiplexed and run in a single flowcell, which generates a single BCL file (`BCL-1`). This single BCL file will need to be de-multiplexed, producing three sets of FASTQs that will produce three 
+These three rows represents an experiment (e.g. Cell Ranger Run `CR-1`) that has three samples (`S1`, `S2`, `S3`) run in separate 10x chip lanes. The three libraries generated from the three lanes are multiplexed and run in a single flowcell, which generates a single BCL file (`BCL1`). This single BCL file will need to be de-multiplexed, producing three sets of FASTQs that will produce three 
 feature-barcode-matrices (FBMs). 
 
 | Library  | Sample  | BCL  | Cell Ranger Run  |   
 |---|---|---|---|
-| S1_GEX  | S1  | BCL-1  | CR-1  |   
-| S2_GEX  | S2  | BCL-1  | CR-1  |   
-| S3_GEX  | S3  | BCL-1  | CR-1  |  
+| S1_GEX  | S1  | BCL1  | CR-1  |   
+| S2_GEX  | S2  | BCL1  | CR-1  |   
+| S3_GEX  | S3  | BCL1  | CR-1  |  
 
 ```
-BCL-1 -> FASTQs-1 -> FBM-1
+BCL1 -> FASTQs-1 -> FBM-1
       -> FASTQs-2 -> FBM-2
       -> FASTQs-3 -> FBM-3
 ```
