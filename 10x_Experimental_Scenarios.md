@@ -94,7 +94,7 @@ This spreadsheet shows three Seq-Run-FASTQ Sets that are obtained from processin
 - `Library Features`: this is the name of the list of features used in a library and is referenced by the `Library Features` columns in the previous two spredsheets: [Sample-Level Spreadsheet] and [FASTQ-Level Spreadsheet].
 
 - `HIMC Feature Name`: name of a feature (ADT or HTO) being measured
-  - official gene symbol of the measured protein 
+  - official gene symbol of the measured protein - ** might need to include species in name or lookup **
   - the unique HIMC oligo id (e.g. HIMC-1)
   - chemistry
   - the lot number (e.g. lot-1). 
