@@ -138,8 +138,10 @@ A `Processing-Run` takes as input two spreadsheets (produced by the 10x techs us
 | 3  | H1_XL-1_BCL-1_HTO | D700-1 | ACTGTTGG | Custom | GRCh38 | 18000 | 5-prime_V2 | LF-1 |
 
 ### Columns
-- `Lane`: the 10x chip lane **I think we can just increment this**
-- `Sample`: the name of the Seq-Run-FASTQ set **(I think)** obtained from the [FASTQ-Level Spreadsheet]
+- `Lane`: the 10x chip lane - **I think we can just increment this**
+- `Sample`: the **name of the Seq-Run-FASTQ set** obtained from the [FASTQ-Level Spreadsheet] which includes:
+  - the **biological sample name** (needed to track which sample FBM should be generated from which FASTQs)
+  - the **BCL file name** (needed to relate Seq-Run-FASTQ sets to specific BCL files)
 - `Index Name`: the name of the `Sample Index` obtained from the [FASTQ-Level Spreadsheet]
 - `Index Oligo`: the actual index oligo sequence obtained from a Sample Index Spreadsheet (**not documented yet**). The value will be `-` for GEX index oligos since Cell Ranger mkfastq knows the meaning the index names (e.g. `SI-GA-3`).
 - `Library Type`: the library type using the terminology acceptable to Cell Ranger Count (see [docs](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/feature-bc-analysis))
@@ -148,8 +150,7 @@ A `Processing-Run` takes as input two spreadsheets (produced by the 10x techs us
 - `Chemistry`: the 10x kit chemistry version
 
 ### Explanation of this spreadsheet
-
-This CSV will be used to construct both [the sample sheet CSV input for `mkfastq`][10X Sample Sheet CSV] and [the libraries CSV for `count`][10X Libraries CSV]. The `Reference Transcriptome` and `Number of Cells` columns will be used to construct additional arguments for `cellranger count`. Additionally, the `Index Name` value will be used for GEX libraries, while the `Index Oligo` value will be used for Custom libraries (ADT/HTO).
+This CSV is a modified version of the simple CSV sample sheet for `mkfastq`, which now includes additional information required to perform multiple jobs within a Processing Run (e.g. multiple `mkfastq` and `count` jobs). This CSV will be used to construct both [the sample sheets CSV input for multiple `mkfastq` runs][10X Sample Sheet CSV] and [the libraries CSVs for multiple `count` runs][10X Libraries CSV]. The `Reference Transcriptome` and `Number of Cells` columns will be used to construct additional arguments for `cellranger count`. Additionally, the `Index Name` value will be used for GEX libraries, while the `Index Oligo` value will be used for Custom libraries (ADT/HTO).
 
 ## 2. HIMC Feature Reference CSV 
 
@@ -174,7 +175,7 @@ This CSV will be used to construct both [the sample sheet CSV input for `mkfastq
 - (omitted columns )`target_gene_id`, `target_gene_name`: are optional CRISPR-specific columns that are not shown in the example above.
 
 ### Explanation of this Spreadsheet
-This spreadsheet is only necessary for feature barcoding (or CITE-seq) runs. It contains information on all the features used in a sequencing library. **I'm not sure how we will handle cases where different feature labeling schemes are pooled into a single sequencing pool (or if this ever happens).**
+This spreadsheet is only necessary for feature barcoding (or CITE-seq) runs. It contains information on all the features used in a sequencing library. The addition of the `Library Features` column enables us to encode multiple libraries with different feature lableing schemes into a single sequencing run. Similarly, this scheme allows us to combine GEX only libraries (not shown) with feature-barcoding (or CITE-seq) libraries. 
 
 # Cell Ranger Required CSVs
 
@@ -220,7 +221,7 @@ A single processing run will produce (at least) two output CSVs: 1) `Processing 
 
 | Job  | Status  | Output Path  | Download Link  |   
 |---|---|---|---|
-| mkfastq_BCL-1  | Finished  | s3/path/to/fastqs  | pre-signed-URL  | 
+| mkfastq_BCL-1  | Finished  | s3/path/to/zipped/fastqs  | pre-signed-URL  | 
 | count_S1  | Pending  | s3/path/to/fbm  | pre-signed-URL  | 
 
 ### Columns
@@ -241,7 +242,7 @@ This spreadsheet shows the status of the jobs associated with a single Processin
 
 ## 2. Processing-Run FASTQ Meta-Data CSV
 
-We can produce this spreadsheet as a modified copy of the [Custom Sheet CSV] that is used as input to a Processing-Run. We can append FASTQ meta-data such as reads-per-cell. 
+This spreadsheet as a modified copy of the [HIMC Sample Sheet] that is used as input to a Processing-Run. We can append FASTQ meta-data such as reads-per-cell. 
 
 **need to document this**
 
@@ -334,4 +335,4 @@ The relationships between components in 10x single cell assay can be complicated
 [Sample-Level Spreadsheet]: #1-sample-Level-spreadsheet
 [FASTQ-Level Spreadsheet]: #2-fastq-Level-spreadsheet
 [Features Table]: #4-features-table
-[Custom Sheet CSV]: #1-custom-sheet-csv
+[HIMC Sample Sheet]: #1-himc-sample-sheet
