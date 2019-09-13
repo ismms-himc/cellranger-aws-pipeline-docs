@@ -55,9 +55,9 @@ This is the Seq-Run-FASTQ Set level spreadsheet (see [Glossary]) that 10x techs 
 
 | FASTQs  | Loading Sample | Sample Index | Hashed Sample | 10x Lane ID | Library Type | BCL Run ID  | Processing Run  | Library Features |
 |---|---|---|---|---|---|---|---|---|
-| H1_XL1_BCL1_GEX | H1 | SI-GA-A3 | True  | XL1  | GEX  | BCL1 | CR-1 | LF-1 |
-| H1_XL1_BCL1_ADT | H1 | RPI1    | True  | XL1  | ADT  | BCL1 | CR-1 | LF-1 | 
-| H1_XL1_BCL1_HTO | H1 | D7001   | True  | XL1  | HTO  | BCL1 | CR-1 | LF-1 |
+| H1_BCL1_GEX | H1 | SI-GA-A3 | True  | XL1  | GEX  | BCL1 | CR-1 | LF-1 |
+| H1_BCL1_ADT | H1 | RPI1    | True  | XL1  | ADT  | BCL1 | CR-1 | LF-1 | 
+| H1_BCL1_HTO | H1 | D7001   | True  | XL1  | HTO  | BCL1 | CR-1 | LF-1 |
 
 ### Columns
 - `FASTQs`: name of the Seq-Run-FASTQ Set that is the result of a single sequencing run.
@@ -133,9 +133,9 @@ A `Processing-Run` takes as input two spreadsheets (produced by the 10x techs us
 
 | Lane| Sample | Index Name | Index Oligo | Library Type | Ref Transcriptome | Number of Cells | Chemistry | Library Features |
 |---|---|---|---|---|---|---|---|---|
-| 1  | H1_XL1_BCL1_GEX | SI-GA-A3 | `-` | Gene Expression | GRCh38 | 18000 | 5-prime_V2 | LF-1 |
-| 2  | H1_XL1_BCL1_ADT | RPI1 | ACTGTT | Custom | GRCh38 | 18000 | 5-prime_V2 | LF-1 |
-| 3  | H1_XL1_BCL1_HTO | D7001 | ACTGTTGG | Custom | GRCh38 | 18000 | 5-prime_V2 | LF-1 |
+| 1  | H1_BCL1_GEX | SI-GA-A3 | `-` | Gene Expression | GRCh38 | 18000 | 5-prime_V2 | LF-1 |
+| 2  | H1_BCL1_ADT | RPI1 | ACTGTT | Custom | GRCh38 | 18000 | 5-prime_V2 | LF-1 |
+| 3  | H1_BCL1_HTO | D7001 | ACTGTTGG | Custom | GRCh38 | 18000 | 5-prime_V2 | LF-1 |
 
 ### Columns
 - `Lane`: the 10x chip lane - **I think we can just increment this**
@@ -182,9 +182,9 @@ This spreadsheet is only necessary for feature barcoding (or CITE-seq) runs. It 
 ## 1. Sample Sheet CSV
 | Lane| Sample | Index |
 |---|---|---|
-| 1  | H1_XL1_BCL1_GEX | SI-GA-A3 |
-| 1  | H1_XL1_BCL1_ADT | ACTGTT |
-| 1  | H1_XL1_BCL1_HTO | ACTGTTGG |
+| 1  | H1_BCL1_GEX | SI-GA-A3 |
+| 1  | H1_BCL1_ADT | ACTGTT |
+| 1  | H1_BCL1_HTO | ACTGTTGG |
 
 ### Columns
 - `Lane` refers to the 10x chip lane.
@@ -198,9 +198,9 @@ This table is in the format of the "simple samplesheet" consumed by `cellranger 
 ## 2. Libraries CSV
 |  FASTQs | Sample  |  Library Type |
 |---|---|---|
-| /path/to/fastqs/ | H1_XL1_BCL1_GEX | Gene Expression |
-| /path/to/fastqs/ | H1_XL1_BCL1_ADT | Custom |
-| /path/to/fastqs/ | H1_XL1_BCL1_HTO | Custom |
+| /path/to/fastqs/ | H1_BCL1_GEX | Gene Expression |
+| /path/to/fastqs/ | H1_BCL1_ADT | Custom |
+| /path/to/fastqs/ | H1_BCL1_HTO | Custom |
 
 ### Columns
 - `FASTQs`: path to demultiplexed FASTQ files (cannot have comma-delimiited paths; more than one path requres an additional row).
