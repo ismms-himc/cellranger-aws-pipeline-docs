@@ -211,7 +211,7 @@ This table is used by Cell Ranger Count to know which `FBM-FASTQ Set` (which is 
 
 ## 3. Feature Reference CSV
 
-This is the same as the [Feature Reference CSV] that is produced by the 10x techs.
+This is the same as the [Feature Reference CSV] that is produced by the 10x techs, but without the column `Library Features`. 
 
 # Output CSVs
 A single processing run will produce (at least) two output CSVs: 1) `Processing Status` and 2) `FASTQ meta-data`
