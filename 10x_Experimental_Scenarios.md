@@ -26,7 +26,7 @@ The common scenario of sequencing the same 'sequencing library' more than once (
 Below are 4 proposed spreadsheets for use by the 10X techs (not all experiment-related columns are shown). The spreadsheets produced in these three sections ([10x Technician Spreadsheets], [Processing-Run CSVs], and [Cell Ranger Required CSVs]) are all based on the same example: Four biological samples that are hashed together, measure three surface markers (3 ADTs), and are run on a single 10x chip lane. 
 
 ## 1. Sample-Level Spreadsheet
-| Sample Name | Loading Sample | Expected Cell Number | Reference Transcriptome | Chemistry | HTO | Library Features |
+| Sample Name | Loading Sample | Expected Cell Number | Ref Transcriptome | Chemistry | HTO | Library Features |
 |---|---|---|---|---|---|---|
 | S1  | H1 | 3000 | GRCh38 | 3p | HTO-1 | LF-1 |
 | S2  | H1 | 4000 | GRCh38 | 3p | HTO-2 | LF-1 |
@@ -131,7 +131,7 @@ A `Processing-Run` takes as input two spreadsheets (produced by the 10x techs us
 
 ## 1. HIMC Sample Sheet
 
-| Lane| Sample | Index Name | Index Oligo | Library Type | Reference Transcriptome | Number of Cells | Chemistry | Library Features |
+| Lane| Sample | Index Name | Index Oligo | Library Type | Ref Transcriptome | Number of Cells | Chemistry | Library Features |
 |---|---|---|---|---|---|---|---|---|
 | 1  | H1_XL1_BCL1_GEX | SI-GA-A3 | `-` | Gene Expression | GRCh38 | 18000 | 5-prime_V2 | LF-1 |
 | 2  | H1_XL1_BCL1_ADT | RPI1 | ACTGTT | Custom | GRCh38 | 18000 | 5-prime_V2 | LF-1 |
