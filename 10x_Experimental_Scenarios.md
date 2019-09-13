@@ -82,13 +82,13 @@ This spreadsheet shows three Seq-Run-FASTQ Sets that are obtained from processin
 ## 4. Library Features Table
 | Library Features | HIMC Feature Name | Oligo ID | Labeled Sample |
 |---|---|---|---|
-| LF-1 | HTO-1_H-101_3p_Lot-# | H-101 | S1 |
-| LF-1 | HTO-2_H-102_3p_Lot-# | H-102 | S2 |
-| LF-1 | HTO-3_H-103_3p_Lot-# | H-103 | S3 |
-| LF-1 | HTO-4_H-104_3p_Lot-# | H-104 | S4 |
-| LF-1 |   CD3_A-101_3p_Lot-# | A-101 | - |
-| LF-1 |   CD4_A-102_3p_Lot-# | A-102 | - |
-| LF-1 |   CD8_A-103_3p_Lot-# | A-103 | - |
+| LF-1 | HTO-1_H-101_3p_Lot# | H-101 | S1 |
+| LF-1 | HTO-2_H-102_3p_Lot# | H-102 | S2 |
+| LF-1 | HTO-3_H-103_3p_Lot# | H-103 | S3 |
+| LF-1 | HTO-4_H-104_3p_Lot# | H-104 | S4 |
+| LF-1 |   CD3_A-101_3p_Lot# | A-101 | - |
+| LF-1 |   CD4_A-102_3p_Lot# | A-102 | - |
+| LF-1 |   CD8_A-103_3p_Lot# | A-103 | - |
 
 ### Columns
 - `Library Features`: this is the name of the list of features used in a library and is referenced by the `Library Features` columns in the previous two spredsheets: [Sample-Level Spreadsheet] and [FASTQ-Level Spreadsheet].
@@ -108,13 +108,13 @@ This spreadsheet shows the list of `Library Features` that are associated with a
 ## 5. Features Table
 | HIMC Feature Name | Chemistry | Oligo ID | Oligo Sequence |  
 |---|---|---|---|
-| HTO-1_H-101_3p_Lot-# | 3p | H-101 | ACTG |  
-| HTO-2_H-102_3p_Lot-# | 3p | H-102 | ACTG |  
-| HTO-3_H-103_3p_Lot-# | 3p | H-103 | ACTG |  
-| HTO-4_H-104_3p_Lot-# | 3p | H-104 | ACTG |  
-|   CD3_A-101_3p_Lot-# | 3p | A-101 | ACTG |  
-|   CD4_A-102_3p_Lot-# | 3p | A-102 | ACTG |  
-|   CD5_A-103_3p_Lot-# | 3p | A-103 | ACTG |  
+| HTO-1_H-101_3p_Lot# | 3p | H-101 | ACTG |  
+| HTO-2_H-102_3p_Lot# | 3p | H-102 | ACTG |  
+| HTO-3_H-103_3p_Lot# | 3p | H-103 | ACTG |  
+| HTO-4_H-104_3p_Lot# | 3p | H-104 | ACTG |  
+|   CD3_A-101_3p_Lot# | 3p | A-101 | ACTG |  
+|   CD4_A-102_3p_Lot# | 3p | A-102 | ACTG |  
+|   CD5_A-103_3p_Lot# | 3p | A-103 | ACTG |  
 | ... | ... | ... | ... |  
 
 ### Columns
@@ -156,13 +156,13 @@ This CSV is a modified version of the simple CSV sample sheet for `mkfastq`, whi
 
 | Library Features | id | name | read | pattern | sequence | feature_type | 
 |---|---|---|---|---|---|---|
-| LF-1 | HTO-1_H-101_3p_Lot-# | HTO-1 | R2  | seq-pattern  | AACAAGACCCTTGAG  | Custom  |  
-| LF-1 | HTO-2_H-101_3p_Lot-# | HTO-2 | R2  | seq-pattern  | CCCTTGAGAACAAGA  | Custom  |  
-| LF-1 | HTO-3_H-101_3p_Lot-# | HTO-3 | R2  | seq-pattern  | AACATTGAGACCCAG  | Custom  |  
-| LF-1 | HTO-4_H-101_3p_Lot-# | HTO-4 | R2  | seq-pattern  | TGAAACAAGACCCTG  | Custom  |  
-| LF-1 |   CD3_A-101_3p_Lot-# |   CD3 | R2  | seq-pattern  | AACAACTTGAGGACC  | Custom  |  
-| LF-1 |   CD4_A-102_3p_Lot-# |   CD4 | R2  | seq-pattern  | GGACCAAACAACTTG  | Custom  |  
-| LF-1 |   CD8_A-103_3p_Lot-# |   CD8 | R2  | seq-pattern  | GGACCACTTGAACAA  | Custom  |  
+| LF-1 | HTO-1_H-101_3p_Lot# | HTO-1 | R2  | seq-pattern  | AACAAGACCCTTGAG  | Custom  |  
+| LF-1 | HTO-2_H-101_3p_Lot# | HTO-2 | R2  | seq-pattern  | CCCTTGAGAACAAGA  | Custom  |  
+| LF-1 | HTO-3_H-101_3p_Lot# | HTO-3 | R2  | seq-pattern  | AACATTGAGACCCAG  | Custom  |  
+| LF-1 | HTO-4_H-101_3p_Lot# | HTO-4 | R2  | seq-pattern  | TGAAACAAGACCCTG  | Custom  |  
+| LF-1 |   CD3_A-101_3p_Lot# |   CD3 | R2  | seq-pattern  | AACAACTTGAGGACC  | Custom  |  
+| LF-1 |   CD4_A-102_3p_Lot# |   CD4 | R2  | seq-pattern  | GGACCAAACAACTTG  | Custom  |  
+| LF-1 |   CD8_A-103_3p_Lot# |   CD8 | R2  | seq-pattern  | GGACCACTTGAACAA  | Custom  |  
 
 ### Columns
 - `Library Features`: name of the list of features used in a library
