@@ -46,7 +46,7 @@ Below are 4 proposed spreadsheets for use by the 10X techs (not all experiment-r
 This spreadsheet shows four biological samples that are being hashed into a single loading sample (`H1_GEX`). Each sample is labeled with a different HTO (e.g. `HTO-1`) and share a common list of `Library Features` (e.g. all ADTs and HTOs used in the hashed `Loading Sample` `H1_GEX`).
 
 ## 2. Library-Level Spreadsheet
-The 10x techs must keep track of library-level information during the course of a run and the details of their spreadsheet will not be documented here. From the perspective of the computational team, the library plays a more intermediate role in the progression from biological sample to output dataset (e.g. FASTQs). 
+The 10x techs must keep track of library-level information during the course of a run. However, the details of their spreadsheet will not be documented here. From the perspective of the computational team, these libraries play more of an intermediate role in the progression from biological sample to output dataset (e.g. FASTQs) and will, for the time being, not be explicitly tracked by the computational team.
 
 In our example, we have three libraries being generated from a single 10x lane. These three libraries will be indexed, pooled into a sequencing library, sequenced, and result in three Seq-Run FASTQ sets (additional sequencing runs can produce additional sets of Seq-Run FASTQ sets from the same library). 
 
