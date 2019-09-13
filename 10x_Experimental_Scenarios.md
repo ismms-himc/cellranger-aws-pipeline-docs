@@ -28,10 +28,10 @@ Below are 4 proposed spreadsheets for use by the 10X techs (not all experiment-r
 ## 1. Sample-Level Spreadsheet
 | Sample Name | Loading Sample | Expected Cell Number | Ref Trans | Chemistry | HTO | Library Features |
 |---|---|---|---|---|---|---|
-| S1  | H1 | 3000 | GRCh38 | 3p | HTO-1 | LF-1 |
-| S2  | H1 | 4000 | GRCh38 | 3p | HTO-2 | LF-1 |
-| S3  | H1 | 5000 | GRCh38 | 3p | HTO-3 | LF-1 |
-| S4  | H1 | 6000 | GRCh38 | 3p | HTO-4 | LF-1 |
+| S1  | H1 | 3000 | GRCh38 | 3p | HTO-1 | LF1 |
+| S2  | H1 | 4000 | GRCh38 | 3p | HTO-2 | LF1 |
+| S3  | H1 | 5000 | GRCh38 | 3p | HTO-3 | LF1 |
+| S4  | H1 | 6000 | GRCh38 | 3p | HTO-4 | LF1 |
 
 ### Columns
 - `Sample Name`: the name of the biological sample being processed (see [Glossary])
@@ -55,9 +55,9 @@ This is the Seq-Run-FASTQ Set level spreadsheet (see [Glossary]) that 10x techs 
 
 | FASTQs  | Loading Sample | Sample Index | Hashed Sample | 10x Lane ID | Library Type | BCL Run ID  | Processing Run  | Library Features |
 |---|---|---|---|---|---|---|---|---|
-| H1_BCL1_GEX | H1 | SI-GA-A3 | True  | XL1  | GEX  | BCL1 | CR-1 | LF-1 |
-| H1_BCL1_ADT | H1 | RPI1    | True  | XL1  | ADT  | BCL1 | CR-1 | LF-1 | 
-| H1_BCL1_HTO | H1 | D7001   | True  | XL1  | HTO  | BCL1 | CR-1 | LF-1 |
+| H1_BCL1_GEX | H1 | SI-GA-A3 | True  | XL1  | GEX  | BCL1 | CR-1 | LF1 |
+| H1_BCL1_ADT | H1 | RPI1    | True  | XL1  | ADT  | BCL1 | CR-1 | LF1 | 
+| H1_BCL1_HTO | H1 | D7001   | True  | XL1  | HTO  | BCL1 | CR-1 | LF1 |
 
 ### Columns
 - `FASTQs`: name of the Seq-Run-FASTQ Set that is the result of a single sequencing run.
@@ -82,13 +82,13 @@ This spreadsheet shows three Seq-Run-FASTQ Sets that are obtained from processin
 ## 4. Library Features Table
 | Library Features | HIMC Feature Name | Oligo ID | Labeled Sample |
 |---|---|---|---|
-| LF-1 | HTO-1_H-101_3p_Lot# | H-101 | S1 |
-| LF-1 | HTO-2_H-102_3p_Lot# | H-102 | S2 |
-| LF-1 | HTO-3_H-103_3p_Lot# | H-103 | S3 |
-| LF-1 | HTO-4_H-104_3p_Lot# | H-104 | S4 |
-| LF-1 |   CD3_A-101_3p_Lot# | A-101 | - |
-| LF-1 |   CD4_A-102_3p_Lot# | A-102 | - |
-| LF-1 |   CD8_A-103_3p_Lot# | A-103 | - |
+| LF1 | HTO-1_H-101_3p_Lot# | H-101 | S1 |
+| LF1 | HTO-2_H-102_3p_Lot# | H-102 | S2 |
+| LF1 | HTO-3_H-103_3p_Lot# | H-103 | S3 |
+| LF1 | HTO-4_H-104_3p_Lot# | H-104 | S4 |
+| LF1 |   CD3_A-101_3p_Lot# | A-101 | - |
+| LF1 |   CD4_A-102_3p_Lot# | A-102 | - |
+| LF1 |   CD8_A-103_3p_Lot# | A-103 | - |
 
 ### Columns
 - `Library Features`: this is the name of the list of features used in a library and is referenced by the `Library Features` columns in the previous two spredsheets: [Sample-Level Spreadsheet] and [FASTQ-Level Spreadsheet].
@@ -133,9 +133,9 @@ A `Processing-Run` takes as input two spreadsheets (produced by the 10x techs us
 
 | Lane| Sample | Index Name | Index Oligo | Library Type | Ref Trans | Number of Cells | Chemistry | Library Features |
 |---|---|---|---|---|---|---|---|---|
-| 1  | H1_BCL1_GEX | SI-GA-A3 | `-` | Gene Expression | GRCh38 | 18000 | 5-prime_V2 | LF-1 |
-| 2  | H1_BCL1_ADT | RPI1 | ACTGTT | Custom | GRCh38 | 18000 | 5-prime_V2 | LF-1 |
-| 3  | H1_BCL1_HTO | D7001 | ACTGTTGG | Custom | GRCh38 | 18000 | 5-prime_V2 | LF-1 |
+| 1  | H1_BCL1_GEX | SI-GA-A3 | `-` | Gene Expression | GRCh38 | 18000 | 5-prime_V2 | LF1 |
+| 2  | H1_BCL1_ADT | RPI1 | ACTGTT | Custom | GRCh38 | 18000 | 5-prime_V2 | LF1 |
+| 3  | H1_BCL1_HTO | D7001 | ACTGTTGG | Custom | GRCh38 | 18000 | 5-prime_V2 | LF1 |
 
 ### Columns
 - `Lane`: the 10x chip lane - **I think we can just increment this**
@@ -156,13 +156,13 @@ This CSV is a modified version of the simple CSV sample sheet for `mkfastq`, whi
 
 | Library Features | id | name | read | pattern | sequence | feature_type | 
 |---|---|---|---|---|---|---|
-| LF-1 | HTO-1_H-101_3p_Lot# | HTO-1 | R2  | seq-pattern  | AACAAGACCCTTGAG  | Custom  |  
-| LF-1 | HTO-2_H-101_3p_Lot# | HTO-2 | R2  | seq-pattern  | CCCTTGAGAACAAGA  | Custom  |  
-| LF-1 | HTO-3_H-101_3p_Lot# | HTO-3 | R2  | seq-pattern  | AACATTGAGACCCAG  | Custom  |  
-| LF-1 | HTO-4_H-101_3p_Lot# | HTO-4 | R2  | seq-pattern  | TGAAACAAGACCCTG  | Custom  |  
-| LF-1 |   CD3_A-101_3p_Lot# |   CD3 | R2  | seq-pattern  | AACAACTTGAGGACC  | Custom  |  
-| LF-1 |   CD4_A-102_3p_Lot# |   CD4 | R2  | seq-pattern  | GGACCAAACAACTTG  | Custom  |  
-| LF-1 |   CD8_A-103_3p_Lot# |   CD8 | R2  | seq-pattern  | GGACCACTTGAACAA  | Custom  |  
+| LF1 | HTO-1_H-101_3p_Lot# | HTO-1 | R2  | seq-pattern  | AACAAGACCCTTGAG  | Custom  |  
+| LF1 | HTO-2_H-101_3p_Lot# | HTO-2 | R2  | seq-pattern  | CCCTTGAGAACAAGA  | Custom  |  
+| LF1 | HTO-3_H-101_3p_Lot# | HTO-3 | R2  | seq-pattern  | AACATTGAGACCCAG  | Custom  |  
+| LF1 | HTO-4_H-101_3p_Lot# | HTO-4 | R2  | seq-pattern  | TGAAACAAGACCCTG  | Custom  |  
+| LF1 |   CD3_A-101_3p_Lot# |   CD3 | R2  | seq-pattern  | AACAACTTGAGGACC  | Custom  |  
+| LF1 |   CD4_A-102_3p_Lot# |   CD4 | R2  | seq-pattern  | GGACCAAACAACTTG  | Custom  |  
+| LF1 |   CD8_A-103_3p_Lot# |   CD8 | R2  | seq-pattern  | GGACCACTTGAACAA  | Custom  |  
 
 ### Columns
 - `Library Features`: name of the list of features used in a library
@@ -319,6 +319,8 @@ The relationships between components in 10x single cell assay can be complicated
 * **Cell Ranger outputs**: Feature barcode matrix (FBM) which can be the product of several sequencing runs and BCL files, TCR/BCR contigs
 
 * **Sample-Level Outputs**: FBMs and VDJ data that has been re-organized into sample level data. This usually consists of copying sample level data out of the Processing Run, but for hashing runs requires manual de-hashing (post-Cell Ranger step).
+
+* **library features list**: A list of features used in a library. The list will have a name like `LF1` in this documentation and the list includes all relevant hashtag and antibody features. 
 
 [Glossary]: #glossary
 [10x Technician Spreadsheets]: #10x-technician-spreadsheets
