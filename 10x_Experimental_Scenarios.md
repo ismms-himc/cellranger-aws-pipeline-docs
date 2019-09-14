@@ -270,7 +270,7 @@ This will give meta-data on loading sample level data. For a hashed sample, we w
 
 # Enumeration of Scenarios
 
-## 1. One Lane per Sample, Single Seq-Run
+## 1. Single Lane per Sample, Single Seq-Run
 ```
    Make          Make Pooled  Seq Pooled    Demulti           Calc
    Libraries     Library      Library       BCL               FBMs
@@ -283,7 +283,7 @@ S3   ->   L3-XL3    |                        |->  FQ3-XL3-GEX  ->  FBM3-XL3
 These three rows represents an experiment (e.g. Cell Ranger Run `CR-1`) that has three samples (`S1`, `S2`, `S3`) run in separate 10x chip lanes. The three libraries generated from the three lanes are multiplexed and run in a single flowcell, which generates a single BCL file (`BCL1`). This single BCL file will need to be de-multiplexed, producing three sets of FASTQs that will produce three 
 feature-barcode-matrices (FBMs). 
 
-## 2. One Lane per Sample, Multiple Seq-Runs 
+## 2. Single Lane per Sample, Multiple Seq-Runs 
 This example has multiple sequencing runs per sample to get more reads per cell. 
 
 ## 3. Multiple Lanes per Sample, Single Seq-Run
