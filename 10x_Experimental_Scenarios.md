@@ -27,9 +27,9 @@ Below are 4 proposed spreadsheets for use by the 10X techs (not all experiment-r
 
 ## Diagram of 4-Sample Hashing CITE-seq Run
 ```
-Hash          Make and Pool     Seq          Demulti        Calc       De-hash 
-Samples       Libraries         Libraries    BCL            FBM        Samples
--------       --------------    ---------    -------        ----       --------
+Hash          Make and Pool     Seq         Demulti         Calc       De-hash 
+Samples       Libraries         Libraries   BCL             FBM        Samples
+-------       --------------    ---------   -------         ----       --------
 S1 -|         |-> L1-GEX |->                  |->  FQ1-GEX  -|           |->  FBM1-S1 
 S2 -|->  H1  -|-> L1-ADT |->  PL1  ->  BCL1  -|->  FQ1-ADT  -|->  FBM1  -|->  FBM1-S2 
 S3 -|         |-> L1-HTO |->                  |->  FQ1-HTO  -|           |->  FBM1-S3 
