@@ -304,30 +304,6 @@ This example has multiple lanes per sample to get more cells per sample and mult
 
 ## 10. Hashed, Multiple Lanes per Sample, ADT, Single Seq-Run
 
-### CITE-seq and Hashtagging: 2 Samples, 1 10x Lane, 3 Seq-Libraries (GEX, ADT, HTO), 1 Flowcell/BCL
-The second set of three rows represents a CITE-seq and hashtag experiment (`CR-2`) that has two samples (`S4`, `S5`) run in one 10x chip lane, which produces three libraries (`S4_GEX`, `S4_ADT`, `S4_HTO`)
-
-| Library  | Sample  | BCL  | Processing Run  |  Hashed |
-|---|---|---|---|---|
-| S_GEX  | S4_S5  | BCL-2  | CR-2  |   |
-| S_ADT  | S4_S5  | BCL-2  | CR-2  |   |
-| S_HTO  | S4_S5  | BCL-2  | CR-2  |    |
-
-```   
-mkfastq              count     de-hashtag
-BCL-2 -> FASTQs_GEX -> FBM -> FBM_S4
-      -> FASTQs_ADT           FBM_S5
-      -> FASTQs_HTO    
-```
-
-## scRNA-seq (pooled run): One Sample, Three Seq-Libraries, Three Flowcell/BCLs
-
-| Library  | Sample  | BCL  | Cell Ranger Run  |   
-|---|---|---|---| 
-| S6_GEX_A  | S6  | BCL-3  | CR-3  |
-| S6_GEX_B  | S6  | BCL-4  | CR-3  |   
-| S6_GEX_C  | S6  | BCL-5  | CR-3  |  
-
 # Glossary
 
 The relationships between components in 10x single cell assay can be complicated. As a first step, we define a common vocabulary for ourselves below. We have ordered entities based on their natural progression during the experiment and data-processing steps.  
