@@ -71,11 +71,11 @@ In our example, we have three libraries being generated from a single 10x lane. 
 ## 3. FASTQ-Level Spreadsheet
 This is the Seq-Run-FASTQ Set level spreadsheet (see [Glossary]) that 10x techs will use to keep track of FASTQs produced from a sequencing run of a given pooled library. 
 
-| FASTQs  | BCL | Sample Index | Hashed Sample |  Library Type | Processing Run  | 
-|---|---|---|---|---|---|
-| FQ1-XL1-GEX | BCL1 | SI-GA-A3 | True  |  GEX  | CR-1 |
-| FQ1-XL1-ADT | BCL1 | RPI1    | True  |  ADT  | CR-1 |
-| FQ1-XL1-HTO | BCL1 | D7001   | True  |  HTO  | CR-1 |
+| FASTQs  | BCL | Sample Index |   Library Type | Processing Run  | 
+|---|---|---|---|---|
+| FQ1-XL1-GEX | BCL1 | SI-GA-A3 |   GEX  | CR-1 |
+| FQ1-XL1-ADT | BCL1 | RPI1    |  ADT  | CR-1 |
+| FQ1-XL1-HTO | BCL1 | D7001   |  HTO  | CR-1 |
 
 ### Columns
 - `FASTQs`: name of the Seq-Run-FASTQ Set that is the result of a single sequencing run.
