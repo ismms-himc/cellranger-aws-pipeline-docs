@@ -270,7 +270,7 @@ This will give meta-data on loading sample level data. For a hashed sample, we w
 
 # Enumeration of Scenarios
 
-## scRNA-seq: 3 Samples, 3 10x Lanes, 3 Seq-Libraries, 1 Flowcell/BCL
+## 1. One Lane per Sample, Single Seq-Run
 ```
    Make          Make Pooled  Seq Pooled    Demulti           Calc
    Libraries     Library      Library       BCL               FBMs
@@ -283,17 +283,27 @@ S3   ->   L3-XL3    |                        |->  FQ3-XL3-GEX  ->  FBM3-XL3
 These three rows represents an experiment (e.g. Cell Ranger Run `CR-1`) that has three samples (`S1`, `S2`, `S3`) run in separate 10x chip lanes. The three libraries generated from the three lanes are multiplexed and run in a single flowcell, which generates a single BCL file (`BCL1`). This single BCL file will need to be de-multiplexed, producing three sets of FASTQs that will produce three 
 feature-barcode-matrices (FBMs). 
 
-| Library  | Sample  | BCL  | Cell Ranger Run  |   
-|---|---|---|---|
-| S1_GEX  | S1  | BCL1  | CR-1  |   
-| S2_GEX  | S2  | BCL1  | CR-1  |   
-| S3_GEX  | S3  | BCL1  | CR-1  |  
+## 2. One Lane per Sample, Multiple Seq-Runs 
+This example has multiple sequencing runs per sample to get more reads per cell. 
 
-```
-BCL1 -> FASTQs-1 -> FBM-1
-      -> FASTQs-2 -> FBM-2
-      -> FASTQs-3 -> FBM-3
-```
+## 3. Multiple Lanes per Sample, Single Seq-Run
+This example has multiple lanes per sample to get more cells per sample
+
+## 4. Multiple Lanes per Sample, Multiple Seq-Runs
+This example has multiple lanes per sample to get more cells per sample and multiple reads per sample to get more reads per cell.  
+
+## 5. One Lane per Sample, TCR-seq, Single Seq-Run
+
+## 6. Multiple Lanes per Sample, TCR-seq, BCR-seq, Multiple Seq-Run
+
+## 7. One Lane per Sample, ADT, Single Seq-Run
+
+## 8. One Lane per Sample, ADT, Multiple Seq-Run
+
+## 9. Hashed, One Lane per Sample, Single Seq-Run
+
+## 10. Hashed, Multiple Lanes per Sample, ADT, Single Seq-Run
+
 ### CITE-seq and Hashtagging: 2 Samples, 1 10x Lane, 3 Seq-Libraries (GEX, ADT, HTO), 1 Flowcell/BCL
 The second set of three rows represents a CITE-seq and hashtag experiment (`CR-2`) that has two samples (`S4`, `S5`) run in one 10x chip lane, which produces three libraries (`S4_GEX`, `S4_ADT`, `S4_HTO`)
 
