@@ -27,13 +27,13 @@ Below are 4 proposed spreadsheets for use by the 10X techs (not all experiment-r
 
 ## Diagram of 4-Sample Hashing CITE-seq Run
 ```
-Hash          Make and Pool     Seq Pooled   Demulti        Calc       De-hash 
-Samples       Libraries         Library      BCL            FBM        Samples
--------       --------------    ---------    -------        ----       --------
-S1 -|         |-> L1-GEX |->                  |->  FQ1-GEX  -|           |->  FBM1-S1 
-S2 -|->  H1  -|-> L1-ADT |->  PL1  ->  BCL1  -|->  FQ1-ADT  -|->  FBM1  -|->  FBM1-S2 
-S3 -|         |-> L1-HTO |->                  |->  FQ1-HTO  -|           |->  FBM1-S3 
-S4 -|                                                                    |->  FBM1-S4 
+Hash            Make and Pool       Seq Pooled   Demulti            Calc           De-hash 
+Samples         Libraries           Library      BCL                FBM            Samples
+-------         --------------      ---------    -------            ----           --------
+S1 -|         |-> L1-XL1-GEX |->                  |->  FQ1-XL1-GEX  -|               |->  FBM1-XL1-S1 
+S2 -|->  H1  -|-> L1-XL1-ADT |->  PL1  ->  BCL1  -|->  FQ1-XL1-ADT  -|->  FBM1-XL1  -|->  FBM1-XL1-S2 
+S3 -|         |-> L1-XL1-HTO |->                  |->  FQ1-XL1-HTO  -|               |->  FBM1-XL1-S3 
+S4 -|                                                                                |->  FBM1-XL1-S4 
 
 ```
 
@@ -67,9 +67,9 @@ This is the Seq-Run-FASTQ Set level spreadsheet (see [Glossary]) that 10x techs 
 
 | FASTQs  | Loading Sample | Sample Index | Hashed Sample | 10x Lane ID | Library Type | BCL Run ID  | Processing Run  | 
 |---|---|---|---|---|---|---|---|
-| FQ1-GEX | H1 | SI-GA-A3 | True  | XL1  | GEX  | BCL1 | CR-1 |
-| FQ1-ADT | H1 | RPI1    | True  | XL1  | ADT  | BCL1 | CR-1 |
-| FQ1-HTO | H1 | D7001   | True  | XL1  | HTO  | BCL1 | CR-1 |
+| FQ1-XL1-GEX | H1 | SI-GA-A3 | True  | XL1  | GEX  | BCL1 | CR-1 |
+| FQ1-XL1-ADT | H1 | RPI1    | True  | XL1  | ADT  | BCL1 | CR-1 |
+| FQ1-XL1-HTO | H1 | D7001   | True  | XL1  | HTO  | BCL1 | CR-1 |
 
 ### Columns
 - `FASTQs`: name of the Seq-Run-FASTQ Set that is the result of a single sequencing run.
@@ -145,9 +145,9 @@ A `Processing-Run` takes as input two spreadsheets (produced by the 10x techs us
 
 | Lane| FASTQs | Index Name | Index Oligo | Library Type | Ref Trans | Number of Cells | Chemistry | Library Features |
 |---|---|---|---|---|---|---|---|---|
-| 1  | FQ1-GEX | SI-GA-A3 | `-` | Gene Expression | GRCh38 | 18000 | 5-prime_V2 | LF1 |
-| 2  | FQ1-ADT | RPI1 | ACTGTT | Custom | GRCh38 | 18000 | 5-prime_V2 | LF1 |
-| 3  | FQ1-HTO | D7001 | ACTGTTGG | Custom | GRCh38 | 18000 | 5-prime_V2 | LF1 |
+| 1  | FQ1-XL1-GEX | SI-GA-A3 | `-` | Gene Expression | GRCh38 | 18000 | 5-prime_V2 | LF1 |
+| 2  | FQ1-XL1-ADT | RPI1 | ACTGTT | Custom | GRCh38 | 18000 | 5-prime_V2 | LF1 |
+| 3  | FQ1-XL1-HTO | D7001 | ACTGTTGG | Custom | GRCh38 | 18000 | 5-prime_V2 | LF1 |
 
 ### Columns
 - `Lane`: the 10x chip lane - **I think we can just increment this**
@@ -194,9 +194,9 @@ This spreadsheet is only necessary for feature barcoding (or CITE-seq) runs. It 
 ## 1. Sample Sheet CSV
 | Lane| Sample | Index |
 |---|---|---|
-| 1  | FQ1-GEX | SI-GA-A3 |
-| 1  | FQ1-ADT | ACTGTT |
-| 1  | FQ1-HTO | ACTGTTGG |
+| 1  | FQ1-XL1-GEX | SI-GA-A3 |
+| 1  | FQ1-XL1-ADT | ACTGTT |
+| 1  | FQ1-XL1-HTO | ACTGTTGG |
 
 ### Columns
 - `Lane` refers to the 10x chip lane.
@@ -210,9 +210,9 @@ This table is in the format of the "simple samplesheet" consumed by `cellranger 
 ## 2. Libraries CSV
 |  FASTQs | Sample  |  Library Type |
 |---|---|---|
-| /path/to/fastqs/ | FQ1-GEX | Gene Expression |
-| /path/to/fastqs/ | FQ1-ADT | Custom |
-| /path/to/fastqs/ | FQ1-HTO | Custom |
+| /path/to/fastqs/ | FQ1-XL1-GEX | Gene Expression |
+| /path/to/fastqs/ | FQ1-XL1-ADT | Custom |
+| /path/to/fastqs/ | FQ1-XL1-HTO | Custom |
 
 ### Columns
 - `FASTQs`: path to demultiplexed FASTQ files (cannot have comma-delimiited paths; more than one path requres an additional row).
