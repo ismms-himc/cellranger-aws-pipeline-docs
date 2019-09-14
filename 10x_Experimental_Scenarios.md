@@ -58,11 +58,11 @@ S4 -|                                                                           
 This spreadsheet shows four biological samples that are being hashed into a single loading sample (`H1_GEX`). Each sample is labeled with a different HTO (e.g. `HTO-1`) and share a common list of `Library Features` (e.g. all ADTs and HTOs used in the hashed `Loading Sample` `H1_GEX`).
 
 ## 2. Library-Level Spreadsheet
-| Library  | Loading Sample | 10x Lane ID | Hashed Sample | Library Type | Sample Index |
-|---|---|---|---|---|---|
-| L1-XL1-GEX | H1 | XL1  | True  | GEX  | SI-GA-A3 |
-| L1-XL1-ADT | H1 | XL1  | True  | ADT  |  RPI1    |
-| L1-XL1-HTO | H1 | XL1  | True  | HTO  |  D7001   |
+| Library  | Loading Sample | 10x Lane ID | Library Type | Hashed Sample | Sample Index | Pooled Library | BCL |
+|---|---|---|---|---|---|---|---|
+| L1-XL1-GEX | H1 | XL1  | GEX  | True  | SI-GA-A3 | PL1 | BCL1 |
+| L1-XL1-ADT | H1 | XL1  | ADT  | True  |  RPI1    | PL1 | BCL1 |
+| L1-XL1-HTO | H1 | XL1  | HTO  | True  |  D7001   | PL1 | BCL1 |
 
 The 10x techs must keep track of library-level information during the course of a run. However, the details of their spreadsheet will not be documented here. From the perspective of the computational team, these libraries play more of an intermediate role in the progression from biological sample to output dataset (e.g. FASTQs) and will, for the time being, not be explicitly tracked by the computational team.
 
@@ -71,11 +71,11 @@ In our example, we have three libraries being generated from a single 10x lane. 
 ## 3. FASTQ-Level Spreadsheet
 This is the Seq-Run-FASTQ Set level spreadsheet (see [Glossary]) that 10x techs will use to keep track of FASTQs produced from a sequencing run of a given pooled library. 
 
-| FASTQs  | Loading Sample | Sample Index | Hashed Sample | 10x Lane ID | Library Type | BCL Run ID  | Processing Run  | 
-|---|---|---|---|---|---|---|---|
-| FQ1-XL1-GEX | H1 | SI-GA-A3 | True  | XL1  | GEX  | BCL1 | CR-1 |
-| FQ1-XL1-ADT | H1 | RPI1    | True  | XL1  | ADT  | BCL1 | CR-1 |
-| FQ1-XL1-HTO | H1 | D7001   | True  | XL1  | HTO  | BCL1 | CR-1 |
+| FASTQs  | BCL | Sample Index | Hashed Sample |  Library Type | Processing Run  | 
+|---|---|---|---|---|---|
+| FQ1-XL1-GEX | BCL1 | SI-GA-A3 | True  |  GEX  | CR-1 |
+| FQ1-XL1-ADT | BCL1 | RPI1    | True  |  ADT  | CR-1 |
+| FQ1-XL1-HTO | BCL1 | D7001   | True  |  HTO  | CR-1 |
 
 ### Columns
 - `FASTQs`: name of the Seq-Run-FASTQ Set that is the result of a single sequencing run.
