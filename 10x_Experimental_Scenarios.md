@@ -30,11 +30,10 @@ Below are 4 proposed spreadsheets for use by the 10X techs (not all experiment-r
 Hash            Make and Pool       Seq Pooled   Demulti            Calc           De-hash 
 Samples         Libraries           Library      BCL                FBM            Samples
 -------         --------------      ---------    -------            ----           --------
-S1 -|         |-> L1-XL1-GEX |->                  |->  FQ1-XL1-GEX  -|               |->  FBM1-XL1-S1 
+S1 -|         |-> L1-XL1-GEX |                    |->  FQ1-XL1-GEX  -|               |->  FBM1-XL1-S1 
 S2 -|->  H1  -|-> L1-XL1-ADT |->  PL1  ->  BCL1  -|->  FQ1-XL1-ADT  -|->  FBM1-XL1  -|->  FBM1-XL1-S2 
-S3 -|         |-> L1-XL1-HTO |->                  |->  FQ1-XL1-HTO  -|               |->  FBM1-XL1-S3 
+S3 -|         |-> L1-XL1-HTO |                    |->  FQ1-XL1-HTO  -|               |->  FBM1-XL1-S3 
 S4 -|                                                                                |->  FBM1-XL1-S4 
-
 ```
 
 ## 1. Sample-Level Spreadsheet
@@ -271,9 +270,16 @@ This will give meta-data on loading sample level data. For a hashed sample, we w
 
 # Enumeration of Scenarios
 
-<!-- which tables' schemas are being represented in these examples? --> 
-
 ## scRNA-seq: 3 Samples, 3 10x Lanes, 3 Seq-Libraries, 1 Flowcell/BCL
+```
+   Make          Make Pooled  Seq Pooled    Demulti           Calc
+   Libraries     Library      Library       BCL               FBMs
+   ---------     ---------    -------       ----              ----
+S1   ->   L1-XL1    |                        |->  FQ1-XL1-GEX  ->  FBM1-XL1
+S2   ->   L2-XL2    |->   PL1   ->   BCL1   -|->  FQ2-XL2-GEX  ->  FBM2-XL2
+S3   ->   L3-XL3    |                        |->  FQ3-XL3-GEX  ->  FBM3-XL3
+```
+
 These three rows represents an experiment (e.g. Cell Ranger Run `CR-1`) that has three samples (`S1`, `S2`, `S3`) run in separate 10x chip lanes. The three libraries generated from the three lanes are multiplexed and run in a single flowcell, which generates a single BCL file (`BCL1`). This single BCL file will need to be de-multiplexed, producing three sets of FASTQs that will produce three 
 feature-barcode-matrices (FBMs). 
 
