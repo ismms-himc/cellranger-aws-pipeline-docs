@@ -346,25 +346,25 @@ This example has multiple lanes per sample to get more cells per sample and mult
 
 ## 5. One Lane per Sample, TCR-seq, Single Seq-Run
 ```
-  Make             Make Pooled   Seq Pooled     Demulti       Calc
-  Libraries        Library       Library        BCL           FBM/VDJ
-  ---------        ---------     -------        ----          -------
-S1   -|->   L1-GEX    -|->   PL1   -|->   BCL1  ->  FQ1-GEX    ->   FBM1  
-      |->   L1-TCR    -|            |->   BCL2  ->  FQ1-TCR    ->   TCR1  
+  Make             Make Pooled   Seq Pooled     Demulti           Calc
+  Libraries        Library       Library        BCL               FBM/VDJ
+  ---------        ---------     -------        ----              -------
+S1   -|->   L1-GEX    -|->   PL1   -|->   BCL1  ->  FQ1-BCL1-GEX    ->   FBM1  
+      |->   L1-TCR    -|            |->   BCL2  ->  FQ1-BCL2-TCR    ->   TCR1  
 ```
 
 One sample is run in a 10x chip lane producing one GEX library and one TCR library. A pooled library is generated and sequenced twice (once for GEX and once for VDJ). The BCL files are 'de-multiplexed' into a single set of Seq-Run FASTQ Set per BCL (`FQ1-GEX1` and `FQ1-TCR`). Cell Ranger `count`/`vdj` are run on `FQ1-GEX1`/`FQ1-TCR` respectively to produce outputs (FBM/contigs). Note that two sequencing runs are performed on the pooled sample because sequencing conditions are different for GEX and VDJ.
 
 ## 6. Multiple Lanes per Sample, TCR-seq, BCR-seq, Multiple Seq-Run
 ```
-  Make                 Make Pooled   Seq Pooled     Demulti           Calc
-  Libraries            Library       Library        BCL               FBM/VDJ
-  ---------            ---------     -------        ----              -------
-      |->   L1-XL1-GEX    -|            |->   BCL1  -|->  FQ1-XL1-TCR    ->   TCR1-XL1
-S1   -|->   L1-XL1-TCR    -|            |            |->  FQ1-XL1-BCR    ->   BCR1-XL1
+  Make                 Make Pooled   Seq Pooled     Demulti               Calc
+  Libraries            Library       Library        BCL                   FBM/VDJ
+  ---------            ---------     -------        ----                  -------
+      |->   L1-XL1-GEX    -|            |->   BCL1  -|->  FQ1-XL1-BCL1-TCR    ->   TCR1-XL1
+S1   -|->   L1-XL1-TCR    -|            |            |->  FQ1-XL1-BCL1-BCR    ->   BCR1-XL1
       |->   L1-XL1-BCR    -|->   PL1   -|
-      |                    |            |            |->  FQ1-XL1-GEX    ->   FBM1-XL1
-      |->   L1-XL2-GEX    -|            |->   BCL2  -|->  FQ1-XL2-GEX    ->   FBM1-XL2
+      |                    |            |            |->  FQ1-XL1-BCL2-GEX    ->   FBM1-XL1
+      |->   L1-XL2-GEX    -|            |->   BCL2  -|->  FQ1-XL2-BCL2-GEX    ->   FBM1-XL2
 ```
 One sample is run in two lanes. One lane includes TCR and BCR sequencing (`XL1`) and the other includes GEX only (`XL2`). A pooled library is generated and sequenced two times (once for GEX and once for VDJ). The BCL files are de-multiplexed. Cell Ranger `count` and `vdj` are run for thier respective FASTQs. 
 
