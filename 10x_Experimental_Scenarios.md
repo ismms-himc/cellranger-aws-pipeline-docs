@@ -346,39 +346,27 @@ This example has multiple lanes per sample to get more cells per sample and mult
 
 ## 5. One Lane per Sample, TCR-seq, Single Seq-Run
 ```
-  Make             Make Pooled   Seq Pooled    Demulti       Calc
-  Libraries        Library       Library       BCL           FBMs/TCRs
-  ---------        ---------     -------       ----          ---------
-S1   -|->   L1-GEX    -|                        |->   FQ1-GEX   ->  FBM1
-      |->   L1-TCR    -|                        |->   FQ1-TCR   ->  TCR1
-                       |                        |
-S2   -|->   L2-GEX    -|->   PL1   ->   BCL1   -|->   FQ2-GEX   ->  FBM2
-      |->   L2-TCR    -|                        |->   FQ2-TCR   ->  TCR2
-                       |                        |
-S3   -|->   L3-GEX    -|                        |->   FQ3-GEX   ->  FBM3
-      |->   L3-TCR    -|                        |->   FQ3-TCR   ->  TCR3
+  Make             Make Pooled   Seq Pooled        Demulti       Calc
+  Libraries        Library       Library           BCL           FBM/VDJ
+  ---------        ---------     -------           ----          -------
+S1   -|->   L1-GEX    -|->   PL1   -|->   BCL1-GEX  ->  FQ1-GEX    ->   FBM1  
+      |->   L1-TCR    -|            |->   BCL1-TCR  ->  FQ1-TCR    ->   TCR1  
 ```
 
-Three samples are run in three 10x chip lanes producing three GEX libraries and three TCR libraries. A pooled library is generated and sequenced once. The BCL file is de-multiplexed into three sets of Seq-Run FASTQ Sets (only including GEX libraries) and each is run in a separate instance of Cell Ranger Count to produce three FBMs. The three TCR libraries are run in Cell Ranger vdj to produce three TCR VDJ outputs (e.g. filtered contigs).
+One sample is run in a 10x chip lane producing one GEX library and one TCR library. A pooled library is generated and sequenced once. The BCL file is de-multiplexed into one two sets of Seq-Run FASTQ Sets (`FQ1-GEX1` and `FQ1-TCR`). Cell Ranger count/vdj are run on `FQ1-GEX1`/`FQ1-TCR` respectively to produce outputs (FBM/contigs). Note that two sequencing runs are performed because sequencing conditions are different for GEX and VDJ.
 
 ## 6. Multiple Lanes per Sample, TCR-seq, BCR-seq, Multiple Seq-Run
 ```
-  Make             Make Pooled   Seq Pooled    Demulti       Calc
-  Libraries        Library       Library       BCL           FBMs/TCRs
-  ---------        ---------     -------       ----          ---------
-S1   -|->   L1-XL1-GEX    -|                        |->   FQ1-XL1-GEX   ->  FBM1
-      |->   L1-XL1-TCR    -|                        |->   FQ1-XL1-TCR   ->  TCR1
-      |->   L1-XL1-BCR    -|                        |->   FQ1-XL1-BCR   ->  BCR1
-                           |                        |
-S2   -|->   L2-XL1-GEX    -|->   PL1   ->   BCL1   -|->   FQ2-XL1-GEX   ->  FBM2
-      |->   L2-XL1-TCR    -|                        |->   FQ2-XL1-TCR   ->  TCR2
-      |->   L2-XL1-BCR    -|                        |->   FQ2-XL1-BCR   ->  BCR2
-                           |                        |
-S3   -|->   L3-XL1-GEX    -|                        |->   FQ3-XL1-GEX   ->  FBM3
-      |->   L3-XL1-TCR    -|                        |->   FQ3-XL1-TCR   ->  TCR3
-      |->   L3-XL1-BCR    -|                        |->   FQ3-XL1-BCR   ->  BCR3
-
+  Make                 Make Pooled   Seq Pooled            Demulti           Calc
+  Libraries            Library       Library               BCL               FBM/VDJ
+  ---------            ---------     -------               ----              -------
+      |->   L1-XL1-GEX    -|            |->   BCL1-XL1-GEX  ->  FQ1-XL1-GEX    ->   FBM1-XL1
+S1   -|->   L1-XL1-TCR    -|->   PL1   -|->   BCL1-XL1-TCR  ->  FQ1-XL1-TCR    ->   TCR1-XL1
+      |->   L1-XL1-BCR    -|            |->   BCL1-XL1-BCR  ->  FQ1-XL1-BCR    ->   BCR1-XL1
+      |                    |            |
+      |->   L1-XL2-GEX    -|            |->   BCL1-XL2-GEX  ->  FQ1-XL2-GEX    ->   FBM1-XL2
 ```
+One sample is run in two lanes. One lane includes TCR and BCR sequencing (`XL1`) and the other includes GEX only (`XL2`). 
 
 ## 7. One Lane per Sample, ADT, Single Seq-Run
 
