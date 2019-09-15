@@ -272,12 +272,12 @@ This will give meta-data on loading sample level data. For a hashed sample, we w
 
 ## 1. Single Lane per Sample, Single Seq-Run
 ```
- Make        Make Pooled   Seq Pooled    Demulti         Calc
- Libraries   Library       Library       BCL             FBMs
- ---------   ---------     -------       ----            ----
-S1   ->   L1    -|                        |->   FQ1-GEX   ->  FBM1
-S2   ->   L2    -|->   PL1   ->   BCL1   -|->   FQ2-GEX   ->  FBM2
-S3   ->   L3    -|                        |->   FQ3-GEX   ->  FBM3
+ Make        Make Pooled   Seq Pooled    Demulti     Calc
+ Libraries   Library       Library       BCL         FBMs
+ ---------   ---------     -------       ----        ----
+S1   ->   L1    -|                        |->   FQ1   ->  FBM1
+S2   ->   L2    -|->   PL1   ->   BCL1   -|->   FQ2   ->  FBM2
+S3   ->   L3    -|                        |->   FQ3   ->  FBM3
 ```
 
 Three samples are run in three 10x chip lanes producing three GEX libraries. A pooled library is generated and sequenced once. The BCL file is de-multiplexed into three sets of Seq-Run FASTQ Sets and each is run in a separate instance of Cell Ranger Count to produce three FBMs. 
@@ -302,43 +302,43 @@ Three samples are run in three 10x chip lanes producing three GEX libraries. A p
 ## 3. Multiple Lanes per Sample, Single Seq-Run
 
 ```
-  Make           Make Pooled   Seq Pooled    Demulti             Calc
-  Libraries      Library       Library       BCL                 FBMs
-  ---------      ---------     -------       ----                ----
-S1   -|-> L1-XL1    -|                        |->   FQ1-XL1-GEX   ->  FBM1-XL1
-      |-> L1-XL2    -|                        |->   FQ1-XL2-GEX   ->  FBM1-XL2
+  Make           Make Pooled   Seq Pooled    Demulti         Calc
+  Libraries      Library       Library       BCL             FBMs
+  ---------      ---------     -------       ----            ----
+S1   -|-> L1-XL1    -|                        |->   FQ1-XL1   ->  FBM1-XL1
+      |-> L1-XL2    -|                        |->   FQ1-XL2   ->  FBM1-XL2
                      |                        |
-S2   -|-> L2-XL3    -|->   PL1   ->   BCL1   -|->   FQ2-XL3-GEX   ->  FBM2-XL3
-      |-> L2-XL4    -|                        |->   FQ2-XL4-GEX   ->  FBM2-XL4
+S2   -|-> L2-XL3    -|->   PL1   ->   BCL1   -|->   FQ2-XL3   ->  FBM2-XL3
+      |-> L2-XL4    -|                        |->   FQ2-XL4   ->  FBM2-XL4
                      |                        |
-S3   -|-> L3-XL5    -|                        |->   FQ3-XL5-GEX   ->  FBM3-XL5
-      |-> L3-XL6    -|                        |->   FQ3-XL6-GEX   ->  FBM3-XL6
+S3   -|-> L3-XL5    -|                        |->   FQ3-XL5   ->  FBM3-XL5
+      |-> L3-XL6    -|                        |->   FQ3-XL6   ->  FBM3-XL6
 ```
 
 Three samples are run in two 10x chip lanes each (to double the number of measured cells) producing six GEX libraries. A pooled library is generated and sequenced once. The BCL file is de-multiplexed into six sets of Seq-Run FASTQ Sets. Six runs of Cell Ranger count are run on the six FBM FASTQ Sets. Note that in this scenario, we are leaving it to the user to combine data from different lanes (e.g. different samples of cell from the same biological sample) of the same subject (e.g. `FBM1-XL1` and `FBM1-XL2`).
 
 ## 4. Multiple Lanes per Sample, Multiple Seq-Runs
 ```
-  Make           Make Pooled      Seq Pooled  Demulti                  Calc
-  Libraries      Library          Library     BCLs                     FBMs
-  ---------      ---------        -------     ----                     ----
-      |-> L1-XL1    -|                        |->   FQ1-XL1-BCL1-GEX   -|->  FBM1-XL1
-S1   -|              |                        |->   FQ1-XL1-BCL2-GEX   -|  
+  Make           Make Pooled      Seq Pooled  Demulti              Calc
+  Libraries      Library          Library     BCLs                 FBMs
+  ---------      ---------        -------     ----                 ----
+      |-> L1-XL1    -|                        |->   FQ1-XL1-BCL1   -|->  FBM1-XL1
+S1   -|              |                        |->   FQ1-XL1-BCL2   -|  
       |              |                        |
-      |-> L1-XL2    -|                        |->   FQ1-XL2-BCL1-GEX   -|->  FBM1-XL2
-                     |                        |->   FQ1-XL2-BCL2-GEX   -|  
+      |-> L1-XL2    -|                        |->   FQ1-XL2-BCL1   -|->  FBM1-XL2
+                     |                        |->   FQ1-XL2-BCL2   -|  
                      |                        |  
-      |-> L2-XL3    -|            |-> BCL1   -|->   FQ2-XL3-BCL1-GEX   -|->  FBM2-XL3
-S2   -|              |->   PL1   -|           |->   FQ2-XL3-BCL2-GEX   -|    
+      |-> L2-XL3    -|            |-> BCL1   -|->   FQ2-XL3-BCL1   -|->  FBM2-XL3
+S2   -|              |->   PL1   -|           |->   FQ2-XL3-BCL2   -|    
       |              |            |-> BCL2   -|
-      |-> L2-XL4    -|                        |->   FQ2-XL4-BCL1-GEX   -|->  FBM2-XL4
-                     |                        |->   FQ2-XL4-BCL2-GEX   -|    
+      |-> L2-XL4    -|                        |->   FQ2-XL4-BCL1   -|->  FBM2-XL4
+                     |                        |->   FQ2-XL4-BCL2   -|    
                      |                        |
-      |-> L3-XL5    -|                        |->   FQ3-XL5-BCL1-GEX   -|->  FBM3-XL5
-S3   -|              |                        |->   FQ3-XL5-BCL2-GEX   -|    
+      |-> L3-XL5    -|                        |->   FQ3-XL5-BCL1   -|->  FBM3-XL5
+S3   -|              |                        |->   FQ3-XL5-BCL2   -|    
       |              |                        |                     
-      |-> L3-XL6    -|                        |->   FQ3-XL6-BCL1-GEX   -|->  FBM3-XL6
-                     |                        |->   FQ3-XL6-BCL2-GEX   -|    
+      |-> L3-XL6    -|                        |->   FQ3-XL6-BCL1   -|->  FBM3-XL6
+                     |                        |->   FQ3-XL6-BCL2   -|    
 ```
 
 Three samples are run in two 10x chip lanes each (to double the number of measured cells) producing six GEX libraries. A pooled library is genrated and sequenced twice (to get more reads per cell). The BCL files are de-multiplexed into twelve sets of Seq-Run FASTQ Sets and six corresponding FBM FASTQ Sets. Six runs of Cell Ranger `count` are run on the six FBM FASTQ Sets. 
