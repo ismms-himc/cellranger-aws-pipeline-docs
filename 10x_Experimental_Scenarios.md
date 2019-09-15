@@ -382,9 +382,29 @@ S2   -|->  L2-GEX  -|->   PL1   ->   BCL1   -|->  FQ2-GEX  -|->  FBM2
 S3   -|->  L3-GEX  -|                        |->  FQ3-GEX  -|->  FBM3
       |->  L3-ADT  -|                        |->  FQ3-ADT  -|
 ```
-Three ADT samples are run in three lanes producing three GEX and three ADT libraries. These libraries are pooled and sequenced once. The BCL file is de-multiplexed into six Seq-Run FASTQ Sets and three FBM FASTQ Sets (each containing GEX and ADT FASTQs). Cell Ranger `count` is run three times to produce three FBMs containing both GEX and ADT data. 
+Three ADT samples are run in three lanes producing three GEX and three ADT libraries. These libraries are pooled and sequenced once. The BCL file is de-multiplexed into six Seq-Run FASTQ Sets and three FBM FASTQ Sets (each containing GEX and ADT FASTQs). Cell Ranger `count` (using feature barcoding) is run three times to produce three FBMs containing both GEX and ADT data. 
 
 ## 8. One Lane per Sample, ADT, Multiple Seq-Run
+```
+ Make           Make Pooled   Seq Pooled    Demulti         Calc
+ Libraries      Library       Library       BCL             FBMs
+ ---------      ---------     -------       ----            ----
+      |->  L1-GEX  -|                        |->  FQ1-BCL1-GEX  -|
+S1   -|             |                        |->  FQ1-BCL2-GEX  -|->  FBM1
+      |->  L1-ADT  -|                        |->  FQ1-BCL1-ADT  -|
+                    |                        |->  FQ1-BCL2-ADT  -|      
+                    |                        |
+S2   -|->  L2-GEX  -|            |->  BCL1  -|->  FQ2-BCL1-GEX  -|
+      |             |->   PL1   -|           |->  FQ2-BCL2-GEX  -|->  FBM2
+      |->  L2-ADT  -|            |->  BCL2  -|->  FQ2-BCL1-ADT  -|
+                    |                        |->  FQ2-BCL2-ADT  -|
+                    |                        |
+S3   -|->  L3-GEX  -|                        |->  FQ3-BCL1-GEX  -|
+      |             |                        |->  FQ3-BCL2-GEX  -|->  FBM3
+      |->  L3-ADT  -|                        |->  FQ3-BCL1-ADT  -|
+                                             |->  FQ3-BCL2-ADT  -|      
+```
+Three ADT samples are run in three lanes producing three GEX and three ADT libraries. These libraries are pooled and sequenced twice. The BCL files are de-multiplexed into twelve Seq-Run FASTQ Sets and three FBM FASTQ Sets (each containing GEX and ADT FASTQs). Cell Ranger `count` (using feature barcoding) is run three times to produce three FBMs containing both GEX and ADT data. 
 
 ## 9. Hashed, One Lane per Sample, Single Seq-Run
 
