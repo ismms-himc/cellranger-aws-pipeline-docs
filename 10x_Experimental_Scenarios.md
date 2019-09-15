@@ -284,17 +284,17 @@ Three samples are run in three 10x chip lanes producing three GEX libraries. A p
 
 ## 2. Single Lane per Sample, Multiple Seq-Runs 
 ```
- Make        Make Pooled   Seq Pooled    Demulti            Calc
- Libraries   Library       Library       BCLs               FBMs
- ---------   ---------     -------       ----               ----
-                                         |->  FQ1-BCL1-GEX  -|->  FBM1
-                                         |->  FQ1-BCL2-GEX  -|
+ Make        Make Pooled   Seq Pooled    Demulti        Calc
+ Libraries   Library       Library       BCLs           FBMs
+ ---------   ---------     -------       ----           ----
+                                         |->  FQ1-BCL1  -|->  FBM1
+                                         |->  FQ1-BCL2  -|
 S1   ->   L1   -|           |->   BCL1  -| 
-S2   ->   L2   -|->   PL1  -|            |->  FQ2-BCL1-GEX  -|->  FBM2
-S3   ->   L3   -|           |->   BCL2  -|->  FQ2-BCL2-GEX  -|
+S2   ->   L2   -|->   PL1  -|            |->  FQ2-BCL1  -|->  FBM2
+S3   ->   L3   -|           |->   BCL2  -|->  FQ2-BCL2  -|
                                          |
-                                         |->  FQ3-BCL1-GEX  -|->  FBM3
-                                         |->  FQ3-BCL2-GEX  -|
+                                         |->  FQ3-BCL1  -|->  FBM3
+                                         |->  FQ3-BCL2  -|
 ```
 
 Three samples are run in three 10x chip lanes producing three GEX libraries. A pooled library is generated and sequenced twice in order to get more reads per cell. The BCL files are de-multiplexed into six sets of Seq-Run FASTQ Sets (note that FASTQs need their BCL name in order to be unique). Three runs fo Cell Ranger count are run on the three FBM FASTQ Sets (each set is composed of two Seq-Run FASTQ Sets, note reordering of FASTQs in the diagram) to produce three FBMs. 
