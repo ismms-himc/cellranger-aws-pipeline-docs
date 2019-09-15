@@ -148,7 +148,7 @@ A `Processing-Run` takes as input two spreadsheets (produced by the 10x techs us
 
 ## 1. HIMC Sample Sheet
 
-| FASTQs | Index Name | Index Oligo | Library Type | Ref Trans | Number of Cells | Chemistry | Software Version | Library Features |
+| FASTQs | Index Name | Index Oligo | Library Type | Ref Trans | Number of Cells | Chemistry | Cell Ranger Version | Library Features |
 |---|---|---|---|---|---|---|---|---|
 | FQ1-GEX | SI-GA-A3 | `-` | Gene Expression | GRCh38 | 18000 | 5-prime_V2 | 3.1.0 | LF1 |
 | FQ1-ADT | RPI1 | ACTGTT | Custom | GRCh38 | 18000 | 5-prime_V2 | 3.1.0 | LF1 |
