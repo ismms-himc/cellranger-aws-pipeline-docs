@@ -386,9 +386,9 @@ Three ADT samples are run in three lanes producing three GEX and three ADT libra
 
 ## 8. One Lane per Sample, ADT, Multiple Seq-Run
 ```
- Make           Make Pooled   Seq Pooled    Demulti         Calc
- Libraries      Library       Library       BCL             FBMs
- ---------      ---------     -------       ----            ----
+ Make           Make Pooled   Seq Pooled    Demulti            Calc
+ Libraries      Library       Library       BCL                FBMs
+ ---------      ---------     -------       ----               ----
       |->  L1-GEX  -|                        |->  FQ1-BCL1-GEX  -|
 S1   -|             |                        |->  FQ1-BCL2-GEX  -|->  FBM1
       |->  L1-ADT  -|                        |->  FQ1-BCL1-ADT  -|
@@ -406,9 +406,35 @@ S3   -|->  L3-GEX  -|                        |->  FQ3-BCL1-GEX  -|
 ```
 Three ADT samples are run in three lanes producing three GEX and three ADT libraries. These libraries are pooled and sequenced twice. The BCL files are de-multiplexed into twelve Seq-Run FASTQ Sets and three FBM FASTQ Sets (each containing GEX and ADT FASTQs). Cell Ranger `count` (using feature barcoding) is run three times to produce three FBMs containing both GEX and ADT data. 
 
-## 9. Hashed, One Lane per Sample, Single Seq-Run
+## 9. Hashed-ADT, One Lane per Sample, Single Seq-Run
+```
+ Hash      Make             Pool        Seq Pooled   Demulti       Calc       De-hash 
+ Samples   Libraries        Libraries   Library      BCL           FBM        Samples
+ -------   ---------        ---------   ---------    -------       ----       --------
+S1 -|          |->   L1-GEX   -|                     |->  FQ1-GEX  -|           |->  FBM1-S1 
+S2 -|->  H1   -|->   L1-ADT   -|->   PL1  ->  BCL1  -|->  FQ1-ADT  -|->  FBM1  -|->  FBM1-S2 
+S3 -|          |->   L1-HTO   -|                     |->  FQ1-HTO  -|           |->  FBM1-S3 
+S4 -|                                                                           |->  FBM1-S4 
+```
+This is the same as the default example used earlier in the documentation. Four ADT samples are hashed into a single Loading Sample (`H1`) and run in a single 10x lane, which generates three libraries. The libraries are pooled and sequenced once. The BCL files are de-multiplexed into three Seq-Run FASTQ Sets and one FBM FASTQ Set. Cell Ranger `count` (using feature barcoding) is run once to produce one FBM containing GEX, ADT, and HTO data. De-hashing is manually run after the Processing Run to obtain sample level FBMs. 
 
-## 10. Hashed, Multiple Lanes per Sample, ADT, Single Seq-Run
+## 10. Hashed-ADT, Multiple Lanes per Sample, ADT, Single Seq-Run
+```
+ Hash      Make             Pool        Seq Pooled   Demulti       Calc       De-hash 
+ Samples   Libraries        Libraries   Library      BCL           FBM        Samples
+ -------   ---------        ---------   ---------    -------       ----       --------
+               |->   L1-XL1-GEX   -|                     |->  FQ1-XL1-GEX  -|           |->  FBM1-S1 
+               |->   L1-XL1-ADT   -|                     |->  FQ1-XL1-ADT  -|->  FBM1  -|->  FBM1-S2 
+               |->   L1-XL1-HTO   -|                     |->  FQ1-XL1-HTO  -|           |->  FBM1-S3 
+S1 -|          |                   |                     |                              |->  FBM1-S4 
+S2 -|->  H1   -|                   |->   PL1  ->  BCL1  -|
+S3 -|          |                   |                     |
+S4 -|          |->   L1-XL2-GEX   -|                     |->  FQ1-XL2-GEX  -|           |->  FBM2-S1 
+               |->   L1-XL2-ADT   -|                     |->  FQ1-XL2-ADT  -|->  FBM2  -|->  FBM2-S2 
+               |->   L1-XL2-HTO   -|                     |->  FQ1-XL2-HTO  -|           |->  FBM2-S3 
+                                                                                        |->  FBM2-S4 
+```
+Four ADT samples are hashed into a single Loading Sample (`H1`) and run in two 10x lanes (to get more cells), which generates six libraries. The libraries are pooled and sequenced once. The BCL files are de-multiplexed into six Seq-Run FASTQ Sets and two FBM FASTQ Set. Cell Ranger `count` (using feature barcoding) is run twice to produce two FBMs containing GEX, ADT, and HTO data. De-hashing is manually run twice after the Processing Run to obtain sample level FBMs. 
 
 # Glossary
 
