@@ -345,6 +345,21 @@ Three samples are run in two 10x chip lanes each (to double the number of measur
 This example has multiple lanes per sample to get more cells per sample and multiple reads per sample to get more reads per cell. Similarly to scenario 3, we are leaving it to the user to combine data from different lanes of the same subject. 
 
 ## 5. One Lane per Sample, TCR-seq, Single Seq-Run
+```
+  Make             Make Pooled   Seq Pooled    Demulti       Calc
+  Libraries        Library       Library       BCL           FBMs/TCRs
+  ---------        ---------     -------       ----          ---------
+S1   -|->   L1-GEX    -|                        |->   FQ1-GEX   ->  FBM1
+      |->   L1-TCR    -|                        |->   FQ1-TCR   ->  TCR1
+                       |                        |
+S2   -|->   L2-GEX    -|->   PL1   ->   BCL1   -|->   FQ2-GEX   ->  FBM2
+      |->   L2-TCR    -|                        |->   FQ2-TCR   ->  TCR2
+                       |                        |
+S3   -|->   L3-GEX    -|                        |->   FQ3-GEX   ->  FBM3
+      |->   L3-TCR    -|                        |->   FQ3-TCR   ->  TCR3
+```
+
+Three samples are run in three 10x chip lanes producing three GEX libraries and three TCR libraries. A pooled library is generated and sequenced once. The BCL file is de-multiplexed into three sets of Seq-Run FASTQ Sets (only including GEX libraries) and each is run in a separate instance of Cell Ranger Count to produce three FBMs. The three TCR libraries are run in Cell Ranger vdj to produce three TCR VDJ outputs (e.g. filtered contigs).
 
 ## 6. Multiple Lanes per Sample, TCR-seq, BCR-seq, Multiple Seq-Run
 
