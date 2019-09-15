@@ -148,11 +148,11 @@ A `Processing-Run` takes as input two spreadsheets (produced by the 10x techs us
 
 ## 1. HIMC Sample Sheet
 
-| Lane| FASTQs | Index Name | Index Oligo | Library Type | Ref Trans | Number of Cells | Chemistry | Library Features |
-|---|---|---|---|---|---|---|---|---|
-| 1  | FQ1-XL1-GEX | SI-GA-A3 | `-` | Gene Expression | GRCh38 | 18000 | 5-prime_V2 | LF1 |
-| 2  | FQ1-XL1-ADT | RPI1 | ACTGTT | Custom | GRCh38 | 18000 | 5-prime_V2 | LF1 |
-| 3  | FQ1-XL1-HTO | D7001 | ACTGTTGG | Custom | GRCh38 | 18000 | 5-prime_V2 | LF1 |
+| FASTQs | Index Name | Index Oligo | Library Type | Ref Trans | Number of Cells | Chemistry | Library Features |
+|---|---|---|---|---|---|---|---|
+| FQ1-GEX | SI-GA-A3 | `-` | Gene Expression | GRCh38 | 18000 | 5-prime_V2 | LF1 |
+| FQ1-ADT | RPI1 | ACTGTT | Custom | GRCh38 | 18000 | 5-prime_V2 | LF1 |
+| FQ1-HTO | D7001 | ACTGTTGG | Custom | GRCh38 | 18000 | 5-prime_V2 | LF1 |
 
 ### Columns
 - `Lane`: the 10x chip lane - **I think we can just increment this**
@@ -199,9 +199,9 @@ This spreadsheet is only necessary for feature barcoding (or CITE-seq) runs. It 
 ## 1. Sample Sheet CSV
 | Lane| Sample | Index |
 |---|---|---|
-| 1  | FQ1-XL1-GEX | SI-GA-A3 |
-| 1  | FQ1-XL1-ADT | ACTGTT |
-| 1  | FQ1-XL1-HTO | ACTGTTGG |
+| 1  | FQ1-GEX | SI-GA-A3 |
+| 1  | FQ1-ADT | ACTGTT |
+| 1  | FQ1-HTO | ACTGTTGG |
 
 ### Columns
 - `Lane` refers to the 10x chip lane.
@@ -215,9 +215,9 @@ This table is in the format of the "simple samplesheet" consumed by `cellranger 
 ## 2. Libraries CSV
 |  FASTQs | Sample  |  Library Type |
 |---|---|---|
-| /path/to/fastqs/ | FQ1-XL1-GEX | Gene Expression |
-| /path/to/fastqs/ | FQ1-XL1-ADT | Custom |
-| /path/to/fastqs/ | FQ1-XL1-HTO | Custom |
+| /path/to/fastqs/ | FQ1-GEX | Gene Expression |
+| /path/to/fastqs/ | FQ1-ADT | Custom |
+| /path/to/fastqs/ | FQ1-HTO | Custom |
 
 ### Columns
 - `FASTQs`: path to demultiplexed FASTQ files (cannot have comma-delimiited paths; more than one path requres an additional row).
