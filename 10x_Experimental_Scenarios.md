@@ -148,11 +148,11 @@ A `Processing-Run` takes as input two spreadsheets (produced by the 10x techs us
 
 ## 1. HIMC Sample Sheet
 
-| FASTQs | Index Name | Index Oligo | Library Type | Ref Trans | Number of Cells | Chemistry | Library Features |
-|---|---|---|---|---|---|---|---|
-| FQ1-GEX | SI-GA-A3 | `-` | Gene Expression | GRCh38 | 18000 | 5-prime_V2 | LF1 |
-| FQ1-ADT | RPI1 | ACTGTT | Custom | GRCh38 | 18000 | 5-prime_V2 | LF1 |
-| FQ1-HTO | D7001 | ACTGTTGG | Custom | GRCh38 | 18000 | 5-prime_V2 | LF1 |
+| FASTQs | Index Name | Index Oligo | Library Type | Ref Trans | Number of Cells | Chemistry | Software Version | Library Features |
+|---|---|---|---|---|---|---|---|---|
+| FQ1-GEX | SI-GA-A3 | `-` | Gene Expression | GRCh38 | 18000 | 5-prime_V2 | 3.1.0 | LF1 |
+| FQ1-ADT | RPI1 | ACTGTT | Custom | GRCh38 | 18000 | 5-prime_V2 | 3.1.0 | LF1 |
+| FQ1-HTO | D7001 | ACTGTTGG | Custom | GRCh38 | 18000 | 5-prime_V2 | 3.1.0 | LF1 |
 
 ### Columns
 - `Lane`: the 10x chip lane - **I think we can just increment this**
@@ -289,7 +289,7 @@ Three samples are run in three 10x chip lanes producing three GEX libraries. A p
  ---------   ---------     -------       ----               ----
                                          |->  FQ1-BCL1-GEX  -|->  FBM1
                                          |->  FQ1-BCL2-GEX  -|
-S1   ->   L1   -|           |->   BCL2  -| 
+S1   ->   L1   -|           |->   BCL1  -| 
 S2   ->   L2   -|->   PL1  -|            |->  FQ2-BCL1-GEX  -|->  FBM2
 S3   ->   L3   -|           |->   BCL2  -|->  FQ2-BCL2-GEX  -|
                                          |
