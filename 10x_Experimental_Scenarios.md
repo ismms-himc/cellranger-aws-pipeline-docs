@@ -57,11 +57,11 @@ S4 -|                                                                           
 This spreadsheet shows four biological samples that are being hashed into a single loading sample (`H1_GEX`). Each sample is labeled with a different HTO (e.g. `HTO-1`) and share a common list of `Library Features` (e.g. all ADTs and HTOs used in the hashed `Loading Sample` `H1_GEX`).
 
 ## 2. Library-Level Spreadsheet
-| Library  | Loading Sample | 10x Lane ID | Library Type | Hashed Sample | Sample Index | Pooled Library | BCL |
-|---|---|---|---|---|---|---|---|
-| L1-XL1-GEX | H1 | XL1  | GEX  | True  | SI-GA-A3 | PL1 | BCL1 |
-| L1-XL1-ADT | H1 | XL1  | ADT  | True  |  RPI1    | PL1 | BCL1 |
-| L1-XL1-HTO | H1 | XL1  | HTO  | True  |  D7001   | PL1 | BCL1 |
+| Library  | Loading Sample | 10x Lane ID | Library Type | Hashed Sample | Sample Index | Pooled Library | BCL | FASTQs |
+|---|---|---|---|---|---|---|---|---|
+| L1-GEX | H1 | XL1  | GEX  | True  | SI-GA-A3 | PL1 | BCL1 | FQ1-GEX |
+| L1-ADT | H1 | XL1  | ADT  | True  |  RPI1    | PL1 | BCL1 | FQ1-ADT |
+| L1-HTO | H1 | XL1  | HTO  | True  |  D7001   | PL1 | BCL1 | FQ1-HTO |
 
 The 10x techs must keep track of library-level information during the course of a run. However, the details of their spreadsheet will not be documented here. From the perspective of the computational team, these libraries play more of an intermediate role in the progression from biological sample to output dataset (e.g. FASTQs) and will, for the time being, not be explicitly tracked by the computational team.
 
@@ -72,9 +72,9 @@ This is the Seq-Run-FASTQ Set level spreadsheet (see [Glossary]) that 10x techs 
 
 | FASTQs  | BCL | Sample Index |   Library Type | Processing Run  | 
 |---|---|---|---|---|
-| FQ1-XL1-GEX | BCL1 | SI-GA-A3 |   GEX  | CR-1 |
-| FQ1-XL1-ADT | BCL1 | RPI1    |  ADT  | CR-1 |
-| FQ1-XL1-HTO | BCL1 | D7001   |  HTO  | CR-1 |
+| FQ1-GEX | BCL1 | SI-GA-A3 |   GEX  | CR-1 |
+| FQ1-ADT | BCL1 | RPI1    |  ADT  | CR-1 |
+| FQ1-HTO | BCL1 | D7001   |  HTO  | CR-1 |
 
 ### Columns
 - `FASTQs`: name of the Seq-Run-FASTQ Set that is the result of a single sequencing run.
