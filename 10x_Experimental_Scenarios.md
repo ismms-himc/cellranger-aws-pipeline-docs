@@ -287,11 +287,11 @@ Three samples are run in three 10x chip lanes producing three GEX libraries. A p
  Make        Make Pooled   Seq Pooled    Demulti            Calc
  Libraries   Library       Library       BCLs               FBMs
  ---------   ---------     -------       ----               ----
-S1   ->   L1   -|           |->   BCL2  -|->  FQ1-BCL1-GEX  -|->  FBM1
-S2   ->   L2   -|->   PL1  -|            |->  FQ1-BCL2-GEX  -|
-S3   ->   L3   -|           |->   BCL2  -| 
-                                         |->  FQ2-BCL1-GEX  -|->  FBM2
-                                         |->  FQ2-BCL2-GEX  -|
+                                         |->  FQ1-BCL1-GEX  -|->  FBM1
+                                         |->  FQ1-BCL2-GEX  -|
+S1   ->   L1   -|           |->   BCL2  -| 
+S2   ->   L2   -|->   PL1  -|            |->  FQ2-BCL1-GEX  -|->  FBM2
+S3   ->   L3   -|           |->   BCL2  -|->  FQ2-BCL2-GEX  -|
                                          |
                                          |->  FQ3-BCL1-GEX  -|->  FBM3
                                          |->  FQ3-BCL2-GEX  -|
@@ -420,19 +420,19 @@ This is the same as the default example used earlier in the documentation. Four 
 
 ## 10. Hashed-ADT, Multiple Lanes per Sample, ADT, Single Seq-Run
 ```
- Hash      Make             Pool        Seq Pooled   Demulti       Calc       De-hash 
- Samples   Libraries        Libraries   Library      BCL           FBM        Samples
- -------   ---------        ---------   ---------    -------       ----       --------
-               |->   L1-XL1-GEX   -|                     |->  FQ1-XL1-GEX  -|           |->  FBM1-S1 
-               |->   L1-XL1-ADT   -|                     |->  FQ1-XL1-ADT  -|->  FBM1  -|->  FBM1-S2 
-               |->   L1-XL1-HTO   -|                     |->  FQ1-XL1-HTO  -|           |->  FBM1-S3 
-S1 -|          |                   |                     |                              |->  FBM1-S4 
-S2 -|->  H1   -|                   |->   PL1  ->  BCL1  -|
-S3 -|          |                   |                     |
-S4 -|          |->   L1-XL2-GEX   -|                     |->  FQ1-XL2-GEX  -|           |->  FBM2-S1 
-               |->   L1-XL2-ADT   -|                     |->  FQ1-XL2-ADT  -|->  FBM2  -|->  FBM2-S2 
-               |->   L1-XL2-HTO   -|                     |->  FQ1-XL2-HTO  -|           |->  FBM2-S3 
-                                                                                        |->  FBM2-S4 
+ Hash      Make             Pool         Seq Pooled     Demulti           Calc       De-hash 
+ Samples   Libraries        Libraries    Library        BCL               FBM        Samples
+ -------   ---------        ---------    ---------      -------           ----       --------
+              |->   L1-XL1-GEX   -|                     |->  FQ1-XL1-GEX  -|           |->  FBM1-S1 
+              |->   L1-XL1-ADT   -|                     |->  FQ1-XL1-ADT  -|->  FBM1  -|->  FBM1-S2 
+              |->   L1-XL1-HTO   -|                     |->  FQ1-XL1-HTO  -|           |->  FBM1-S3 
+S1 -|         |                   |                     |                              |->  FBM1-S4 
+S2 -|->  H1  -|                   |->   PL1  ->  BCL1  -|
+S3 -|         |                   |                     |
+S4 -|         |->   L1-XL2-GEX   -|                     |->  FQ1-XL2-GEX  -|           |->  FBM2-S1 
+              |->   L1-XL2-ADT   -|                     |->  FQ1-XL2-ADT  -|->  FBM2  -|->  FBM2-S2 
+              |->   L1-XL2-HTO   -|                     |->  FQ1-XL2-HTO  -|           |->  FBM2-S3 
+                                                                                       |->  FBM2-S4 
 ```
 Four ADT samples are hashed into a single Loading Sample (`H1`) and run in two 10x lanes (to get more cells), which generates six libraries. The libraries are pooled and sequenced once. The BCL files are de-multiplexed into six Seq-Run FASTQ Sets and two FBM FASTQ Set. Cell Ranger `count` (using feature barcoding) is run twice to produce two FBMs containing GEX, ADT, and HTO data. De-hashing is manually run twice after the Processing Run to obtain sample level FBMs. 
 
