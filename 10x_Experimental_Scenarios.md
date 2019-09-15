@@ -305,14 +305,14 @@ Three samples are run in three 10x chip lanes producing three GEX libraries. A p
   Make           Make Pooled   Seq Pooled    Demulti             Calc
   Libraries      Library       Library       BCL                 FBMs
   ---------      ---------     -------       ----                ----
-S1   ->   L1-XL1    -|                        |->   FQ1-XL1-GEX   ->  FBM1-XL1
-S1   ->   L1-XL2    -|                        |->   FQ1-XL2-GEX   ->  FBM1-XL2
+S1   -|-> L1-XL1    -|                        |->   FQ1-XL1-GEX   ->  FBM1-XL1
+      |-> L1-XL2    -|                        |->   FQ1-XL2-GEX   ->  FBM1-XL2
                      |                        |
-S2   ->   L2-XL3    -|->   PL1   ->   BCL1   -|->   FQ2-XL3-GEX   ->  FBM2-XL3
-S2   ->   L2-XL4    -|                        |->   FQ2-XL4-GEX   ->  FBM2-XL4
+S2   -|-> L2-XL3    -|->   PL1   ->   BCL1   -|->   FQ2-XL3-GEX   ->  FBM2-XL3
+      |-> L2-XL4    -|                        |->   FQ2-XL4-GEX   ->  FBM2-XL4
                      |                        |
-S3   ->   L3-XL5    -|                        |->   FQ3-XL5-GEX   ->  FBM3-XL5
-S3   ->   L3-XL6    -|                        |->   FQ3-XL6-GEX   ->  FBM3-XL6
+S3   -|-> L3-XL5    -|                        |->   FQ3-XL5-GEX   ->  FBM3-XL5
+      |-> L3-XL6    -|                        |->   FQ3-XL6-GEX   ->  FBM3-XL6
 ```
 
 Three samples are run in two 10x chip lanes each (to double the number of measured cells) producing six GEX libraries. A pooled library is generated and sequenced once. The BCL file is de-multiplexed into six sets of Seq-Run FASTQ Sets. Six runs of Cell Ranger count are run on the six FBM FASTQ Sets. Note that in this scenario, we are leaving it to the user to combine data from different lanes (e.g. different samples of cell from the same biological sample) of the same subject (e.g. `FBM1-XL1` and `FBM1-XL2`).
@@ -322,22 +322,22 @@ Three samples are run in two 10x chip lanes each (to double the number of measur
   Make           Make Pooled      Seq Pooled  Demulti                  Calc
   Libraries      Library          Library     BCLs                     FBMs
   ---------      ---------        -------     ----                     ----
-S1   ->   L1-XL1    -|                        |->   FQ1-XL1-BCL1-GEX   -|->  FBM1-XL1
-                     |                        |->   FQ1-XL1-BCL2-GEX   -|  
-                     |                        |
-S1   ->   L1-XL2    -|                        |->   FQ1-XL2-BCL1-GEX   -|->  FBM1-XL2
+S1   -|-> L1-XL1    -|                        |->   FQ1-XL1-BCL1-GEX   -|->  FBM1-XL1
+      |              |                        |->   FQ1-XL1-BCL2-GEX   -|  
+      |              |                        |
+      |-> L1-XL2    -|                        |->   FQ1-XL2-BCL1-GEX   -|->  FBM1-XL2
                      |                        |->   FQ1-XL2-BCL2-GEX   -|  
                      |                        |  
-S2   ->   L2-XL3    -|            |-> BCL1   -|->   FQ2-XL3-BCL1-GEX   -|->  FBM2-XL3
-                     |->   PL1   -|           |->   FQ2-XL3-BCL2-GEX   -|    
-                     |            |-> BCL2   -|
-S2   ->   L2-XL4    -|                        |->   FQ2-XL4-BCL1-GEX   -|->  FBM2-XL4
+S2   -|-> L2-XL3    -|            |-> BCL1   -|->   FQ2-XL3-BCL1-GEX   -|->  FBM2-XL3
+      |              |->   PL1   -|           |->   FQ2-XL3-BCL2-GEX   -|    
+      |              |            |-> BCL2   -|
+      |-> L2-XL4    -|                        |->   FQ2-XL4-BCL1-GEX   -|->  FBM2-XL4
                      |                        |->   FQ2-XL4-BCL2-GEX   -|    
                      |                        |
-S3   ->   L3-XL5    -|                        |->   FQ3-XL5-BCL1-GEX   -|->  FBM3-XL5
-                     |                        |->   FQ3-XL5-BCL2-GEX   -|    
-                     |                        |                     
-S3   ->   L3-XL6    -|                        |->   FQ3-XL6-BCL1-GEX   -|->  FBM3-XL6
+S3   -|-> L3-XL5    -|                        |->   FQ3-XL5-BCL1-GEX   -|->  FBM3-XL5
+      |              |                        |->   FQ3-XL5-BCL2-GEX   -|    
+      |              |                        |                     
+      |-> L3-XL6    -|                        |->   FQ3-XL6-BCL1-GEX   -|->  FBM3-XL6
                      |                        |->   FQ3-XL6-BCL2-GEX   -|    
 ```
 
@@ -362,6 +362,23 @@ S3   -|->   L3-GEX    -|                        |->   FQ3-GEX   ->  FBM3
 Three samples are run in three 10x chip lanes producing three GEX libraries and three TCR libraries. A pooled library is generated and sequenced once. The BCL file is de-multiplexed into three sets of Seq-Run FASTQ Sets (only including GEX libraries) and each is run in a separate instance of Cell Ranger Count to produce three FBMs. The three TCR libraries are run in Cell Ranger vdj to produce three TCR VDJ outputs (e.g. filtered contigs).
 
 ## 6. Multiple Lanes per Sample, TCR-seq, BCR-seq, Multiple Seq-Run
+```
+  Make             Make Pooled   Seq Pooled    Demulti       Calc
+  Libraries        Library       Library       BCL           FBMs/TCRs
+  ---------        ---------     -------       ----          ---------
+S1   -|->   L1-XL1-GEX    -|                        |->   FQ1-XL1-GEX   ->  FBM1
+      |->   L1-XL1-TCR    -|                        |->   FQ1-XL1-TCR   ->  TCR1
+      |->   L1-XL1-BCR    -|                        |->   FQ1-XL1-BCR   ->  BCR1
+                           |                        |
+S2   -|->   L2-XL1-GEX    -|->   PL1   ->   BCL1   -|->   FQ2-XL1-GEX   ->  FBM2
+      |->   L2-XL1-TCR    -|                        |->   FQ2-XL1-TCR   ->  TCR2
+      |->   L2-XL1-BCR    -|                        |->   FQ2-XL1-BCR   ->  BCR2
+                           |                        |
+S3   -|->   L3-XL1-GEX    -|                        |->   FQ3-XL1-GEX   ->  FBM3
+      |->   L3-XL1-TCR    -|                        |->   FQ3-XL1-TCR   ->  TCR3
+      |->   L3-XL1-BCR    -|                        |->   FQ3-XL1-BCR   ->  BCR3
+
+```
 
 ## 7. One Lane per Sample, ADT, Single Seq-Run
 
