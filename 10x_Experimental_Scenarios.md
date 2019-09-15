@@ -322,20 +322,20 @@ Three samples are run in two 10x chip lanes each (to double the number of measur
   Make           Make Pooled      Seq Pooled  Demulti                  Calc
   Libraries      Library          Library     BCLs                     FBMs
   ---------      ---------        -------     ----                     ----
-S1   -|-> L1-XL1    -|                        |->   FQ1-XL1-BCL1-GEX   -|->  FBM1-XL1
-      |              |                        |->   FQ1-XL1-BCL2-GEX   -|  
+      |-> L1-XL1    -|                        |->   FQ1-XL1-BCL1-GEX   -|->  FBM1-XL1
+S1   -|              |                        |->   FQ1-XL1-BCL2-GEX   -|  
       |              |                        |
       |-> L1-XL2    -|                        |->   FQ1-XL2-BCL1-GEX   -|->  FBM1-XL2
                      |                        |->   FQ1-XL2-BCL2-GEX   -|  
                      |                        |  
-S2   -|-> L2-XL3    -|            |-> BCL1   -|->   FQ2-XL3-BCL1-GEX   -|->  FBM2-XL3
-      |              |->   PL1   -|           |->   FQ2-XL3-BCL2-GEX   -|    
+      |-> L2-XL3    -|            |-> BCL1   -|->   FQ2-XL3-BCL1-GEX   -|->  FBM2-XL3
+S2   -|              |->   PL1   -|           |->   FQ2-XL3-BCL2-GEX   -|    
       |              |            |-> BCL2   -|
       |-> L2-XL4    -|                        |->   FQ2-XL4-BCL1-GEX   -|->  FBM2-XL4
                      |                        |->   FQ2-XL4-BCL2-GEX   -|    
                      |                        |
-S3   -|-> L3-XL5    -|                        |->   FQ3-XL5-BCL1-GEX   -|->  FBM3-XL5
-      |              |                        |->   FQ3-XL5-BCL2-GEX   -|    
+      |-> L3-XL5    -|                        |->   FQ3-XL5-BCL1-GEX   -|->  FBM3-XL5
+S3   -|              |                        |->   FQ3-XL5-BCL2-GEX   -|    
       |              |                        |                     
       |-> L3-XL6    -|                        |->   FQ3-XL6-BCL1-GEX   -|->  FBM3-XL6
                      |                        |->   FQ3-XL6-BCL2-GEX   -|    
