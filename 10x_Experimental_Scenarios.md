@@ -29,7 +29,7 @@ Below are 4 proposed spreadsheets for use by the 10X techs (not all experiment-r
 ```
  Hash      Make             Pool        Seq Pooled   Demulti       Calc       De-hash 
  Samples   Libraries        Libraries   Library      BCL           FBM        Samples
- -------   ---------        ---------   ---------    -------       ----       --------
+ -------   ---------        ---------   ---------    =======       ====       --------
 S1 -|          |->   L1-GEX   -|                     |->  FQ1-GEX  -|           |->  FBM1-S1 
 S2 -|->  H1   -|->   L1-ADT   -|->   PL1  ->  BCL1  -|->  FQ1-ADT  -|->  FBM1  -|->  FBM1-S2 
 S3 -|          |->   L1-HTO   -|                     |->  FQ1-HTO  -|           |->  FBM1-S3 
@@ -274,7 +274,7 @@ This will give meta-data on loading sample level data. For a hashed sample, we w
 ```
  Make        Make Pooled   Seq Pooled    Demulti     Calc
  Libraries   Library       Library       BCL         FBMs
- ---------   ---------     -------       ----        ----
+ ---------   ---------     -------       ====        ====
 S1   ->   L1    -|                        |->   FQ1   ->  FBM1
 S2   ->   L2    -|->   PL1   ->   BCL1   -|->   FQ2   ->  FBM2
 S3   ->   L3    -|                        |->   FQ3   ->  FBM3
@@ -291,7 +291,7 @@ Three samples are run in three 10x chip lanes producing three GEX libraries. A p
 ```
  Make        Make Pooled   Seq Pooled    Demulti        Calc
  Libraries   Library       Library       BCLs           FBMs
- ---------   ---------     -------       ----           ----
+ ---------   ---------     -------       ====           ====
                                          |->  FQ1-BCL1  -|->  FBM1
                                          |->  FQ1-BCL2  -|
 S1   ->   L1   -|           |->   BCL1  -| 
@@ -317,7 +317,7 @@ Three samples are run in three 10x chip lanes producing three GEX libraries. A p
 ```
   Make           Make Pooled   Seq Pooled    Demulti         Calc
   Libraries      Library       Library       BCL             FBMs
-  ---------      ---------     -------       ----            ----
+  ---------      ---------     -------       ====            ====
 S1   -|-> L1-XL1    -|                        |->   FQ1-XL1   ->  FBM1-XL1
       |-> L1-XL2    -|                        |->   FQ1-XL2   ->  FBM1-XL2
                      |                        |
@@ -342,7 +342,7 @@ Three samples are run in two 10x chip lanes each (to double the number of measur
 ```
   Make           Make Pooled      Seq Pooled  Demulti              Calc
   Libraries      Library          Library     BCLs                 FBMs
-  ---------      ---------        -------     ----                 ----
+  ---------      ---------        -------     ====                 ====
       |-> L1-XL1    -|                        |->   FQ1-XL1-BCL1   -|->  FBM1-XL1
 S1   -|              |                        |->   FQ1-XL1-BCL2   -|  
       |              |                        |
@@ -383,7 +383,7 @@ This example has multiple lanes per sample to get more cells per sample and mult
 ```
   Make             Make Pooled   Seq Pooled     Demulti           Calc
   Libraries        Library       Library        BCL               FBM/VDJ
-  ---------        ---------     -------        ----              -------
+  ---------        ---------     -------        ====              ========
 S1   -|->   L1-GEX    -|->   PL1   -|->   BCL1  ->  FQ1-BCL1-GEX    ->   FBM1  
       |->   L1-TCR    -|            |->   BCL2  ->  FQ1-BCL2-TCR    ->   TCR1  
 ```
@@ -398,7 +398,7 @@ One sample is run in a 10x chip lane producing one GEX library and one TCR libra
 ```
   Make                 Make Pooled   Seq Pooled     Demulti               Calc
   Libraries            Library       Library        BCL                   FBM/VDJ
-  ---------            ---------     -------        ----                  -------
+  ---------            ---------     -------        ====                  ========
       |->   L1-XL1-GEX    -|            |->   BCL1  -|->  FQ1-XL1-BCL1-TCR    ->   TCR1-XL1
 S1   -|->   L1-XL1-TCR    -|            |            |->  FQ1-XL1-BCL1-BCR    ->   BCR1-XL1
       |->   L1-XL1-BCR    -|->   PL1   -|
@@ -418,7 +418,7 @@ One sample is run in two lanes. One lane includes TCR and BCR sequencing (`XL1`)
 ```
  Make           Make Pooled   Seq Pooled    Demulti         Calc
  Libraries      Library       Library       BCL             FBMs
- ---------      ---------     -------       ----            ----
+ ---------      ---------     -------       ====            ====
 S1   -|->  L1-GEX  -|                        |->  FQ1-GEX  -|->  FBM1
       |->  L1-ADT  -|                        |->  FQ1-ADT  -|
                     |                        |
@@ -443,7 +443,7 @@ Three ADT samples are run in three lanes producing three GEX and three ADT libra
 ```
  Make           Make Pooled   Seq Pooled    Demulti            Calc
  Libraries      Library       Library       BCL                FBMs
- ---------      ---------     -------       ----               ----
+ ---------      ---------     -------       ====               ====
       |->  L1-GEX  -|                        |->  FQ1-BCL1-GEX  -|
 S1   -|             |                        |->  FQ1-BCL2-GEX  -|->  FBM1
       |->  L1-ADT  -|                        |->  FQ1-BCL1-ADT  -|
@@ -480,7 +480,7 @@ Three ADT samples are run in three lanes producing three GEX and three ADT libra
 ```
  Hash      Make             Pool        Seq Pooled   Demulti       Calc       De-hash 
  Samples   Libraries        Libraries   Library      BCL           FBM        Samples
- -------   ---------        ---------   ---------    -------       ----       --------
+ -------   ---------        ---------   ---------    ====          ====       --------
 S1 -|          |->   L1-GEX   -|                     |->  FQ1-GEX  -|           |->  FBM1-S1 
 S2 -|->  H1   -|->   L1-ADT   -|->   PL1  ->  BCL1  -|->  FQ1-ADT  -|->  FBM1  -|->  FBM1-S2 
 S3 -|          |->   L1-HTO   -|                     |->  FQ1-HTO  -|           |->  FBM1-S3 
@@ -498,7 +498,7 @@ This is the same as the default example used earlier in the documentation. Four 
 ```
  Hash      Make             Pool         Seq Pooled     Demulti           Calc       De-hash 
  Samples   Libraries        Libraries    Library        BCL               FBM        Samples
- -------   ---------        ---------    ---------      -------           ----       --------
+ -------   ---------        ---------    ---------      ====              ====       --------
               |->   L1-XL1-GEX   -|                     |->  FQ1-XL1-GEX  -|           |->  FBM1-S1 
               |->   L1-XL1-ADT   -|                     |->  FQ1-XL1-ADT  -|->  FBM1  -|->  FBM1-S2 
               |->   L1-XL1-HTO   -|                     |->  FQ1-XL1-HTO  -|           |->  FBM1-S3 
