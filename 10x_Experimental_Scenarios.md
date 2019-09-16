@@ -61,13 +61,17 @@ Below are 4 proposed spreadsheets for use by the 10X techs and not all experimen
 
 This spreadsheet shows four biological samples that are being hashed into a single loading sample (`H1`). Each sample is labeled with a different HTO (e.g. `HTO-1`) and share a common list of `Library Features` (e.g. all ADTs and HTOs used in the loading sample `H1`). The `Loading Sample` column is used to link these samples to the `Library-Level Spreadsheet` - find all libraries derived from the loading sample `H1`. 
 
-## 2. Library-Level Spreadsheet
-| Library  | Loading Sample | 10x Lane | Library Type | Hashed Sample | Sample Index | Pooled Library | BCL |
-|---|---|---|---|---|---|---|---|
-| L1-GEX | H1 | XL1  | GEX  | True  | SI-GA-A3 | PL1 | **BCL1** |
-| L1-ADT | H1 | XL1  | ADT  | True  |  RPI1    | PL1 | **BCL1** |
-| L1-HTO | H1 | XL1  | HTO  | True  |  D7001   | PL1 | **BCL1** |
+## 2. FASTQ-Level Spreadsheet
+| FASTQ | Library  | Loading Sample | 10x Lane | Library Type | Hashed Sample | Sample Index | Pooled Library | BCL | To Output | Processing Run |
+|---|---|---|---|---|---|---|---|---|---|---|
+| FQ1-GEX | L1-GEX | H1 | XL1  | GEX  | True  | SI-GA-A3 | PL1 | **BCL1** | FBM1 | PR1 |
+| FQ1-ADT | L1-ADT | H1 | XL1  | ADT  | True  |  RPI1    | PL1 | **BCL1** | FBM1 | PR1 |
+| FQ1-HTO | L1-HTO | H1 | XL1  | HTO  | True  |  D7001   | PL1 | **BCL1** | FBM1 | PR1 |
 
+
+- `FASTQs`: name of the Seq-Run-FASTQ Set that is the result of a single sequencing run.
+  - Name includes: `Loading Sample`, `10x Lane ID`, `BCL Run ID`, `Library Type` (our examples leave off redudant information in the FASTQ names)
+  - Tracking the `BCL` name allows us to handle the common scenario where the same pooled librry (e.g. tube of liquid) is 
 - `Library`: 
 - `Loading Sample`: 
 - `10x Lane`: lane number a sample is loaded into, necessary for keeping track of a single sample being loaded into multiple lanes
@@ -81,73 +85,40 @@ This spreadsheet shows four biological samples that are being hashed into a sing
    - HTO have `D700` (single 8bp oligo)
 - `Pooled Library`: the name of the pooled library (e.g. merged indexed libraries)
 - `BCL`: name of the BCL file produced from sequencing the pooled library
-
-Libraries (or Sequencing Libraries) are the result of running a `Loading Sample` through a 10x chip lane. The 10x techs must keep track of library-level information during the course of a run, however from the perspective of the computational team, these libraries play more of an intermediate role. In our example, we have three libraries (`L1-GEX`, `L1-ADT`, `L1-HTO`) that are generated from a single 10x chip lane. These libraries will be indexed, pooled into the pooled library (`PL1`) and sequenced to produce `BCL1` - note that additional sequencing runs can produce additional BCL files linked to the loading sample `H1`. The `BCL` column is used to link the library to the `FASTQ-Level Spreadsheet` (one to many relationship, potentially).
-
-## 3. FASTQ-Level Spreadsheet
-This is the Seq-Run-FASTQ Set level spreadsheet (see [Glossary]) that 10x techs will use to keep track of FASTQs produced from a sequencing run of a given pooled library. 
-
-| FASTQs  | From BCL | To Output | Processing Run  | 
-|---|---|---|---|
-| FQ1-GEX | BCL1 | FBM1 | PR1 |
-| FQ1-ADT | BCL1 | FBM1 | PR1 |
-| FQ1-HTO | BCL1 | FBM1 | PR1 |
-
-### Columns
-- `FASTQs`: name of the Seq-Run-FASTQ Set that is the result of a single sequencing run.
-  - Name includes: `Loading Sample`, `10x Lane ID`, `BCL Run ID`, `Library Type` (our examples leave off redudant information in the FASTQ names)
-  - Tracking the `BCL` name allows us to handle the common scenario where the same pooled librry (e.g. tube of liquid) is sequenced more than once (e.g. additional aliquots are taken from the tube and run on the sequencer).
-- `From BCL`: name of the BCL file the FASTQs will be put into **or** some short-hand ID
 - `To Output`: name of the output a FASTQ is contributing to (e.g. `FBM1`, `TCR1`)
 - `Processing Run`: the name of the ["processing run"][`Processing-Run`] (see [Glossary]) that the data is being organized under (e.g. all jobs necessary to convert BCL(s) into FBM(s) and TCR/VDJ output(s)).
 
 This spreadsheet shows three Seq-Run-FASTQ Sets that are obtained from de-multiplexing `BCL1`. The spreadsheet shows which BCL the Seq-Run FASTQ set came from, which output it will contribute towards (`FBM1`), and which processing run it is a part of (`PR1`). Note, that the four biological samples from the [Sample-Level Spreadsheet] are not indicated in this table - this sample-level information will only be obtained after de-hashing after the Processing-Run.
 
-## 4. Library Features Spreadsheet
-| Library Features | HIMC Feature Name |
-|---|---|
-| LF1 | HTO-1_H-101_3p_Lot# |
-| LF1 | HTO-2_H-102_3p_Lot# |
-| LF1 | HTO-3_H-103_3p_Lot# |
-| LF1 | HTO-4_H-104_3p_Lot# |
-| LF1 |   CD3_A-101_3p_Lot# |
-| LF1 |   CD4_A-102_3p_Lot# |
-| LF1 |   CD8_A-103_3p_Lot# |
+Libraries (or Sequencing Libraries) are the result of running a `Loading Sample` through a 10x chip lane. The 10x techs must keep track of library-level information during the course of a run, however from the perspective of the computational team, these libraries play more of an intermediate role. In our example, we have three libraries (`L1-GEX`, `L1-ADT`, `L1-HTO`) that are generated from a single 10x chip lane. These libraries will be indexed, pooled into the pooled library (`PL1`) and sequenced to produce `BCL1` - note that additional sequencing runs can produce additional BCL files linked to the loading sample `H1`. The `BCL` column is used to link the library to the `FASTQ-Level Spreadsheet` (one to many relationship, potentially).
+
+## 3. Library Features Spreadsheet
+| Library Features | HIMC Feature Name | Chemistry | Oligo ID | Oligo Sequence |  
+|---|---|---|---|---|
+| LF1 | HTO-1_H-101_3p_Lot# | 3p | H-101 | ACTG |  
+| LF1 | HTO-2_H-102_3p_Lot# | 3p | H-102 | ACTG |  
+| LF1 | HTO-3_H-103_3p_Lot# | 3p | H-103 | ACTG |  
+| LF1 | HTO-4_H-104_3p_Lot# | 3p | H-104 | ACTG |  
+| LF1 |   CD3_A-101_3p_Lot# | 3p | A-101 | ACTG |  
+| LF1 |   CD4_A-102_3p_Lot# | 3p | A-102 | ACTG |  
+| LF1 |   CD8_A-103_3p_Lot# | 3p | A-103 | ACTG |  
 
 ### Columns
 - `Library Features`: this is the name of the list of features used in a library and is referenced in the [Sample-Level Spreadsheet].
-
 - `HIMC Feature Name`: name of a feature (ADT or HTO) being measured
   - official gene symbol of the measured protein - ** might need to include species in name or lookup **
   - the unique HIMC oligo id (e.g. HIMC-1)
   - chemistry
   - the lot number (e.g. lot-1). 
+- `Chemistry`: the type of chemistry this feature is made for
+- `Oligo ID`: the human readable name of the oligo used to label this feature
+- `Oligo Sequence`: the actual oligo sequence   
  
 This spreadsheet shows the list of `Library Features` that are associated with a loading sample (e.g. `H1`) and its subsequent sequencing libraries (`GEX`, `ADT`, `HTO`). This list is linked to samples in the [Sample-Level Spreadsheet].
 
 
-## 5. Features Table
-| HIMC Feature Name | Chemistry | Oligo ID | Oligo Sequence |  
-|---|---|---|---|
-| HTO-1_H-101_3p_Lot# | 3p | H-101 | ACTG |  
-| HTO-2_H-102_3p_Lot# | 3p | H-102 | ACTG |  
-| HTO-3_H-103_3p_Lot# | 3p | H-103 | ACTG |  
-| HTO-4_H-104_3p_Lot# | 3p | H-104 | ACTG |  
-|   CD3_A-101_3p_Lot# | 3p | A-101 | ACTG |  
-|   CD4_A-102_3p_Lot# | 3p | A-102 | ACTG |  
-|   CD5_A-103_3p_Lot# | 3p | A-103 | ACTG |  
-| ... | ... | ... | ... |  
-
-### Columns
-- `HIMC Feature Name`: name of a feature (ADT or HTO) being measured
-- `Chemistry`: the type of chemistry this feature is made for
-- `Oligo`: the human readable name of the oligo used to label this feature
-- `Sequence`: the actual oligo sequence 
-
-This spreadsheet contains all features being used by the HIMC and each `HIMC Feature Name` is unique. 
-
 # Processing-Run CSVs
-A `Processing-Run` takes as input two spreadsheets (produced by the 10x techs using value-lookups) and one or more BCLs. The two spreadsheets are similar to the required spreadsheets that `cellranger mkfastq` and `count` take as inputs, but also contain additional information (e.g. expected cell count) as well as an implicit layout of running all jobs required to complete a  `Processing-Run` set of jobs.
+A `Processing-Run` takes as input two spreadsheets (produced by the 10x computational team using the three previous spreadsheets from the 10x tech team) and one or more BCLs. The two spreadsheets are similar to the required spreadsheets that `cellranger mkfastq` and `count` take as inputs, but also contain additional information (e.g. expected cell count) as well as an implicit layout of running all jobs required to complete a  `Processing-Run` set of jobs.
 
 ## 1. HIMC Sample Sheet
 
