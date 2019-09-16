@@ -273,7 +273,7 @@ This will give meta-data on loading sample level data. For a hashed sample, we w
 <!-- Nick is currently here --> 
 
 # 10x Experimental Scenarios
-This section enumerates experimental scenarios of increasing complexity:
+This section enumerates experimental scenarios of increasing complexity including::
 - multiple samples in Processing Run
 - multiple rounds of sequencing per sample
 - multiple 10x chip lanes per sample
