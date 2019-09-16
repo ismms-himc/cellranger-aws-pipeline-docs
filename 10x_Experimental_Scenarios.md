@@ -57,7 +57,7 @@ Below are 4 proposed spreadsheets for use by the 10X techs and not all experimen
 - `Reference Transcriptome`: the reference transcriptome that reads are aligned to (very big files on AWS S3 buckets)
 - `Chemistry`: the name of the 10x kit chemistry being used (e.g. 5-prime)
 - `HTO`: the name of the hash tag oligo (HTO) that is used to label this sample, the value will be `-` for a non-hashed sample
-- `Library Features`: this links a sample to its list of features in the [Library Features Table]. The value is `-` if we are not measuring any ADTs or HTOs
+- `Library Features`: this links a sample to its list of features in the [Library Features Spreadsheet]. The value is `-` if we are not measuring any ADTs or HTOs
 
 This spreadsheet shows four biological samples that are being hashed into a single loading sample (`H1`). Each sample is labeled with a different HTO (e.g. `HTO-1`) and share a common list of `Library Features` (e.g. all ADTs and HTOs used in the loading sample `H1`). The `Loading Sample` column is used to link these samples to the `Library-Level Spreadsheet` - find all libraries derived from the loading sample `H1`. 
 
@@ -104,7 +104,7 @@ This is the Seq-Run-FASTQ Set level spreadsheet (see [Glossary]) that 10x techs 
 
 This spreadsheet shows three Seq-Run-FASTQ Sets that are obtained from de-multiplexing `BCL1`. The spreadsheet shows which BCL the Seq-Run FASTQ set came from, which output it will contribute towards (`FBM1`), and which processing run it is a part of (`PR1`). Note, that the four biological samples from the [Sample-Level Spreadsheet] are not indicated in this table - this sample-level information will only be obtained after de-hashing after the Processing-Run.
 
-## 4. Library Features Table
+## 4. Library Features Spreadsheet
 | Library Features | HIMC Feature Name |
 |---|---|
 | LF1 | HTO-1_H-101_3p_Lot# |
@@ -123,10 +123,8 @@ This spreadsheet shows three Seq-Run-FASTQ Sets that are obtained from de-multip
   - the unique HIMC oligo id (e.g. HIMC-1)
   - chemistry
   - the lot number (e.g. lot-1). 
-- `Oligo ID`: the ID of the oligo sequence that was conjugated to the antibody (ADT or HTO).
-- `Labeled Sample`: the sample that is being labeled by a feature - this is only used for HTOs and is redundant with the information in the [Sample-Level Spreadsheet]
  
-This spreadsheet shows the list of `Library Features` that are associated with a loading sample (e.g. `H1`) and its subsequent sequencing libraries (`GEX`, `ADT`, `HTO`). This list is linked to specific samples and libraries in the two spreadsheets: [Sample-Level Spreadsheet] and [FASTQ-Level Spreadsheet].
+This spreadsheet shows the list of `Library Features` that are associated with a loading sample (e.g. `H1`) and its subsequent sequencing libraries (`GEX`, `ADT`, `HTO`). This list is linked to samples in the [Sample-Level Spreadsheet].
 
 
 ## 5. Features Table
@@ -563,7 +561,7 @@ The relationships between components in 10x single cell assay can be complicated
 [Cell Ranger Required CSVs]: #cell-ranger-required-csvs
 [Output CSVs]: #output-csvs
 [Feature Reference CSV]: #feature-reference-csv
-[Library Features Table]: #3-library-features-table
+[Library Features Spreadsheet]: #3-library-features-spreadsheet
 [`Processing-Run`]: #processing-run-spreadsheets
 [10X Sample Sheet CSV]: #1-sample-sheet-csv
 [10X Libraries CSV]: #2-libraries-csv
