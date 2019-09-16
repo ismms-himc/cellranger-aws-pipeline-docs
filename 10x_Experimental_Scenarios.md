@@ -115,7 +115,7 @@ This spreadsheet shows three Seq-Run-FASTQ Sets that are obtained from de-multip
 | LF1 |   CD8_A-103_3p_Lot# |
 
 ### Columns
-- `Library Features`: this is the name of the list of features used in a library and is referenced by the `Library Features` columns in the previous two spredsheets: [Sample-Level Spreadsheet] and [FASTQ-Level Spreadsheet].
+- `Library Features`: this is the name of the list of features used in a library and is referenced in the [Sample-Level Spreadsheet].
 
 - `HIMC Feature Name`: name of a feature (ADT or HTO) being measured
   - official gene symbol of the measured protein - ** might need to include species in name or lookup **
@@ -171,6 +171,8 @@ A `Processing-Run` takes as input two spreadsheets (produced by the 10x techs us
 - `Reference Transcriptome`: the reference transcriptome used for alignment
 - `Number of Cells`: the number of expected cells
 - `Chemistry`: the 10x kit chemistry version
+- `Cell Ranger Version`: the version of the software to use
+- `Library Features`: this links a sample to its list of features in the [Library Features Spreadsheet]. The value is `-` if we are not measuring any ADTs or HTOs
 
 This CSV is a modified version of the simple CSV sample sheet for `mkfastq`, which now includes additional information required to perform multiple jobs within a Processing Run (e.g. multiple `mkfastq` and `count` jobs). This CSV will be used to construct both [the sample sheets CSV input for multiple `mkfastq` runs][10X Sample Sheet CSV] and [the libraries CSVs for multiple `count` runs][10X Libraries CSV]. The `Reference Transcriptome` and `Number of Cells` columns will be used to construct additional arguments for `cellranger count`. Additionally, the `Index Name` value will be used for GEX libraries, while the `Index Oligo` value will be used for Custom libraries (ADT/HTO).
 
