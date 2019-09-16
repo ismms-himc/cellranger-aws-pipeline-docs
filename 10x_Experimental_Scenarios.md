@@ -1,33 +1,33 @@
 # 10x Experimental Scenarios
 This document proposes schemas and vocabulary to be used across: 
-* spreadsheets used by HIMC techs running assays
-* the computational team's pre-processing pipelines
-* the Cell Ranger software
-* spreadsheets sent to end-users along with their data
+* [10x Technician Spreadsheets]: spreadsheets used by HIMC techs running assays
+* [Processing-Run CSVs]: the computational team's pre-processing pipelines
+* [Cell Ranger Required CSVs]: the Cell Ranger software
+* [Output CSVs]: spreadsheets sent to end-users along with their data
 
 Below are schemas and example data for various spreadsheets used by all parties, and [a glossary](#glossary) of relevant terms. This document heavily references the [10x documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/mkfastq) as well.
 
 # Examples from 10x Documentation
 Below are two experimental scenarios from 10x that have been paraphrased into our vocabulary (see [Glossary]). 
 
-### 2 Samples, 2 Seq-Libraries, 1 Seq-Run, 2 FBMs
+### 2 Samples, 2 Libraries, 1 Seq-Run, 2 FBMs
 [![Schematic of 2-sample, 1-seq-run workflow](https://support.10xgenomics.com/img/mkfastq-1.png "")](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/mkfastq#example_workflows)
 
 > In this example, we have two 10x libraries (each processed through a separate Chromium chip channel) that are multiplexed on a single flowcell. Note that after running `cellranger mkfastq`, we run a separate instance of the pipeline on each library.
 
-Note that sample 2 is sequenced in two lanes and has double the number of FASTQs. Each sample has a Seq-Run FASTQ Set containing read and lane specificc FASTQs (see [Glossary]).
+Note that library 2 is sequenced in two lanes and has two sets of lane-level FASTQs. Each sample has a Seq-Run FASTQ Set containing read and lane specificc FASTQs (see [Glossary]).
 
-### 1 Sample, 1 Seq-Library, 2 Seq-Run, 1 FBM
+### 1 Sample, 1 Library, 2 Seq-Run, 1 FBM
 [![Schematic of 1-sample, 2-seq-run workflow](https://support.10xgenomics.com/img/mkfastq-2.png "")](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/mkfastq#example_workflows)
 
 > In this example, we have one 10x library sequenced on two flowcells. Note that after running cellranger mkfastq, we run a single instance of the pipeline on all the FASTQ files generated.
 
 In this example a single library is sequenced twice (to get more reads per cell). Multiple sequencing runs of the same sample are the reason we are moving towards a Seq-Run FASTQ Set-level organization (rather than a library level only). 
 
-# 10X Technician Spreadsheets
-Below are 4 proposed spreadsheets for use by the 10X techs (not all experiment-related columns are shown). The spreadsheets produced in these three sections ([10x Technician Spreadsheets], [Processing-Run CSVs], and [Cell Ranger Required CSVs]) are all based on the same example: Four biological samples that are hashed together, measure three surface markers (3 ADTs), and are run on a single 10x chip lane. 
+# Default Example: 4-Sample Hashing CITE-seq Run
 
-## Diagram of 4-Sample Hashing CITE-seq Run
+The spreadsheets produced in the following sections ([10x Technician Spreadsheets], [Processing-Run CSVs], [Cell Ranger Required CSVs], and [Output CSVs]) are all based on the same example: Four biological samples that are hashed together, measure three surface markers (3 ADTs), and are run on a single 10x chip lane. 
+
 ```
  Hash      Make             Pool        Seq Pooled   Demulti       Calc       De-hash 
  Samples   Libraries        Libraries   Library      BCL           FBM        Samples
@@ -37,6 +37,9 @@ S2 -|->  H1   -|->   L1-ADT   -|->   PL1  ->  BCL1  -|->  FQ1-ADT  -|->  FBM1  -
 S3 -|          |->   L1-HTO   -|                     |->  FQ1-HTO  -|           |->  FBM1-S3 
 S4 -|                                                                           |->  FBM1-S4 
 ```
+
+# 10X Technician Spreadsheets
+Below are 4 proposed spreadsheets for use by the 10X techs (not all experiment-related columns are shown). 
 
 ## 1. Sample-Level Spreadsheet
 | Sample Name | Loading Sample | Expected Cell Number | Ref Trans | Chemistry | HTO | Library Features |
@@ -556,6 +559,7 @@ The relationships between components in 10x single cell assay can be complicated
 [10x Technician Spreadsheets]: #10x-technician-spreadsheets
 [Processing-Run CSVs]: #processing-run-csvs
 [Cell Ranger Required CSVs]: #cell-ranger-required-csvs
+[Output CSVs]: #output-csvs
 [Feature Reference CSV]: #feature-reference-csv
 [Library Features Table]: #3-library-features-table
 [`Processing-Run`]: #processing-run-spreadsheets
