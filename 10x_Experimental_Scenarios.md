@@ -79,7 +79,7 @@ This spreadsheet shows four biological samples that are being hashed into a sing
    - 10x GEX libraries have index names like `S1-GA-A3` (4 different oligos)
    - ADT have `RPI` (single 6bp oligo)
    - HTO have `D700` (single 8bp oligo)
-- `Pooled Library`: 
+- `Pooled Library`: the name of the pooled library (e.g. merged indexed libraries)
 - `BCL`: name of the BCL file produced from sequencing the pooled library
 
 Libraries (or Sequencing Libraries) are the result of running a `Loading Sample` through a 10x chip lane. The 10x techs must keep track of library-level information during the course of a run, however from the perspective of the computational team, these libraries play more of an intermediate role. In our example, we have three libraries (`L1-GEX`, `L1-ADT`, `L1-HTO`) that are generated from a single 10x chip lane. These libraries will be indexed, pooled into the pooled library (`PL1`) and sequenced to produce `BCL1` - note that additional sequencing runs can produce additional BCL files linked to the loading sample `H1`. The `BCL` column is used to link the library to the `FASTQ-Level Spreadsheet` (one to many relationship, potentially).
