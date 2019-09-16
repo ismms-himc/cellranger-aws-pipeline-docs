@@ -210,7 +210,7 @@ This is the same as the [Feature Reference CSV] that is produced by the 10x tech
 # Output CSVs
 A single processing run will produce the following spreadsheets: 1) Job Status CSV, 2) FASTQ meta-data, and Outputs Meta-Data CSV
 
-## 1. Job Status CSV
+## 1. Job Meta-Data CSV
 
 | Job  | Status  | Output Path  | 
 |---|---|---|
