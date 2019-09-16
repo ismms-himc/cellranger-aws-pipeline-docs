@@ -280,7 +280,7 @@ This section enumerates experimental scenarios of increasing complexity includin
 - TCR/BCR sequencing
 - Hashtagging and ADT measurement
 
-Each scenario includes a workflow diagram as well as a simplified [HIMC Sample Sheet]. The simplified sample sheet shows where each Seq-Run FASTQ Set originated (`From BCL`) and what output the Seq-Run FASTQ Set contributes towards (`To Output`), which should be sufficient for organizing multiple runs of `mkfastq` and `count` respectively (additional necesary meta-data can be found in the [HIMC Sample Sheet]). 
+Each scenario includes a workflow diagram as well as a simplified [HIMC Sample Sheet]. The simplified sample sheet shows where each Seq-Run FASTQ Set originated (`From BCL`) and what output the Seq-Run FASTQ Set contributes towards (`To Output`), which should be sufficient for organizing multiple runs of `mkfastq` and `count`, respectively, within the larger context of a complete Processing Run (additional meta-data necessary for a Processing Run can be found in the [HIMC Sample Sheet]). 
 
 ## 1. Single Lane per Sample, Single Seq-Run
 ```
