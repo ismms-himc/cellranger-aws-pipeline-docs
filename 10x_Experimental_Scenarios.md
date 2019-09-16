@@ -13,14 +13,16 @@ Below are two experimental scenarios from 10x that have been paraphrased into ou
 ### 2 Samples, 2 Seq-Libraries, 1 Seq-Run, 2 FBMs
 [![Schematic of 2-sample, 1-seq-run workflow](https://support.10xgenomics.com/img/mkfastq-1.png "")](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/mkfastq#example_workflows)
 
-> In this example, we have two 10x libraries (each processed through a separate Chromium chip channel) that are multiplexed on a single flowcell. Note that after running `cellranger mkfastq`, we run a separate instance of the pipeline on each library
+> In this example, we have two 10x libraries (each processed through a separate Chromium chip channel) that are multiplexed on a single flowcell. Note that after running `cellranger mkfastq`, we run a separate instance of the pipeline on each library.
+
+Note that sample 2 is sequenced in two lanes and has double the number of FASTQs. Each sample has a Seq-Run FASTQ Set containing read and lane specificc FASTQs (see [Glossary]).
 
 ### 1 Sample, 1 Seq-Library, 2 Seq-Run, 1 FBM
 [![Schematic of 1-sample, 2-seq-run workflow](https://support.10xgenomics.com/img/mkfastq-2.png "")](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/mkfastq#example_workflows)
 
 > In this example, we have one 10x library sequenced on two flowcells. Note that after running cellranger mkfastq, we run a single instance of the pipeline on all the FASTQ files generated.
 
-The common scenario of sequencing the same 'sequencing library' more than once (in the above example) is the reason why the 10x technicians are moving towards a FASTQ-level organization (rather than a 'sequencing library' a.k.a. 'pooled library' level).
+In this example a single library is sequenced twice (to get more reads per cell). Multiple sequencing runs of the same sample are the reason we are moving towards a Seq-Run FASTQ Set-level organization (rather than a library level only). 
 
 # 10X Technician Spreadsheets
 Below are 4 proposed spreadsheets for use by the 10X techs (not all experiment-related columns are shown). The spreadsheets produced in these three sections ([10x Technician Spreadsheets], [Processing-Run CSVs], and [Cell Ranger Required CSVs]) are all based on the same example: Four biological samples that are hashed together, measure three surface markers (3 ADTs), and are run on a single 10x chip lane. 
