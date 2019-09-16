@@ -45,10 +45,10 @@ Below are 4 proposed spreadsheets for use by the 10X techs and not all experimen
 ## 1. Sample-Level Spreadsheet
 | Sample Name | Loading Sample | Expected Cell Number | Ref Trans | Chemistry | HTO | Library Features | Cell Ranger Verison |
 |---|---|---|---|---|---|---|---|
-| S1  | H1 | 3000 | GRCh38 | 3p | HTO-1 | LF1 | 3.1.0 |
-| S2  | H1 | 4000 | GRCh38 | 3p | HTO-2 | LF1 | 3.1.0 |
-| S3  | H1 | 5000 | GRCh38 | 3p | HTO-3 | LF1 | 3.1.0 |
-| S4  | H1 | 6000 | GRCh38 | 3p | HTO-4 | LF1 | 3.1.0 |
+| S1  | **H1** | 3000 | GRCh38 | 3p | HTO-1 | LF1 | 3.1.0 |
+| S2  | **H1** | 4000 | GRCh38 | 3p | HTO-2 | LF1 | 3.1.0 |
+| S3  | **H1** | 5000 | GRCh38 | 3p | HTO-3 | LF1 | 3.1.0 |
+| S4  | **H1** | 6000 | GRCh38 | 3p | HTO-4 | LF1 | 3.1.0 |
 
 ### Columns
 - `Sample Name`: the name of the biological sample being processed (see [Glossary])
@@ -59,14 +59,14 @@ Below are 4 proposed spreadsheets for use by the 10X techs and not all experimen
 - `HTO`: the name of the hash tag oligo (HTO) that is used to label this sample, the value will be `-` for a non-hashed sample
 - `Library Features`: this links a sample to its list of features in the [Library Features Table]. The value is `-` if we are not measuring any ADTs or HTOs
 
-This spreadsheet shows four biological samples that are being hashed into a single loading sample (`H1`). Each sample is labeled with a different HTO (e.g. `HTO-1`) and share a common list of `Library Features` (e.g. all ADTs and HTOs used in the loading sample `H1`).
+This spreadsheet shows four biological samples that are being hashed into a single loading sample (`H1`). Each sample is labeled with a different HTO (e.g. `HTO-1`) and share a common list of `Library Features` (e.g. all ADTs and HTOs used in the loading sample `H1`). The `Loading Sample` column is used to link these samples to the `Library-Level Spreadsheet` - find all libraries derived from the loading sample `H1`. 
 
 ## 2. Library-Level Spreadsheet
 | Library  | Loading Sample | 10x Lane | Library Type | Hashed Sample | Sample Index | Pooled Library | BCL | FASTQs |
 |---|---|---|---|---|---|---|---|---|
-| L1-GEX | H1 | XL1  | GEX  | True  | SI-GA-A3 | PL1 | BCL1 | FQ1-GEX |
-| L1-ADT | H1 | XL1  | ADT  | True  |  RPI1    | PL1 | BCL1 | FQ1-ADT |
-| L1-HTO | H1 | XL1  | HTO  | True  |  D7001   | PL1 | BCL1 | FQ1-HTO |
+| L1-GEX | H1 | XL1  | GEX  | True  | SI-GA-A3 | PL1 | BCL1 | **FQ1-GEX** |
+| L1-ADT | H1 | XL1  | ADT  | True  |  RPI1    | PL1 | BCL1 | **FQ1-ADT** |
+| L1-HTO | H1 | XL1  | HTO  | True  |  D7001   | PL1 | BCL1 | **FQ1-HTO** |
 
 - `Library`: 
 - `Loading Sample`: 
@@ -83,16 +83,16 @@ This spreadsheet shows four biological samples that are being hashed into a sing
 - `BCL`: name of the BCL file produced from sequencing the pooled library
 -`FASTQs`: name of the Seq-Run FASTQ Set produced from a single sequencing run (e,g, `BCL1`) of the library
 
-Libraries (or Sequencing Libraries) are the result of running a `Loading Sample` through a 10x chip lane. The 10x techs must keep track of library-level information during the course of a run, however from the perspective of the computational team, these libraries play more of an intermediate role. In our example, we have three libraries (`L1-GEX`, `L1-ADT`, `L1-HTO`) that are generated from a single 10x chip lane. These libraries will be indexed, pooled into a pooled-library (`PL1`), sequenced (resulting in `BCL1`), and ultimately result in three Seq-Run FASTQ sets (`FQ1-GEX`, `FQ1-ADT`, `FQ1-HTO`) - note that additional sequencing runs can produce additional sets). 
+Libraries (or Sequencing Libraries) are the result of running a `Loading Sample` through a 10x chip lane. The 10x techs must keep track of library-level information during the course of a run, however from the perspective of the computational team, these libraries play more of an intermediate role. In our example, we have three libraries (`L1-GEX`, `L1-ADT`, `L1-HTO`) that are generated from a single 10x chip lane. These libraries will be indexed, pooled into a pooled-library (`PL1`), sequenced (resulting in `BCL1`), and ultimately result in three Seq-Run FASTQ sets (`FQ1-GEX`, `FQ1-ADT`, `FQ1-HTO`) - note that additional sequencing runs can produce additional sets). The `FASTQs` column is used to link the library rows in this spreadsheet to the `FASTQ-Level Spreadsheet` (one to many relationship, potentially).
 
 ## 3. FASTQ-Level Spreadsheet
 This is the Seq-Run-FASTQ Set level spreadsheet (see [Glossary]) that 10x techs will use to keep track of FASTQs produced from a sequencing run of a given pooled library. 
 
 | FASTQs  | From BCL | To Output | Processing Run  | 
 |---|---|---|---|
-| FQ1-GEX | BCL1 | FBM1 | CR-1 |
-| FQ1-ADT | BCL1 | FBM1 | CR-1 |
-| FQ1-HTO | BCL1 | FBM1 | CR-1 |
+| FQ1-GEX | BCL1 | FBM1 | PR1 |
+| FQ1-ADT | BCL1 | FBM1 | PR1 |
+| FQ1-HTO | BCL1 | FBM1 | PR1 |
 
 ### Columns
 - `FASTQs`: name of the Seq-Run-FASTQ Set that is the result of a single sequencing run.
@@ -102,7 +102,7 @@ This is the Seq-Run-FASTQ Set level spreadsheet (see [Glossary]) that 10x techs 
 - `To Output`: name of the output a FASTQ is contributing to (e.g. `FBM1`, `TCR1`)
 - `Processing Run`: the name of the ["processing run"][`Processing-Run`] (see [Glossary]) that the data is being organized under (e.g. all jobs necessary to convert BCL(s) into FBM(s) and TCR/VDJ output(s)).
 
-This spreadsheet shows three Seq-Run-FASTQ Sets that are obtained from processing the outputs from a single 10x chip lane (e.g. `XL-1`) to generate three sequencing libraries (`GEX`, `ADT`, and `HTO`), merging into a pooled library, sequencing, and then de-multiplexing the BCL file. Note, that the four biological samples from the [Sample-Level Spreadsheet] are not indicated in this table - this sample-level information will only be obtained after de-hashing after the Processing-Run.
+This spreadsheet shows three Seq-Run-FASTQ Sets that are obtained from de-multiplexing `BCL1`. The spreadsheet shows which BCL the Seq-Run FASTQ set came from, which output it will contribute towards (`FBM1`), and which processing run it is a part of (`PR1`). Note, that the four biological samples from the [Sample-Level Spreadsheet] are not indicated in this table - this sample-level information will only be obtained after de-hashing after the Processing-Run.
 
 ## 4. Library Features Table
 | Library Features | HIMC Feature Name |
