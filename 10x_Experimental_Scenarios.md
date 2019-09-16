@@ -80,25 +80,26 @@ This spreadsheet shows four biological samples that are being hashed into a sing
    - ADT have `RPI` (single 6bp oligo)
    - HTO have `D700` (single 8bp oligo)
 - `Pooled Library`: 
-- `BCL`: 
--`FASTQs`: 
+- `BCL`: name of the BCL file produced from sequencing the pooled library
+-`FASTQs`: name of the Seq-Run FASTQ Set produced from a single sequencing run (e,g, `BCL1`) of the library
 
 Libraries (or Sequencing Libraries) are the result of running a `Loading Sample` through a 10x chip lane. The 10x techs must keep track of library-level information during the course of a run, however from the perspective of the computational team, these libraries play more of an intermediate role. In our example, we have three libraries (`L1-GEX`, `L1-ADT`, `L1-HTO`) that are generated from a single 10x chip lane. These libraries will be indexed, pooled into a pooled-library (`PL1`), sequenced (resulting in `BCL1`), and ultimately result in three Seq-Run FASTQ sets (`FQ1-GEX`, `FQ1-ADT`, `FQ1-HTO`) - note that additional sequencing runs can produce additional sets). 
 
 ## 3. FASTQ-Level Spreadsheet
 This is the Seq-Run-FASTQ Set level spreadsheet (see [Glossary]) that 10x techs will use to keep track of FASTQs produced from a sequencing run of a given pooled library. 
 
-| FASTQs  | BCL |  Processing Run  | 
-|---|---|---|
-| FQ1-GEX | BCL1 | CR-1 |
-| FQ1-ADT | BCL1 | CR-1 |
-| FQ1-HTO | BCL1 | CR-1 |
+| FASTQs  | From BCL | To Output | Processing Run  | 
+|---|---|---|---|
+| FQ1-GEX | BCL1 | FBM1 | CR-1 |
+| FQ1-ADT | BCL1 | FBM1 | CR-1 |
+| FQ1-HTO | BCL1 | FBM1 | CR-1 |
 
 ### Columns
 - `FASTQs`: name of the Seq-Run-FASTQ Set that is the result of a single sequencing run.
   - Name includes: `Loading Sample`, `10x Lane ID`, `BCL Run ID`, `Library Type` (our examples leave off redudant information in the FASTQ names)
   - Tracking the `BCL` name allows us to handle the common scenario where the same pooled librry (e.g. tube of liquid) is sequenced more than once (e.g. additional aliquots are taken from the tube and run on the sequencer).
-- `BCL`: name of the BCL file the FASTQs will be put into **or** some short-hand ID
+- `From BCL`: name of the BCL file the FASTQs will be put into **or** some short-hand ID
+- `To Output`: name of the output a FASTQ is contributing to (e.g. `FBM1`, `TCR1`)
 - `Processing Run`: the name of the ["processing run"][`Processing-Run`] (see [Glossary]) that the data is being organized under (e.g. all jobs necessary to convert BCL(s) into FBM(s) and TCR/VDJ output(s)).
 
 This spreadsheet shows three Seq-Run-FASTQ Sets that are obtained from processing the outputs from a single 10x chip lane (e.g. `XL-1`) to generate three sequencing libraries (`GEX`, `ADT`, and `HTO`), merging into a pooled library, sequencing, and then de-multiplexing the BCL file. Note, that the four biological samples from the [Sample-Level Spreadsheet] are not indicated in this table - this sample-level information will only be obtained after de-hashing after the Processing-Run.
@@ -153,17 +154,20 @@ A `Processing-Run` takes as input two spreadsheets (produced by the 10x techs us
 
 ## 1. HIMC Sample Sheet
 
-| FASTQs | From BCL | To Output | Index Name | Index Oligo | Library Type | Ref Trans | Number of Cells | Chemistry | Cell Ranger Version | Library Features |
-|---|---|---|---|---|---|---|---|---|---|---|
-| **FQ1-GEX** | **BCL1** | **FBM1** | SI-GA-A3 | `-` | Gene Expression | GRCh38 | 18000 | 5p-V2 | 3.1.0 | LF1 |
-| **FQ1-ADT** | **BCL1** | **FBM1** | RPI1 | ACTGTT | Custom | GRCh38 | 18000 | 5p-V2 | 3.1.0 | LF1 |
-| **FQ1-HTO** | **BCL1** | **FBM1** | D7001 | ACTGTTGG | Custom | GRCh38 | 18000 | 5p-V2 | 3.1.0 | LF1 |
+| FASTQs | From BCL | To Output | Seq-Lanes | Index Name | Index Oligo | Library Type | Ref Trans | Number of Cells | Chemistry | Cell Ranger Version | Library Features |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| **FQ1-GEX** | **BCL1** | **FBM1** | 1 | SI-GA-A3 | `-` | Gene Expression | GRCh38 | 18000 | 5p-V2 | 3.1.0 | LF1 |
+| **FQ1-ADT** | **BCL1** | **FBM1** | 1 | RPI1 | ACTGTT | Custom | GRCh38 | 18000 | 5p-V2 | 3.1.0 | LF1 |
+| **FQ1-HTO** | **BCL1** | **FBM1** | 1 | D7001 | ACTGTTGG | Custom | GRCh38 | 18000 | 5p-V2 | 3.1.0 | LF1 |
 
 ### Columns
-- `Lane`: the 10x chip lane - **I think we can just increment this**
-- `Sample`: the **name of the Seq-Run-FASTQ set** obtained from the [FASTQ-Level Spreadsheet] which includes:
+
+- `FASTQs`: the **name of the Seq-Run-FASTQ set** obtained from the [FASTQ-Level Spreadsheet] which includes:
   - the **biological sample name** (needed to track which sample FBM should be generated from which FASTQs)
   - the **BCL file name** (needed to relate Seq-Run-FASTQ sets to specific BCL files)
+- `From BCL`: name of the BCL file the FASTQs will be put into **or** some short-hand ID
+- `To Output`: name of the output a FASTQ is contributing to (e.g. `FBM1`, `TCR1`)
+- `Seq-Lanes`: the sequencing lanes used    
 - `Index Name`: the name of the `Sample Index` obtained from the [FASTQ-Level Spreadsheet]
 - `Index Oligo`: the actual index oligo sequence obtained from a Sample Index Spreadsheet (**not documented yet**). The value will be `-` for GEX index oligos since Cell Ranger mkfastq knows the meaning the index names (e.g. `SI-GA-3`).
 - `Library Type`: the library type using the terminology acceptable to Cell Ranger Count (see [docs](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/feature-bc-analysis))
