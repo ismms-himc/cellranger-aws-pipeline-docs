@@ -62,11 +62,11 @@ Below are 4 proposed spreadsheets for use by the 10X techs and not all experimen
 This spreadsheet shows four biological samples that are being hashed into a single loading sample (`H1`). Each sample is labeled with a different HTO (e.g. `HTO-1`) and share a common list of `Library Features` (e.g. all ADTs and HTOs used in the loading sample `H1`). The `Loading Sample` column is used to link these samples to the `Library-Level Spreadsheet` - find all libraries derived from the loading sample `H1`. 
 
 ## 2. Library-Level Spreadsheet
-| Library  | Loading Sample | 10x Lane | Library Type | Hashed Sample | Sample Index | Pooled Library | BCL | FASTQs |
-|---|---|---|---|---|---|---|---|---|
-| L1-GEX | H1 | XL1  | GEX  | True  | SI-GA-A3 | PL1 | BCL1 | **FQ1-GEX** |
-| L1-ADT | H1 | XL1  | ADT  | True  |  RPI1    | PL1 | BCL1 | **FQ1-ADT** |
-| L1-HTO | H1 | XL1  | HTO  | True  |  D7001   | PL1 | BCL1 | **FQ1-HTO** |
+| Library  | Loading Sample | 10x Lane | Library Type | Hashed Sample | Sample Index | Pooled Library | BCL |
+|---|---|---|---|---|---|---|---|
+| L1-GEX | H1 | XL1  | GEX  | True  | SI-GA-A3 | PL1 | **BCL1** |
+| L1-ADT | H1 | XL1  | ADT  | True  |  RPI1    | PL1 | **BCL1** |
+| L1-HTO | H1 | XL1  | HTO  | True  |  D7001   | PL1 | **BCL1** |
 
 - `Library`: 
 - `Loading Sample`: 
@@ -81,9 +81,8 @@ This spreadsheet shows four biological samples that are being hashed into a sing
    - HTO have `D700` (single 8bp oligo)
 - `Pooled Library`: 
 - `BCL`: name of the BCL file produced from sequencing the pooled library
--`FASTQs`: name of the Seq-Run FASTQ Set produced from a single sequencing run (e,g, `BCL1`) of the library
 
-Libraries (or Sequencing Libraries) are the result of running a `Loading Sample` through a 10x chip lane. The 10x techs must keep track of library-level information during the course of a run, however from the perspective of the computational team, these libraries play more of an intermediate role. In our example, we have three libraries (`L1-GEX`, `L1-ADT`, `L1-HTO`) that are generated from a single 10x chip lane. These libraries will be indexed, pooled into a pooled-library (`PL1`), sequenced (resulting in `BCL1`), and ultimately result in three Seq-Run FASTQ sets (`FQ1-GEX`, `FQ1-ADT`, `FQ1-HTO`) - note that additional sequencing runs can produce additional sets). The `FASTQs` column is used to link the library rows in this spreadsheet to the `FASTQ-Level Spreadsheet` (one to many relationship, potentially).
+Libraries (or Sequencing Libraries) are the result of running a `Loading Sample` through a 10x chip lane. The 10x techs must keep track of library-level information during the course of a run, however from the perspective of the computational team, these libraries play more of an intermediate role. In our example, we have three libraries (`L1-GEX`, `L1-ADT`, `L1-HTO`) that are generated from a single 10x chip lane. These libraries will be indexed, pooled into the pooled library (`PL1`) and sequenced to produce `BCL1` - note that additional sequencing runs can produce additional BCL files linked to the loading sample `H1`. The `BCL` column is used to link the library to the `FASTQ-Level Spreadsheet` (one to many relationship, potentially).
 
 ## 3. FASTQ-Level Spreadsheet
 This is the Seq-Run-FASTQ Set level spreadsheet (see [Glossary]) that 10x techs will use to keep track of FASTQs produced from a sequencing run of a given pooled library. 
