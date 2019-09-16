@@ -204,9 +204,10 @@ This spreadsheet is only necessary for feature barcoding (or CITE-seq) runs. It 
 | 1  | FQ1-HTO | ACTGTTGG |
 
 ### Columns
-- `Lane` refers to the 10x chip lane.
-- `Sample` refers to our loading sample name (the BCL name will be appended automatically by `mkfastq`; TODO: verify this).
-- `Index` refers to the oligos used to de-multiplex the BCL
+- `Lane`: which lane(s) of the flowcell to process. Can be either a single lane, a range (e.g., 2-4) or '*' for all lanes in the flowcell.
+- `Sample`: The name of the sample. This name will be the prefix to all the generated FASTQs, and will correspond to the --sample argument in all downstream 10x pipelines.
+Sample names must conform to the Illumina bcl2fastq naming requirements. Only letters, numbers, underscores and hyphens area allowed; no other symbols, including dots (".") are allowed. (the BCL name will be appended automatically by `mkfastq`; TODO: verify this).
+- `Index` The 10x sample index set that was used in library construction, e.g., SI-GA-A12.
   - When processing custom oligos (e.g. ADT/HTO), pass the actual oligo sequences here.
  
 ### Explanation of this spreadsheet
