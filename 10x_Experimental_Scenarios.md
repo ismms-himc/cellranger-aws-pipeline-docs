@@ -272,7 +272,7 @@ This will give meta-data on loading sample level data. For a hashed sample, we w
 
 <!-- Nick is currently here --> 
 
-# Enumeration of Scenarios
+# 10x Experimental Scenarios
 
 ## 1. Single Lane per Sample, Single Seq-Run
 ```
