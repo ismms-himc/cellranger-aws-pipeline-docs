@@ -62,39 +62,44 @@ Below are 4 proposed spreadsheets for use by the 10X techs and not all experimen
 This spreadsheet shows four biological samples that are being hashed into a single loading sample (`H1`). Each sample is labeled with a different HTO (e.g. `HTO-1`) and share a common list of `Library Features` (e.g. all ADTs and HTOs used in the loading sample `H1`).
 
 ## 2. Library-Level Spreadsheet
-| Library  | Loading Sample | 10x Lane ID | Library Type | Hashed Sample | Sample Index | Pooled Library | BCL | FASTQs |
+| Library  | Loading Sample | 10x Lane | Library Type | Hashed Sample | Sample Index | Pooled Library | BCL | FASTQs |
 |---|---|---|---|---|---|---|---|---|
 | L1-GEX | H1 | XL1  | GEX  | True  | SI-GA-A3 | PL1 | BCL1 | FQ1-GEX |
 | L1-ADT | H1 | XL1  | ADT  | True  |  RPI1    | PL1 | BCL1 | FQ1-ADT |
 | L1-HTO | H1 | XL1  | HTO  | True  |  D7001   | PL1 | BCL1 | FQ1-HTO |
+
+- `Library`: 
+- `Loading Sample`: 
+- `10x Lane`: lane number a sample is loaded into, necessary for keeping track of a single sample being loaded into multiple lanes
+- `Library Type`: type of library being prepared (e.g. GEX, ADT)
+  - **we haven't decided whether chemistry and version may or may not be included, e.g. GEX_5-prime**
+  - as far as I know, we can use Total-Seq antibodies to combine ADT and HTO data into the same library (I think the convention is to call these libraries `-AH`)
+ - `Hashed Sample`: whether a loaded sample has been hashed
+ - `Sample Index`: the index that is used to label the sequencing library when pooling a library into a pooled library. 
+   - 10x GEX libraries have index names like `S1-GA-A3` (4 different oligos)
+   - ADT have `RPI` (single 6bp oligo)
+   - HTO have `D700` (single 8bp oligo)
+- `Pooled Library`: 
+- `BCL`: 
+-`FASTQs`: 
 
 Libraries (or Sequencing Libraries) are the result of running a `Loading Sample` through a 10x chip lane. The 10x techs must keep track of library-level information during the course of a run, however from the perspective of the computational team, these libraries play more of an intermediate role. In our example, we have three libraries (`L1-GEX`, `L1-ADT`, `L1-HTO`) that are generated from a single 10x chip lane. These libraries will be indexed, pooled into a pooled-library (`PL1`), sequenced (resulting in `BCL1`), and ultimately result in three Seq-Run FASTQ sets (`FQ1-GEX`, `FQ1-ADT`, `FQ1-HTO`) - note that additional sequencing runs can produce additional sets). 
 
 ## 3. FASTQ-Level Spreadsheet
 This is the Seq-Run-FASTQ Set level spreadsheet (see [Glossary]) that 10x techs will use to keep track of FASTQs produced from a sequencing run of a given pooled library. 
 
-| FASTQs  | BCL | Sample Index |   Library Type | Processing Run  | 
-|---|---|---|---|---|
-| FQ1-GEX | BCL1 | SI-GA-A3 |   GEX  | CR-1 |
-| FQ1-ADT | BCL1 | RPI1    |  ADT  | CR-1 |
-| FQ1-HTO | BCL1 | D7001   |  HTO  | CR-1 |
+| FASTQs  | BCL |  Processing Run  | 
+|---|---|---|
+| FQ1-GEX | BCL1 | CR-1 |
+| FQ1-ADT | BCL1 | CR-1 |
+| FQ1-HTO | BCL1 | CR-1 |
 
 ### Columns
 - `FASTQs`: name of the Seq-Run-FASTQ Set that is the result of a single sequencing run.
-  - Composed of the `Loading Sample` name, the `10x Lane ID`, the `BCL Run ID`, and `Library Type`
-  - Tracking the `BCL Run ID` allows us to handle the common scenario where the same sequencing pool (e.g. tube of liquid) is sequenced more than once (more than one aliquot is taken from the tube and run on the sequencer).
-- `Loading Sample`: name of the sample that is loaded into a 10x chip lane (can consist of several biolofical samples via hashing).
-- `Sample Index`: the index that is used to label the sequencing library when pooling the library into a pooled library. 10x GEX libraries have index names like `S1-GA-A3` (4 different oligos); ADT have `RPI` (single 6bp oligo), and HTO have `D700` (single 8bp oligo)
-- `Hashed Sample`: True/False, indicates whether hashing has been done (will be redundant with the `Loading Sample` naming convention).
-- `10x Lane ID`: lane number a sample is loaded into
-  - necessary for situations where the same sample is loaded into several lanes (to measure more cells from a sample)
-  - becomes part of the FASTQs' names
-- `Library Type`: type of library being prepared (e.g. GEX, ADT)
-  - **we haven't decided whether chemistry and version may or may not be included, e.g. GEX_5-prime**
-  - as far as I know, we can use Total-Seq antibodies to combine ADT and HTO data into the same library (I think the convention is to call these libraries `-AH`)
-- `BCL Run ID`: name of the BCL file the FASTQs will be put into **or** some short-hand ID
+  - Name includes: `Loading Sample`, `10x Lane ID`, `BCL Run ID`, `Library Type` (our examples leave off redudant information in the FASTQ names)
+  - Tracking the `BCL` name allows us to handle the common scenario where the same pooled librry (e.g. tube of liquid) is sequenced more than once (e.g. additional aliquots are taken from the tube and run on the sequencer).
+- `BCL`: name of the BCL file the FASTQs will be put into **or** some short-hand ID
 - `Processing Run`: the name of the ["processing run"][`Processing-Run`] (see [Glossary]) that the data is being organized under (e.g. all jobs necessary to convert BCL(s) into FBM(s) and TCR/VDJ output(s)).
-- `Library Features`: this links a sample to its list of features in the [Library Features Table]. The value is `-` if we are not measuring any ADTs or HTOs
 
 This spreadsheet shows three Seq-Run-FASTQ Sets that are obtained from processing the outputs from a single 10x chip lane (e.g. `XL-1`) to generate three sequencing libraries (`GEX`, `ADT`, and `HTO`), merging into a pooled library, sequencing, and then de-multiplexing the BCL file. Note, that the four biological samples from the [Sample-Level Spreadsheet] are not indicated in this table - this sample-level information will only be obtained after de-hashing after the Processing-Run.
 
