@@ -208,40 +208,49 @@ This table is used by Cell Ranger Count to know which `FBM-FASTQ Set` (which is 
 This is the same as the [Feature Reference CSV] that is produced by the 10x techs, but without the column `Library Features`. 
 
 # Output CSVs
-A single processing run will produce (at least) two output CSVs: 1) `Processing Status` and 2) `FASTQ meta-data`
+A single processing run will produce the following spreadsheets: 1) Job Status CSV, 2) FASTQ meta-data, and Outputs Meta-Data CSV
 
-## 1. Processing-Run Status CSV
+## 1. Job Status CSV
 
-| Job  | Status  | Output Path  | Download Link  |   
-|---|---|---|---|
-| mkfastq_BCL1  | Finished  | s3/path/to/zipped/fastqs  | pre-signed-URL  | 
-| count_S1  | Pending  | s3/path/to/fbm  | pre-signed-URL  | 
+| Job  | Status  | Output Path  | 
+|---|---|---|
+| mkfastq_BCL1  | Finished  | s3/path/to/zipped/fastqs  | 
+| count_FBM1  | Pending  | s3/path/to/fbm  |
 
 ### Columns
 - `Job`: the name of the job
-  - for `mkfastq` the name will be `mkfastq` and the name of the bcl file
-  - for `count` the name will be `count` and the sample name. Since we can combine FASTQ data from multiple sequencing runs into a single FBM for a single sample (e.g. the `FBM-FASTQ Set`) we will name this job based on the sample name.
-  - **need to decide on VDJ convention**
+  - for `mkfastq` the name will include name of the input bcl file (since `mkfastq` only takes one BCL input)
+  - for `count` the name will include the FBM name (since `count` only outputs a single FBM)
+  - for `vdj`  the name will include the TCR/BCR output name
 - `Status`: the current status of the job 
   - can be: `Pending`, `In-Progress`, `Finished`, or `Failed` 
-- `Output Path`: path on the S3 bucket to the outputs of the job
-- `Download Link`: a pre-signed URL for downloading the data off S3 buckets
+- `Output Path`: path on the S3 bucket to the FASTQs
 
-This spreadsheet shows the status of the jobs associated with a single Processing-Run. This spreadsheet serves three purposes: 
+This spreadsheet shows the status of the jobs associated with a single Processing-Run. This spreadsheet serves two purposes: 
 
 1) Provide the 10x techs and computational teams with a simple way of checking the status of a Processing Run
 2) Provide the pipeline a way to access the state of the Processing Run. For instance, it is a common scenario to receive multiple BCLs from the same sample (e.g. multiple sequencing runs) and we will need to start processing (e.g. get the number of reads from the FASTQs) before we obtain all BCLs. We would like to be able to add additional BCLs to a Processing-Run bucket and tell the Processing-Run job to complete the necesssary jobs that are available to complete. 
 
-## 2. Processing-Run FASTQ Meta-Data CSV
+## 2. FASTQ Meta-Data CSV
+This spreadsheet will be a modified copy of the FASTQ-level [HIMC Sample Sheet] that is used as input to a Processing-Run. We will add the following columns: 
 
-This spreadsheet as a modified copy of the [HIMC Sample Sheet] that is used as input to a Processing-Run. We can append FASTQ meta-data such as reads-per-cell. 
+### New Columns
+- `reads per cell`: reads-per-cell. 
+- `Download Link`: a pre-signed URL for downloading the FASTQ data off S3 buckets
 
-**need to document this**
+## 3. Outputs Meta-Data CSV
 
-## 3. Processing-Run Sample Meta-Data CSV
-This will give meta-data on loading sample level data. For a hashed sample, we will have to wait until manual de-hashing (not documented here) is run to get the individual samples from the hashed loading sample - otherwise a loading sample is a single biological sample. 
+| Outputs  | Output Path  | Download Link | Number of Cells |
+|---|---|---|---|
+| FBM1  |  s3/path/to/zipped/fastqs  | URL | 10000 | 
 
-<!-- Nick is currently here --> 
+### Columns
+- `Outputs`: name of the FBM or VDJ outputs
+- `Output Path`: path on the S3 bucket to the outputs
+- `Download Link`: a pre-signed URL for downloading the outputs
+- `Number of Cells`: the number of cells (based on 10x filtering)
+
+This will give meta-data on FBM/VDJ outputs. For a hashed sample, we will have to wait until manual de-hashing (not documented here) is run to get the individual samples from the hashed loading sample - otherwise a loading sample is a single biological sample. 
 
 # 10x Experimental Scenarios
 This section enumerates experimental scenarios of increasing complexity including::
