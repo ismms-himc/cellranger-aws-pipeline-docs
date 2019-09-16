@@ -273,6 +273,14 @@ This will give meta-data on loading sample level data. For a hashed sample, we w
 <!-- Nick is currently here --> 
 
 # 10x Experimental Scenarios
+This section enumerates experimental scenarios of increasing complexity:
+- multiple samples in Processing Run
+- multiple rounds of sequencing per sample
+- multiple 10x chip lanes per sample
+- TCR/BCR sequencing
+- Hashtagging and ADT measurement
+
+Each scenario includes a workflow diagram as well as a simplified [HIMC Sample Sheet]. The simplified sample sheet shows where each Seq-Run FASTQ Set originated (`From BCL`) and what output the Seq-Run FASTQ Set contributes towards (`To Output`), which should be sufficient for organizing multiple runs of `mkfastq` and `count` respectively (additional necesary meta-data can be found in the [HIMC Sample Sheet]). 
 
 ## 1. Single Lane per Sample, Single Seq-Run
 ```
