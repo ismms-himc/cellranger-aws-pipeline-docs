@@ -26,7 +26,7 @@ In this example a single library is sequenced twice (to get more reads per cell)
 
 # Default Example: 4-Sample Hashing CITE-seq Run
 
-The spreadsheets produced in the following sections ([10x Technician Spreadsheets], [Processing-Run CSVs], [Cell Ranger Required CSVs], and [Output CSVs]) are all based on the same example: Four biological samples that are hashed together, measure three surface markers (3 ADTs), and are run on a single 10x chip lane. 
+The spreadsheets produced in the following sections ([10x Technician Spreadsheets], [Processing-Run CSVs], [Cell Ranger Required CSVs], and [Output CSVs]) are based on the following default example: Four biological samples are hashed, ADTs are used to measure three surface markers, and the hashed sample is run on a single 10x chip lane. The diagram below overviews the workflow from thsi processing run.
 
 ```
  Hash      Make             Pool        Seq Pooled   Demulti       Calc       De-hash 
@@ -37,9 +37,10 @@ S2 -|->  H1   -|->   L1-ADT   -|->   PL1  ->  BCL1  -|->  FQ1-ADT  -|->  FBM1  -
 S3 -|          |->   L1-HTO   -|                     |->  FQ1-HTO  -|           |->  FBM1-S3 
 S4 -|                                                                           |->  FBM1-S4 
 ```
+Cell Ranger processing steps (`mkfastq`, `count`, `vdj`) are underlined with double underlines (`===`) and in this diagram make up the fifth and sixth steps. The final de-hashing step occurs independently of Cell Ranger in a post-processing Jupyter notebook. 
 
 # 10X Technician Spreadsheets
-Below are 4 proposed spreadsheets for use by the 10X techs (not all experiment-related columns are shown). 
+Below are 4 proposed spreadsheets for use by the 10X techs and not all experiment-related columns are shown. 
 
 ## 1. Sample-Level Spreadsheet
 | Sample Name | Loading Sample | Expected Cell Number | Ref Trans | Chemistry | HTO | Library Features |
@@ -58,7 +59,6 @@ Below are 4 proposed spreadsheets for use by the 10X techs (not all experiment-r
 - `HTO`: the name of the hash tag oligo (HTO) that is used to label this sample, the value will be `-` for a non-hashed sample
 - `Library Features`: this links a sample to its list of features in the [Library Features Table]. The value is `-` if we are not measuring any ADTs or HTOs
 
-### Explanation of this spreadsheet
 This spreadsheet shows four biological samples that are being hashed into a single loading sample (`H1_GEX`). Each sample is labeled with a different HTO (e.g. `HTO-1`) and share a common list of `Library Features` (e.g. all ADTs and HTOs used in the hashed `Loading Sample` `H1_GEX`).
 
 ## 2. Library-Level Spreadsheet
@@ -98,7 +98,6 @@ This is the Seq-Run-FASTQ Set level spreadsheet (see [Glossary]) that 10x techs 
 - `Processing Run`: the name of the ["processing run"][`Processing-Run`] (see [Glossary]) that the data is being organized under (e.g. all jobs necessary to convert BCL(s) into FBM(s) and TCR/VDJ output(s)).
 - `Library Features`: this links a sample to its list of features in the [Library Features Table]. The value is `-` if we are not measuring any ADTs or HTOs
 
-### Explanation of this spreadsheet
 This spreadsheet shows three Seq-Run-FASTQ Sets that are obtained from processing the outputs from a single 10x chip lane (e.g. `XL-1`) to generate three sequencing libraries (`GEX`, `ADT`, and `HTO`), merging into a pooled library, sequencing, and then de-multiplexing the BCL file. Note, that the four biological samples from the [Sample-Level Spreadsheet] are not indicated in this table - this sample-level information will only be obtained after de-hashing after the Processing-Run.
 
 ## 4. Library Features Table
@@ -123,7 +122,6 @@ This spreadsheet shows three Seq-Run-FASTQ Sets that are obtained from processin
 - `Oligo ID`: the ID of the oligo sequence that was conjugated to the antibody (ADT or HTO).
 - `Labeled Sample`: the sample that is being labeled by a feature - this is only used for HTOs and is redundant with the information in the [Sample-Level Spreadsheet]
  
-### Explanation of this spreadsheet
 This spreadsheet shows the list of `Library Features` that are associated with a loading sample (e.g. `H1`) and its subsequent sequencing libraries (`GEX`, `ADT`, `HTO`). This list is linked to specific samples and libraries in the two spreadsheets: [Sample-Level Spreadsheet] and [FASTQ-Level Spreadsheet].
 
 
@@ -145,7 +143,6 @@ This spreadsheet shows the list of `Library Features` that are associated with a
 - `Oligo`: the human readable name of the oligo used to label this feature
 - `Sequence`: the actual oligo sequence 
 
-### Explanation of this spreadsheet
 This spreadsheet contains all features being used by the HIMC and each `HIMC Feature Name` is unique. 
 
 # Processing-Run CSVs
@@ -171,7 +168,6 @@ A `Processing-Run` takes as input two spreadsheets (produced by the 10x techs us
 - `Number of Cells`: the number of expected cells
 - `Chemistry`: the 10x kit chemistry version
 
-### Explanation of this spreadsheet
 This CSV is a modified version of the simple CSV sample sheet for `mkfastq`, which now includes additional information required to perform multiple jobs within a Processing Run (e.g. multiple `mkfastq` and `count` jobs). This CSV will be used to construct both [the sample sheets CSV input for multiple `mkfastq` runs][10X Sample Sheet CSV] and [the libraries CSVs for multiple `count` runs][10X Libraries CSV]. The `Reference Transcriptome` and `Number of Cells` columns will be used to construct additional arguments for `cellranger count`. Additionally, the `Index Name` value will be used for GEX libraries, while the `Index Oligo` value will be used for Custom libraries (ADT/HTO).
 
 ## 2. HIMC Feature Reference CSV 
@@ -196,7 +192,6 @@ This CSV is a modified version of the simple CSV sample sheet for `mkfastq`, whi
 - `feature_type`: the type (e.g. Custom) from the list of acceptable feature types: `Custom` (preferred),  `Antibody Capture`,  or `CRISPR Guide Capture` (see [docs](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/feature-bc-analysis))
 - (omitted columns )`target_gene_id`, `target_gene_name`: are optional CRISPR-specific columns that are not shown in the example above.
 
-### Explanation of this Spreadsheet
 This spreadsheet is only necessary for feature barcoding (or CITE-seq) runs. It contains information on all the features used in a sequencing library. The addition of the `Library Features` column enables us to encode multiple libraries with different feature lableing schemes into a single sequencing run. Similarly, this scheme allows us to combine GEX only libraries (not shown) with feature-barcoding (or CITE-seq) libraries. 
 
 # Cell Ranger Required CSVs
@@ -215,7 +210,6 @@ Sample names must conform to the Illumina bcl2fastq naming requirements. Only le
 - `Index` The 10x sample index set that was used in library construction, e.g., SI-GA-A12.
   - When processing custom oligos (e.g. ADT/HTO), pass the actual oligo sequences here.
  
-### Explanation of this spreadsheet
 This table is in the format of the "simple samplesheet" consumed by `cellranger mkfastq` (see 10x docs).
 
 ## 2. Libraries CSV
@@ -230,7 +224,6 @@ This table is in the format of the "simple samplesheet" consumed by `cellranger 
 - `Sample` is the sample name assigned in the `mkfastq` simple samplesheet.
 - `Library Type` from documentation "The FASTQ data will be interpreted using the rows from the feature reference file that have a ‘feature_type’ that matches this library_type. This field is case-sensitive, and must match a valid library type as described in the Library / Feature Types section. Must be Gene Expression for the gene expression libraries. Must be one of Custom, Antibody Capture, or CRISPR Guide Capture for Feature Barcoding libraries."
 
-### Explanation of this table 
 This table is used by Cell Ranger Count to know which `FBM-FASTQ Set` (which is composed of at least one `Seq-Run-FASTQ Sets` from different sequencing runs, see [Glossary]) to aggregate into a single FBM, which includes GEX, ADT, and HTO data.
 
 ## 3. Feature Reference CSV
@@ -257,7 +250,6 @@ A single processing run will produce (at least) two output CSVs: 1) `Processing 
 - `Output Path`: path on the S3 bucket to the outputs of the job
 - `Download Link`: a pre-signed URL for downloading the data off S3 buckets
 
-### Explanation of this spreadsheet
 This spreadsheet shows the status of the jobs associated with a single Processing-Run. This spreadsheet serves three purposes: 
 
 1) Provide the 10x techs and computational teams with a simple way of checking the status of a Processing Run
