@@ -191,11 +191,11 @@ all_outs <= df_ss
 # keep track of all job ids
 jobs = {}
 
-# run mkfastq for each bcl
+# run mkfastq for each bcl, pass in meta_data
 for inst_bcl in all_bcl:
-    jobs[inst_bcl] = submit_mkfastq(inst_bcl)
+    jobs[inst_bcl] = submit_mkfastq(inst_bcl, inst_meta_data)
 
-# run count/vdj for each output
+# run count/vdj for each output, pass in meta_data
 for inst_out in all_outs:
     
     # find all required FASTQs for job
@@ -209,9 +209,9 @@ for inst_out in all_outs:
     
     # submit job with dependent bcl job
     if inst_out == 'fbm':
-        jobs[inst_out] = submit_count(inst_out, jobs[dep_bcl], inst_fl)
+        jobs[inst_out] = submit_count(inst_out, jobs[dep_bcl], inst_fl, inst_meta_data)
     elif inst_out == 'vdj':
-        jobs[inst_out] = submit_vdj(inst_out, jobs[dep_bcl])
+        jobs[inst_out] = submit_vdj(inst_out, jobs[dep_bcl], inst_meta_data)
 ```
 
 # Cell Ranger Required CSVs
