@@ -211,7 +211,7 @@ for inst_out in all_outs:
     if inst_out == 'fbm':
         jobs[inst_out] = submit_count(inst_out, jobs[dep_bcl], inst_fl)
     elif inst_out == 'vdj':
-        jobs[inst_out] = submit_vdj(inst_out, jobs[dep_bcl], inst_fl)
+        jobs[inst_out] = submit_vdj(inst_out, jobs[dep_bcl])
 ```
 
 # Cell Ranger Required CSVs
