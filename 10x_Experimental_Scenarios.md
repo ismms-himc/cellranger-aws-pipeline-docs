@@ -120,15 +120,15 @@ This spreadsheet shows the list of `Library Features` that are associated with a
 
 
 # Processing-Run CSVs
-A `Processing-Run` takes as input two spreadsheets (produced by the 10x computational team using the three previous spreadsheets from the 10x tech team) and one or more BCLs. The two spreadsheets are similar to the required spreadsheets that `cellranger mkfastq` and `count` take as inputs, but also contain additional information (e.g. expected cell count) as well as an implicit layout of running all jobs required to complete a  `Processing-Run` set of jobs.
+A `Processing-Run` takes as input two spreadsheets and one or more BCLs. These two spreadsheets will be either produced by the 10x computational team using their own spreadsheets ([10x Technician Spreadsheets]) or by the computational team (maybe in an automated manner) querying the [10x Technician Spreadsheets]. The two spreadsheets are similar to the required spreadsheets that `cellranger mkfastq` and `count` take as inputs, but also contain additional information (e.g. expected cell count) as well as an implicit layout of running all jobs required to complete a  `Processing-Run` set of jobs.
 
 ## 1. HIMC Sample Sheet
 
-| FASTQs | From BCL | To Output | Seq-Lanes | Index Name | Index Oligo | Library Type | Ref Trans | Number of Cells | Chemistry | Cell Ranger Version | Library Features | Sample | Project |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| **FQ1-GEX** | **BCL1** | **FBM1** | 1 | SI-GA-A3 | `-` | Gene Expression | GRCh38 | 18000 | 5p-V2 | 3.1.0 | LF1 | S1 | P1 |
-| **FQ1-ADT** | **BCL1** | **FBM1** | 1 | RPI1 | ACTGTT | Custom | GRCh38 | 18000 | 5p-V2 | 3.1.0 | LF1 | S1 | P1 |
-| **FQ1-HTO** | **BCL1** | **FBM1** | 1 | D7001 | ACTGTTGG | Custom | GRCh38 | 18000 | 5p-V2 | 3.1.0 | LF1 | S1 | P1 |
+| FASTQs | From BCL | To Output | Seq-Lanes | Index Name | Index Oligo | Library Type | Ref Trans | Number of Cells | Chemistry | Cell Ranger Version | Library Features | Sample | Project | HTO |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| **FQ1-GEX** | **BCL1** | **FBM1** | 1 | SI-GA-A3 | `-` | Gene Expression | GRCh38 | 18000 | 5p-V2 | 3.1.0 | LF1 | S1 | P1 | HTO1 |
+| **FQ1-ADT** | **BCL1** | **FBM1** | 1 | RPI1 | ACTGTT | Custom | GRCh38 | 18000 | 5p-V2 | 3.1.0 | LF1 | S1 | P1 | HTO1 |
+| **FQ1-HTO** | **BCL1** | **FBM1** | 1 | D7001 | ACTGTTGG | Custom | GRCh38 | 18000 | 5p-V2 | 3.1.0 | LF1 | S1 | P1 | HTO1 |
 
 ### Columns
 
@@ -148,6 +148,7 @@ A `Processing-Run` takes as input two spreadsheets (produced by the 10x computat
 - `Library Features`: this links a sample to its list of features in the [Library Features Spreadsheet]. The value is `-` if we are not measuring any ADTs or HTOs
 - `Sample Name`: the name of the biological sample being processed (see [Glossary])
 - `Project`: the project the sample is a part of
+- `HTO`: the name of the hash tag oligo (HTO) that is used to label this sample, the value will be `-` for a non-hashed sample
 
 This CSV is a modified version of the simple CSV sample sheet for `mkfastq`, which now includes additional information required to perform multiple jobs within a Processing Run (e.g. multiple `mkfastq` and `count` jobs). This CSV will be used to construct both [the sample sheets CSV input for multiple `mkfastq` runs][10X Sample Sheet CSV] and [the libraries CSVs for multiple `count` runs][10X Libraries CSV]. The `Reference Transcriptome` and `Number of Cells` columns will be used to construct additional arguments for `cellranger count`. Additionally, the `Index Name` value will be used for GEX libraries, while the `Index Oligo` value will be used for Custom libraries (ADT/HTO).
 
