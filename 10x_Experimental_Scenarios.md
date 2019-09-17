@@ -171,6 +171,46 @@ This CSV is a modified version of the simple CSV sample sheet for `mkfastq`, whi
 
 This spreadsheet is only necessary for feature barcoding (or CITE-seq) runs. It contains information on all the features used in a sequencing library. The addition of the `Library Features` column enables us to encode multiple libraries with different feature lableing schemes into a single sequencing run. Similarly, this scheme allows us to combine GEX only libraries (not shown) with feature-barcoding (or CITE-seq) libraries. 
 
+### Pseudocode Processing Run
+This pseudocode describes how to set up a Processing Run using the [HIMC Sample Sheet]:
+
+```
+# load sample sheet
+df_ss = pd.read_csv('proc_run_csvs/himc_sample_sheet.csv')
+
+# load feature ref if necessary
+if df_fl exists:
+    df_fl = pd.read_csv('proc_run_csvs/feature_ref.csv')
+
+# find all bcl files
+all_bcl <= df_ss
+
+# find all outputs
+all_outs <= df_ss
+
+# keep track of all job ids
+jobs = {}
+
+# run mkfastq for each bcl
+for inst_bcl in all_bcl:
+    jobs[inst_bcl] = submit_mkfastq(inst_bcl)
+
+# run count/vdj for each output
+for inst_out in all_outs:
+    
+    # find all required FASTQs for job
+    (look up in df_ss)
+    
+    # find dependent bcl
+    (look up in df_ss)
+    
+    # find feature list if necessary
+    (find inst_fl)
+    
+    # submit job with dependent bcl job
+    jobs[inst_out] = submit_mkfastq(inst_out, jobs[dep_bcl], inst_fl)
+```
+
 # Cell Ranger Required CSVs
 
 ## 1. Sample Sheet CSV
