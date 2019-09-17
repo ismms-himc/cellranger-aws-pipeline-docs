@@ -43,12 +43,12 @@ Cell Ranger processing steps (`mkfastq`, `count`, `vdj`) are underlined with dou
 Below are 4 proposed spreadsheets for use by the 10X techs and not all experiment-related columns are shown. 
 
 ## 1. Sample-Level Spreadsheet
-| Sample Name | Loading Sample | Expected Cell Number | Ref Trans | Chemistry | HTO | Library Features | Cell Ranger Verison |
-|---|---|---|---|---|---|---|---|
-| S1  | **H1** | 3000 | GRCh38 | 3p | HTO-1 | LF1 | 3.1.0 |
-| S2  | **H1** | 4000 | GRCh38 | 3p | HTO-2 | LF1 | 3.1.0 |
-| S3  | **H1** | 5000 | GRCh38 | 3p | HTO-3 | LF1 | 3.1.0 |
-| S4  | **H1** | 6000 | GRCh38 | 3p | HTO-4 | LF1 | 3.1.0 |
+| Sample Name | Loading Sample | Expected Cell Number | Ref Trans | Chemistry | HTO | Library Features | Cell Ranger Verison | Project |
+|---|---|---|---|---|---|---|---|---|
+| S1  | **H1** | 3000 | GRCh38 | 3p | HTO-1 | LF1 | 3.1.0 | P1 |
+| S2  | **H1** | 4000 | GRCh38 | 3p | HTO-2 | LF1 | 3.1.0 | P1 |
+| S3  | **H1** | 5000 | GRCh38 | 3p | HTO-3 | LF1 | 3.1.0 | P1 |
+| S4  | **H1** | 6000 | GRCh38 | 3p | HTO-4 | LF1 | 3.1.0 | P1 |
 
 ### Columns
 - `Sample Name`: the name of the biological sample being processed (see [Glossary])
@@ -58,6 +58,8 @@ Below are 4 proposed spreadsheets for use by the 10X techs and not all experimen
 - `Chemistry`: the name of the 10x kit chemistry being used (e.g. 5-prime)
 - `HTO`: the name of the hash tag oligo (HTO) that is used to label this sample, the value will be `-` for a non-hashed sample
 - `Library Features`: this links a sample to its list of features in the [Library Features Spreadsheet]. The value is `-` if we are not measuring any ADTs or HTOs
+- `Cell Ranger Version`: the software version we're using
+- `Project`: the project the sample is a part of
 
 This spreadsheet shows four biological samples that are being hashed into a single loading sample (`H1`). Each sample is labeled with a different HTO (e.g. `HTO-1`) and share a common list of `Library Features` (e.g. all ADTs and HTOs used in the loading sample `H1`). The `Loading Sample` column is used to link these samples to the `Library-Level Spreadsheet` - find all libraries derived from the loading sample `H1`. 
 
@@ -122,11 +124,11 @@ A `Processing-Run` takes as input two spreadsheets (produced by the 10x computat
 
 ## 1. HIMC Sample Sheet
 
-| FASTQs | From BCL | To Output | Seq-Lanes | Index Name | Index Oligo | Library Type | Ref Trans | Number of Cells | Chemistry | Cell Ranger Version | Library Features |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| **FQ1-GEX** | **BCL1** | **FBM1** | 1 | SI-GA-A3 | `-` | Gene Expression | GRCh38 | 18000 | 5p-V2 | 3.1.0 | LF1 |
-| **FQ1-ADT** | **BCL1** | **FBM1** | 1 | RPI1 | ACTGTT | Custom | GRCh38 | 18000 | 5p-V2 | 3.1.0 | LF1 |
-| **FQ1-HTO** | **BCL1** | **FBM1** | 1 | D7001 | ACTGTTGG | Custom | GRCh38 | 18000 | 5p-V2 | 3.1.0 | LF1 |
+| FASTQs | From BCL | To Output | Seq-Lanes | Index Name | Index Oligo | Library Type | Ref Trans | Number of Cells | Chemistry | Cell Ranger Version | Library Features | Sample | Project |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| **FQ1-GEX** | **BCL1** | **FBM1** | 1 | SI-GA-A3 | `-` | Gene Expression | GRCh38 | 18000 | 5p-V2 | 3.1.0 | LF1 | S1 | P1 |
+| **FQ1-ADT** | **BCL1** | **FBM1** | 1 | RPI1 | ACTGTT | Custom | GRCh38 | 18000 | 5p-V2 | 3.1.0 | LF1 | S1 | P1 |
+| **FQ1-HTO** | **BCL1** | **FBM1** | 1 | D7001 | ACTGTTGG | Custom | GRCh38 | 18000 | 5p-V2 | 3.1.0 | LF1 | S1 | P1 |
 
 ### Columns
 
@@ -144,6 +146,8 @@ A `Processing-Run` takes as input two spreadsheets (produced by the 10x computat
 - `Chemistry`: the 10x kit chemistry version
 - `Cell Ranger Version`: the version of the software to use
 - `Library Features`: this links a sample to its list of features in the [Library Features Spreadsheet]. The value is `-` if we are not measuring any ADTs or HTOs
+- `Sample Name`: the name of the biological sample being processed (see [Glossary])
+- `Project`: the project the sample is a part of
 
 This CSV is a modified version of the simple CSV sample sheet for `mkfastq`, which now includes additional information required to perform multiple jobs within a Processing Run (e.g. multiple `mkfastq` and `count` jobs). This CSV will be used to construct both [the sample sheets CSV input for multiple `mkfastq` runs][10X Sample Sheet CSV] and [the libraries CSVs for multiple `count` runs][10X Libraries CSV]. The `Reference Transcriptome` and `Number of Cells` columns will be used to construct additional arguments for `cellranger count`. Additionally, the `Index Name` value will be used for GEX libraries, while the `Index Oligo` value will be used for Custom libraries (ADT/HTO).
 
