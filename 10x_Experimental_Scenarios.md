@@ -208,7 +208,10 @@ for inst_out in all_outs:
     (find inst_fl)
     
     # submit job with dependent bcl job
-    jobs[inst_out] = submit_mkfastq(inst_out, jobs[dep_bcl], inst_fl)
+    if inst_out == 'fbm':
+        jobs[inst_out] = submit_count(inst_out, jobs[dep_bcl], inst_fl)
+    elif inst_out == 'vdj':
+        jobs[inst_out] = submit_vdj(inst_out, jobs[dep_bcl], inst_fl)
 ```
 
 # Cell Ranger Required CSVs
