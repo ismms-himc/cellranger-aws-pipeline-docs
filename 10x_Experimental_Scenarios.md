@@ -87,7 +87,7 @@ This spreadsheet shows four biological samples that are being hashed into a sing
    - HTO have `D700` (single 8bp oligo)
 - `Pooled Library`: the name of the pooled library (e.g. merged indexed libraries)
 - `BCL`: name of the BCL file produced from sequencing the pooled library
-- `To Output`: name of the output a FASTQ is contributing to (e.g. `FBM1`, `TCR1`)
+- `To Output`: name of the output (e.g. feature barcode matrix, or VDJ contigs) a FASTQ is contributing to (e.g. `FBM1`, `TCR1`)
 - `Processing Run`: the name of the ["processing run"][`Processing-Run`] (see [Glossary]) that the data is being organized under (e.g. all jobs necessary to convert BCL(s) into FBM(s) and TCR/VDJ output(s)).
 
 This spreadsheet shows three Seq-Run-FASTQ Sets that are obtained from de-multiplexing `BCL1`. The spreadsheet shows which BCL the Seq-Run FASTQ set came from, which output it will contribute towards (`FBM1`), and which processing run it is a part of (`PR1`). Note, that the four biological samples from the [Sample-Level Spreadsheet] are not indicated in this table - this sample-level information will only be obtained after de-hashing after the Processing-Run.
@@ -97,13 +97,13 @@ Libraries (or Sequencing Libraries) are the result of running a `Loading Sample`
 ## 3. Library Features Spreadsheet
 | Library Features | HIMC Feature Name | Chemistry | Oligo ID | Oligo Sequence |  
 |---|---|---|---|---|
-| LF1 | HTO-1_H-101_3p_Lot# | 3p | H-101 | ACTG |  
-| LF1 | HTO-2_H-102_3p_Lot# | 3p | H-102 | ACTG |  
-| LF1 | HTO-3_H-103_3p_Lot# | 3p | H-103 | ACTG |  
-| LF1 | HTO-4_H-104_3p_Lot# | 3p | H-104 | ACTG |  
-| LF1 |   CD3_A-101_3p_Lot# | 3p | A-101 | ACTG |  
-| LF1 |   CD4_A-102_3p_Lot# | 3p | A-102 | ACTG |  
-| LF1 |   CD8_A-103_3p_Lot# | 3p | A-103 | ACTG |  
+| LF1 | HTO-1_H-101_3p_Lot# | 3p | H-101 | <unique-seq> |  
+| LF1 | HTO-2_H-102_3p_Lot# | 3p | H-102 | <unique-seq> |  
+| LF1 | HTO-3_H-103_3p_Lot# | 3p | H-103 | <unique-seq> |  
+| LF1 | HTO-4_H-104_3p_Lot# | 3p | H-104 | <unique-seq> |  
+| LF1 |   CD3_A-101_3p_Lot# | 3p | A-101 | <unique-seq> |  
+| LF1 |   CD4_A-102_3p_Lot# | 3p | A-102 | <unique-seq> |  
+| LF1 |   CD8_A-103_3p_Lot# | 3p | A-103 | <unique-seq> |  
 
 ### Columns
 - `Library Features`: this is the name of the list of features used in a library and is referenced in the [Sample-Level Spreadsheet].
@@ -111,7 +111,7 @@ Libraries (or Sequencing Libraries) are the result of running a `Loading Sample`
   - official gene symbol of the measured protein - ** might need to include species in name or lookup **
   - the unique HIMC oligo id (e.g. HIMC-1)
   - chemistry
-  - the lot number (e.g. lot-1). 
+  - the production lot number (e.g. lot-1) from the manufacturer
 - `Chemistry`: the type of chemistry this feature is made for
 - `Oligo ID`: the human readable name of the oligo used to label this feature
 - `Oligo Sequence`: the actual oligo sequence   
@@ -136,14 +136,15 @@ A `Processing-Run` takes as input two spreadsheets and one or more BCLs. These t
   - the **biological sample name** (needed to track which sample FBM should be generated from which FASTQs)
   - the **BCL file name** (needed to relate Seq-Run-FASTQ sets to specific BCL files)
 - `From BCL`: name of the BCL file the FASTQs will be put into **or** some short-hand ID
-- `To Output`: name of the output a FASTQ is contributing to (e.g. `FBM1`, `TCR1`)
+- `To Output`: name of the output (e.g. feature barcode matrix, or VDJ contigs) a FASTQ is contributing to (e.g. `FBM1`, `TCR1`)
 - `Seq-Lanes`: the sequencing lanes used    
-- `Index Name`: the name of the `Sample Index` obtained from the [FASTQ-Level Spreadsheet]
+- `Index Name`: the human readable name of the `Sample Index` obtained from the [FASTQ-Level Spreadsheet]
 - `Index Oligo`: the actual index oligo sequence obtained from a Sample Index Spreadsheet (**not documented yet**). The value will be `-` for GEX index oligos since Cell Ranger mkfastq knows the meaning the index names (e.g. `SI-GA-3`).
 - `Library Type`: the library type using the terminology acceptable to Cell Ranger Count (see [docs](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/feature-bc-analysis))
 - `Reference Transcriptome`: the reference transcriptome used for alignment
 - `Number of Cells`: the number of expected cells
 - `Chemistry`: the 10x kit chemistry version
+    - note Cell Ranger takes specific chemistry names (see https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/count)
 - `Cell Ranger Version`: the version of the software to use
 - `Library Features`: this links a sample to its list of features in the [Library Features Spreadsheet]. The value is `-` if we are not measuring any ADTs or HTOs
 - `Sample Name`: the name of the biological sample being processed (see [Glossary])
@@ -272,7 +273,7 @@ A single processing run will produce the following spreadsheets: 1) Job Status C
   - for `vdj`  the name will include the TCR/BCR output name
 - `Status`: the current status of the job 
   - can be: `Pending`, `In-Progress`, `Finished`, or `Failed` 
-- `Output Path`: path on the S3 bucket to the FASTQs
+- `Output Path`: path on the S3 bucket to the FASTQs (we may drop this column when we share with researchers, but it is good for internal use)
 
 This spreadsheet shows the status of the jobs associated with a single Processing-Run. This spreadsheet serves two purposes: 
 
@@ -294,7 +295,7 @@ This spreadsheet will be a modified copy of the FASTQ-level [HIMC Sample Sheet] 
 
 ### Columns
 - `Outputs`: name of the FBM or VDJ outputs
-- `Output Path`: path on the S3 bucket to the outputs
+- `Output Path`: path on the S3 bucket to the FASTQs (we may drop this column when we share with researchers, but it is good for internal use)
 - `Download Link`: a pre-signed URL for downloading the outputs
 - `Number of Cells`: the number of cells (based on 10x filtering)
 
@@ -514,7 +515,7 @@ S3   -|->  L3-GEX  -|                        |->  FQ3-BCL1-GEX  -|
 | FQ3-BCL1-ADT | BCL1 | FBM3 |
 | FQ3-BCL2-ADT | BCL2 | FBM3 |
 
-Three ADT samples are run in three lanes producing three GEX and three ADT libraries. These libraries are pooled and sequenced twice. The BCL files are de-multiplexed into twelve Seq-Run FASTQ Sets and three FBM FASTQ Sets (each containing GEX and ADT FASTQs). Cell Ranger `count` (using feature barcoding) is run three times to produce three FBMs containing both GEX and ADT data. 
+Three biological samples are run in three lanes producing three GEX and three ADT libraries. These libraries are pooled and sequenced twice. The BCL files are de-multiplexed into twelve Seq-Run FASTQ Sets and three FBM FASTQ Sets (each containing GEX and ADT FASTQs). Cell Ranger `count` (using feature barcoding) is run three times to produce three FBMs containing both GEX and ADT data. 
 
 ## 9. Hashed-ADT, One Lane per Sample, Single Seq-Run
 ```
@@ -565,32 +566,33 @@ Four ADT samples are hashed into a single Loading Sample (`H1`) and run in two 1
 
 The relationships between components in 10x single cell assay can be complicated. As a first step, we define a common vocabulary for ourselves below. We have ordered entities based on their natural progression during the experiment and data-processing steps.  
 
-* **BCL File**: contains sequencing information on a pooled library (e.g. set of multiplexed sequencing libraries)
+* **BCL File**: contains sequencing information on a pooled library (e.g. set of multiplexed sequencing libraries).
 
-* **Biological Sample**: a cell suspension extracted from a single biological source, see [10x-Glossary](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/glossary)
+* **Biological Sample**: a cell suspension extracted from a single biological source, see [10x-Glossary](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/glossary).
 
-* **Cell Ranger Output**: Feature barcode matrix (FBM) which can be the product of several sequencing runs and BCL files, TCR/BCR contigs
+* **Cell Ranger Output**: The set of outputs from Cell Ranger `count` or `vdbj`. For `count` the outputs include a feature barcode matrix (FBM) which can be the product of several sequencing runs and BCL files. For `vdj` the outputs include TCR/BCR contigs.
 
-* **FASTQ**: the product(s) of de-multiplexing BCL files
+* **FASTQ**: the product(s) of de-multiplexing BCL files.
 
 * **FBM-FASTQ Set**: a set of FASTQs that will be used to generate a single FBM (feature barcode matrix). If the same pooled library is sequenced multiple times (producing multiple BCL files) we will need to combine multiple Seq-Run-FASTQ sets (see above) into a single FBM.
 
 * **GEM Group**: A set of partitioned cells (Gelbeads-in-Emulsion) from a single 10x Chromium™ Chip channel. One or more sequencing libraries can be derived from a GEM Group.
 
-* **Loading Sample**: the sample loaded into a 10x lane, which is usually the biological sample but may be a hash of many biological samples
+* **Loading Sample**: the sample loaded into a 10x lane, which is usually the biological sample but may be a hash of many biological samples.
 
 * **Library Features List**: A list of features used in a library. The list will have a name like `LF1` in this documentation and the list includes all relevant hashtag and antibody features. 
 
-* **Pooled Library**: a combination of several indexed sequencing libraries (from several 10x chip lanes) for loading into a sequencer and obtaining a BCL file
+* **Pooled Library**: a combination of several indexed sequencing libraries (from several 10x chip lanes) for loading into a sequencer and obtaining a BCL file.
 
-* **Processing-Run**: a set of cellranger mkfastq and count runs that take as input: 1) one or more BCL files and 2) Processing-Run Input CSV files. The Processing-Run produces the following outputs: 1) FASTQs, 2) FBMs (feature barcode matrices) and if applicable TCR/BCR data, 3) [Processing-Run Status CSV] which lists out all jobs in the Processing-Run as well as where to find outputs 4) [Processing-Run Meta-Data CSV] relevant metadata (still being sorted out) for 10x techs.
+* **Processing-Run**: a set of cellranger `mkfastq`, `count`, and `vdj` (if applicable) runs that take as input: 1) one or more BCL files and 2) Processing-Run Input CSV files. The Processing-Run produces the following outputs: 1) FASTQs, 2) FBMs (feature barcode matrices) and if applicable TCR/BCR data, 3) [Processing-Run Status CSV] which lists out all jobs in the Processing-Run as well as where to find outputs 4) [Processing-Run Meta-Data CSV] relevant metadata (still being sorted out) for 10x techs.
+
+* **Project**: A research project involving multiple biological samples. Our goal is to arrange sample-level data into parent project directories. 
 
 * **Sample-Level Outputs**: FBMs and VDJ data that has been re-organized into sample level data. This usually consists of copying sample level data out of the Processing Run, but for hashing runs requires manual de-hashing (post-Cell Ranger step).
 
 * **Seq-Run-FASTQ Set**: a set of FASTQs that have been de-multiplexed from a single BCL file that give data for a single indexed sequencing library (e.g. a single GEX or ADT library). This set consists of lane- and read-specific FASTQs. 
 
-* **Library (Sequencing Library)**: the end product(s) from a 10x chip lane. A single 10x lane can produce a single (e.g. GEX) or multiple sequencing libraries (e.g. GEX and VDJ; or GEX, ADT, and HTO). These sequencing libraries will either be pooled into a single pooled library and sequenced or run on separate sequencing runs (e.g. as is the case for VDJ and GEX which require different sequencing conditions)
-
+* **Library (Sequencing Library)**: the end product(s) from a 10x chip lane. A single 10x lane can produce a single (e.g. GEX) or multiple sequencing libraries (e.g. GEX and VDJ; or GEX, ADT, and HTO). These sequencing libraries will either be pooled into a single pooled library and sequenced or run on separate sequencing runs (e.g. as is the case for VDJ and GEX which require different sequencing conditions).
 
 [Glossary]: #glossary
 [10x Technician Spreadsheets]: #10x-technician-spreadsheets
