@@ -1,4 +1,4 @@
-# 10x Experimental Scenarios
+# 10x Workflows
 This document proposes schemas and vocabulary to be used across: 
 * [10x Technician Spreadsheets]: spreadsheets used by HIMC techs running assays
 * [Processing-Run CSVs]: the computational team's pre-processing pipelines
@@ -7,7 +7,7 @@ This document proposes schemas and vocabulary to be used across:
 
 Below are schemas and example data for various spreadsheets used by all parties, and [a glossary](#glossary) of relevant terms. This document heavily references the [10x documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/mkfastq) as well.
 
-# Examples from 10x Documentation
+## Examples from 10x Documentation
 Below are two experimental scenarios from 10x that have been paraphrased into our vocabulary (see [Glossary]). 
 
 ### 2 Samples, 2 Libraries, 1 Seq-Run, 2 FBMs
@@ -24,9 +24,9 @@ Note that library 2 is sequenced in two lanes and has two sets of lane-level FAS
 
 In this example a single library is sequenced twice (to get more reads per cell). Multiple sequencing runs of the same sample are the reason we are moving towards a Seq-Run FASTQ Set-level organization (rather than a library level only). 
 
-# Default Example: 4-Sample Hashing CITE-seq Run
+## Default Example: 4-Sample Hashing CITE-seq Run
 
-The spreadsheets produced in the following sections ([10x Technician Spreadsheets], [Processing-Run CSVs], [Cell Ranger Required CSVs], and [Output CSVs]) are based on the following default example: Four biological samples are hashed, ADTs are used to measure three surface markers, and the hashed sample is run on a single 10x chip lane. The diagram below overviews the workflow from this processing run.
+The spreadsheets produced in the following sections ([10x Technician Spreadsheets], [Processing-Run CSVs], [Cell Ranger Required CSVs], and [Output CSVs]) are based on the following default example: Four biological samples are hashed, ADTs are used to measure three surface markers, and the hashed sample is run on a single 10x chip lane (see [Example Experimental Scenarios] for examples with multiple chip lanes). The diagram below overviews the workflow from this processing run.
 
 ```
    Hash     Make         Pool       Seq Pooled  Demulti BCL   Calc FBM     De-hash 
@@ -39,10 +39,10 @@ S4 -|                                                                       |-> 
 ```
 Cell Ranger processing steps (`mkfastq`, `count`, `vdj`) are underlined with double underlines (`===`) and in this diagram make up the fifth and sixth steps. The final de-hashing step occurs independently of Cell Ranger in a post-processing Jupyter notebook. 
 
-# 10X Technician Spreadsheets
+## 10X Technician Spreadsheets
 Below are 4 proposed spreadsheets for use by the 10X techs and not all experiment-related columns are shown. 
 
-## 1. Sample-Level Spreadsheet
+### 1. Sample-Level Spreadsheet
 | Sample Name | Loading Sample | Expected Cell Number | Ref Trans | Chemistry | HTO | Library Features | Cell Ranger Verison | Project |
 |---|---|---|---|---|---|---|---|---|
 | S1  | **H1** | 3000 | GRCh38 | 3p | HTO-1 | LF1 | 3.1.0 | P1 |
@@ -50,7 +50,7 @@ Below are 4 proposed spreadsheets for use by the 10X techs and not all experimen
 | S3  | **H1** | 5000 | GRCh38 | 3p | HTO-3 | LF1 | 3.1.0 | P1 |
 | S4  | **H1** | 6000 | GRCh38 | 3p | HTO-4 | LF1 | 3.1.0 | P1 |
 
-### Columns
+#### Columns
 - `Sample Name`: name of the biological sample being processed (see [Glossary])
 - `Loading Sample`: name of the sample being loaded into the 10x chip that results in a set of partitioned single cells (a.k.a. GEM Group; see 10x glossary and [Glossary]). `Loading Sample` is the same as `Sample Name`, except in hashing experiments.
 - `Expected Cell Number`: estimated number of cells in the loaded sample
@@ -63,7 +63,7 @@ Below are 4 proposed spreadsheets for use by the 10X techs and not all experimen
 
 This spreadsheet shows four biological samples that are being hashed into a single loading sample (`H1`). Each sample is labeled with a different HTO (e.g. `HTO-1`) and share a common list of `Library Features` (i.e. all ADTs and HTOs used in the loading sample `H1`). `Loading Sample` links these samples to the `Library-Level Spreadsheet`, which lists all libraries derived from the loading sample `H1`. 
 
-## 2. FASTQ-Level Spreadsheet
+### 2. FASTQ-Level Spreadsheet
 | FASTQs | Library  | Loading Sample | 10x Lane | Library Type | Hashed Sample | Sample Index | Pooled Library | BCL | To Output | Processing Run |
 |---|---|---|---|---|---|---|---|---|---|---|
 | FQ1-GEX | L1-GEX | H1 | XL1  | GEX  | True  | SI-GA-A3 | PL1 | **BCL1** | FBM1 | PR1 |
@@ -94,7 +94,7 @@ This spreadsheet shows three Seq-Run-FASTQ Sets obtained by de-multiplexing `BCL
 
 Libraries (or Sequencing Libraries) are the result of running a `Loading Sample` through a 10x chip lane. The 10x techs must keep track of library-level information during the course of a run, however from the perspective of the computational team, these libraries play more of an intermediate role. In our example, we have three libraries (`L1-GEX`, `L1-ADT`, `L1-HTO`) that are generated from a single 10x chip lane. These libraries will be indexed, pooled into the pooled library (`PL1`) and sequenced to produce `BCL1` - note that additional sequencing runs can produce additional BCL files linked to the loading sample `H1`. The `BCL` column links the library to the `FASTQ-Level Spreadsheet` (one to many relationship, potentially).
 
-## 3. Library Features Spreadsheet
+### 3. Library Features Spreadsheet
 | Library Features | HIMC Feature Name | Chemistry | Oligo ID | Oligo Sequence |  
 |---|---|---|---|---|
 | LF1 | HTO-1_H-101_3p_Lot# | 3p | H-101 | <unique-seq> |  
@@ -105,7 +105,7 @@ Libraries (or Sequencing Libraries) are the result of running a `Loading Sample`
 | LF1 |   CD4_A-102_3p_Lot# | 3p | A-102 | <unique-seq> |  
 | LF1 |   CD8_A-103_3p_Lot# | 3p | A-103 | <unique-seq> |  
 
-### Columns
+#### Columns
 - `Library Features`: this is the name of the list of features used in a library and is referenced in the [Sample-Level Spreadsheet].
 - `HIMC Feature Name`: name of a feature (ADT or HTO) being measured
   - official gene symbol of the measured protein - ** might need to include species in name or lookup **
@@ -118,11 +118,10 @@ Libraries (or Sequencing Libraries) are the result of running a `Loading Sample`
  
 This spreadsheet shows the list of `Library Features` that are associated with a loading sample (e.g. `H1`) and its subsequent sequencing libraries (`GEX`, `ADT`, `HTO`). This list is linked to samples in the [Sample-Level Spreadsheet].
 
-
-# Processing-Run CSVs
+## Processing-Run CSVs
 A `Processing-Run` takes as input two spreadsheets and one or more BCLs. These two spreadsheets will be either produced using information from the [10x Technician Spreadsheets], either by the 10x-techs team or the computational team (possibly in an automated fashion). The two spreadsheets are similar to the required spreadsheets that `cellranger mkfastq` and `count` take as inputs, but also contain additional information (e.g. expected cell count) as well as an implicit layout of running all jobs required to complete a  `Processing-Run` set of jobs.
 
-## 1. HIMC Sample Sheet
+### 1. HIMC Sample Sheet
 
 | FASTQs | From BCL | To Output | Seq-Lanes | Index Name | Index Oligo | Library Type | Ref Trans | Number of Cells | Chemistry | Cell Ranger Version | Library Features | Sample | Project | HTO |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -130,7 +129,7 @@ A `Processing-Run` takes as input two spreadsheets and one or more BCLs. These t
 | **FQ1-ADT** | **BCL1** | **FBM1** | 1 | RPI1 | ACTGTT | Custom | GRCh38 | 18000 | 5p-V2 | 3.1.0 | LF1 | S1 | P1 | HTO1 |
 | **FQ1-HTO** | **BCL1** | **FBM1** | 1 | D7001 | ACTGTTGG | Custom | GRCh38 | 18000 | 5p-V2 | 3.1.0 | LF1 | S1 | P1 | HTO1 |
 
-### Columns
+#### Columns
 
 - `FASTQs`: name of the [Seq-Run-FASTQ set] obtained from the [FASTQ-Level Spreadsheet] which includes:
   - **biological sample name** (needed to track which sample FBM should be generated from which FASTQs)
@@ -153,7 +152,7 @@ A `Processing-Run` takes as input two spreadsheets and one or more BCLs. These t
 
 This CSV is similar to the simple CSV sample sheet passed to `mkfastq`, but includes additional information required to perform multiple jobs within a Processing Run (e.g. multiple `mkfastq` and `count` jobs). This CSV will be used to construct both [the sample sheet CSV inputs for multiple `mkfastq` runs][10X Sample Sheet CSV] and [the library CSVs for multiple `count` runs][10X Libraries CSV]. The `Reference Transcriptome` and `Number of Cells` columns will be used to construct additional arguments for `cellranger count`. Additionally, the `Index Name` value will be used for GEX libraries, while the `Index Oligo` value will be used for Custom libraries (ADT/HTO).
 
-## 2. HIMC Feature Reference CSV 
+### 2. HIMC Feature Reference CSV 
 
 | Library Features | id | name | read | pattern | sequence | feature_type | 
 |---|---|---|---|---|---|---|
@@ -165,7 +164,7 @@ This CSV is similar to the simple CSV sample sheet passed to `mkfastq`, but incl
 | LF1 |   CD4_A-102_3p_Lot# |   CD4 | R2  | seq-pattern  | GGACCAAACAACTTG  | Custom  |  
 | LF1 |   CD8_A-103_3p_Lot# |   CD8 | R2  | seq-pattern  | GGACCACTTGAACAA  | Custom  |  
 
-### Columns
+#### Columns
 - `Library Features`: name of the list of features used in a library
 - `id`: unique id for the feature (can't collide with gene name)
 - `name`: human readable feature name (e.g. gene name, or hashtag number HTO-1)
@@ -220,16 +219,16 @@ for inst_out in all_outs:
         jobs[inst_out] = submit_vdj(inst_out, jobs[dep_bcl], inst_meta_data)
 ```
 
-# Cell Ranger Required CSVs
+## Cell Ranger Required CSVs
 
-## 1. Sample Sheet CSV
+### 1. Sample Sheet CSV
 | Lane| Sample | Index |
 |---|---|---|
 | 1  | FQ1-GEX | SI-GA-A3 |
 | 1  | FQ1-ADT | ACTGTT |
 | 1  | FQ1-HTO | ACTGTTGG |
 
-### Columns
+#### Columns
 - `Lane`: which lane(s) of the flowcell to process. Can be either a single lane, a range (e.g., 2-4) or '*' for all lanes in the flowcell.
 - `Sample`: The name of the sample. This name will be the prefix to all the generated FASTQs, and will correspond to the `--sample` argument downstream 10x pipelines.
 Sample names must conform to the Illumina `bcl2fastq` naming requirements. Only letters, numbers, underscores and hyphens area allowed; no other symbols, including dots (".") are allowed (the BCL name will be appended automatically by `mkfastq`; **TODO: verify this**).
@@ -238,14 +237,14 @@ Sample names must conform to the Illumina `bcl2fastq` naming requirements. Only 
  
 This is the "simple samplesheet" format consumed by `cellranger mkfastq` (see 10x docs).
 
-## 2. Libraries CSV
+### 2. Libraries CSV
 |  FASTQs | Sample  |  Library Type |
 |---|---|---|
 | /path/to/fastqs/ | FQ1-GEX | Gene Expression |
 | /path/to/fastqs/ | FQ1-ADT | Custom |
 | /path/to/fastqs/ | FQ1-HTO | Custom |
 
-### Columns
+#### Columns
 - `FASTQs`: path to demultiplexed FASTQ files (cannot have comma-delimiited paths; more than one path requres an additional row).
 - `Sample`: sample name assigned in the `mkfastq` simple samplesheet above.
 - `Library Type`: from the documentation:
@@ -253,24 +252,24 @@ This is the "simple samplesheet" format consumed by `cellranger mkfastq` (see 10
 
 This table is used by Cell Ranger Count to know which `FBM-FASTQ Set` (which is composed of at least one `Seq-Run-FASTQ Sets` from different sequencing runs, see [Glossary]) to aggregate into a single FBM, which includes GEX, ADT, and HTO data.
 
-## 3. Feature Reference CSV
+### 3. Feature Reference CSV
 
 This is the same as the [Feature Reference CSV] that is produced by the 10x techs, but without the column `Library Features`. 
 
-# Output CSVs
+## Output CSVs
 A single processing run will produce the following spreadsheets:
 1. Job Status CSV
 2. FASTQ meta-data
 3. Outputs Meta-Data CSV
 
-## 1. Job Meta-Data CSV
+### 1. Job Meta-Data CSV
 
 | Job  | Status  | Output Path  | 
 |---|---|---|
 | mkfastq_BCL1  | Finished  | s3/path/to/zipped/fastqs  | 
 | count_FBM1  | Pending  | s3/path/to/fbm  |
 
-### Columns
+#### Columns
 - `Job`: the name of the job
   - `mkfastq` jobs' names will include the input BCL name
   - `count` jobs' names will include the output FBM name
@@ -283,19 +282,19 @@ This spreadsheet shows the status of the jobs associated with a single Processin
 1) Provide the 10x techs and computational teams with a simple way of checking the status of a Processing Run
 2) Provide the pipeline a way to access the state of the Processing Run. For instance, it is a common scenario to receive multiple BCLs from the same sample (e.g. multiple sequencing runs) and we will need to start processing (e.g. get the number of reads from the FASTQs) before we obtain all BCLs. We would like to be able to add additional BCLs to a Processing-Run bucket and tell the Processing-Run job to complete the necesssary jobs that are available to complete. 
 
-## 2. FASTQ Meta-Data CSV
+### 2. FASTQ Meta-Data CSV
 This spreadsheet will be a modified copy of [the FASTQ-level sheet][FASTQ-Level Spreadsheet] that is used as input to a Processing-Run. We will add the following columns: 
 
 - `reads per cell`: obtained from `mkfastq` QC metrics 
 - `Download Link`: a pre-signed URL for downloading the FASTQs from S3
 
-## 3. Outputs Meta-Data CSV
+### 3. Outputs Meta-Data CSV
 
 | Outputs  | Path  | Download Link | Number of Cells |
 |---|---|---|---|
 | FBM1  |  s3/path/to/zipped/fastqs  | URL | 10000 | 
 
-### Columns
+#### Columns
 - `Outputs`: name of the FBM or VDJ outputs
 - `Path`: path on the S3 bucket to the FASTQs (we may drop this column when we share with researchers, but it is good for internal use)
 - `Download Link`: a pre-signed URL for downloading the outputs
@@ -303,7 +302,7 @@ This spreadsheet will be a modified copy of [the FASTQ-level sheet][FASTQ-Level 
 
 This will give meta-data on FBM/VDJ outputs. For a hashed sample, we will have to perform de-hashing (**TODO: document this process**) to get the individual samples from the hashed loading sample (otherwise they are 1-to-1).
 
-# 10x Experimental Scenarios
+## Example Experimental Scenarios
 This section enumerates experimental scenarios of increasing complexity including::
 - multiple samples in Processing Run
 - multiple rounds of sequencing per sample
@@ -313,7 +312,7 @@ This section enumerates experimental scenarios of increasing complexity includin
 
 Each scenario includes a workflow diagram as well as a simplified [HIMC Sample Sheet]. The simplified sample sheet shows where each Seq-Run FASTQ Set originated (`From BCL`) and what output the Seq-Run FASTQ Set contributes towards (`To Output`), which should be sufficient for organizing multiple runs of `mkfastq` and `count`, respectively, within the larger context of a complete Processing Run (additional meta-data necessary for a Processing Run can be found in the [HIMC Sample Sheet]). 
 
-## 1. Single Lane per Sample, Single Seq-Run
+### 1. Single Lane per Sample, Single Seq-Run
 ```
  Make        Make Pooled   Seq Pooled    Demulti     Calc
  Libraries   Library       Library       BCL         FBMs
@@ -330,7 +329,7 @@ S3   ->   L3    -|                        |->   FQ3   ->  FBM3
 
 Three samples are run in three 10x chip lanes producing three GEX libraries. A pooled library is generated and sequenced once. The BCL file is de-multiplexed into three sets of Seq-Run FASTQ Sets and each is run in a separate instance of Cell Ranger Count to produce three FBMs. 
 
-## 2. Single Lane per Sample, Multiple Seq-Runs 
+### 2. Single Lane per Sample, Multiple Seq-Runs 
 ```
  Make        Make Pooled   Seq Pooled    Demulti        Calc
  Libraries   Library       Library       BCLs           FBMs
@@ -355,7 +354,7 @@ S3   ->   L3   -|           |->   BCL2  -|->  FQ2-BCL2  -|
 
 Three samples are run in three 10x chip lanes producing three GEX libraries. A pooled library is generated and sequenced twice in order to get more reads per cell. The BCL files are de-multiplexed into six sets of Seq-Run FASTQ Sets (note that FASTQs need their BCL name in order to be unique). Three runs fo Cell Ranger count are run on the three FBM FASTQ Sets (each set is composed of two Seq-Run FASTQ Sets, note reordering of FASTQs in the diagram) to produce three FBMs. 
 
-## 3. Multiple Lanes per Sample, Single Seq-Run
+### 3. Multiple Lanes per Sample, Single Seq-Run
 
 ```
   Make           Make Pooled   Seq Pooled    Demulti         Calc
@@ -381,7 +380,7 @@ S3   -|-> L3-XL5    -|                        |->   FQ3-XL5   ->  FBM3-XL5
 
 Three samples are run in two 10x chip lanes each (to double the number of measured cells) producing six GEX libraries. A pooled library is generated and sequenced once. The BCL file is de-multiplexed into six sets of Seq-Run FASTQ Sets. Six runs of Cell Ranger count are run on the six FBM FASTQ Sets. Note that in this scenario, we are leaving it to the user to combine data from different lanes (e.g. different samples of cell from the same biological sample) of the same subject (e.g. `FBM1-XL1` and `FBM1-XL2`).
 
-## 4. Multiple Lanes per Sample, Multiple Seq-Runs
+### 4. Multiple Lanes per Sample, Multiple Seq-Runs
 ```
   Make           Make Pooled      Seq Pooled  Demulti              Calc
   Libraries      Library          Library     BCLs                 FBMs
@@ -422,7 +421,7 @@ S3   -|              |                        |->   FQ3-XL5-BCL2   -|
 Three samples are run in two 10x chip lanes each (to double the number of measured cells) producing six GEX libraries. A pooled library is genrated and sequenced twice (to get more reads per cell). The BCL files are de-multiplexed into twelve sets of Seq-Run FASTQ Sets and six corresponding FBM FASTQ Sets. Six runs of Cell Ranger `count` are run on the six FBM FASTQ Sets. 
 This example has multiple lanes per sample to get more cells per sample and multiple reads per sample to get more reads per cell. Similarly to scenario 3, we are leaving it to the user to combine data from different lanes of the same subject. 
 
-## 5. One Lane per Sample, TCR-seq, Single Seq-Run
+### 5. One Lane per Sample, TCR-seq, Single Seq-Run
 ```
   Make             Make Pooled   Seq Pooled     Demulti           Calc
   Libraries        Library       Library        BCL               FBM/VDJ
@@ -437,7 +436,7 @@ S1   -|->   L1-GEX    -|->   PL1   -|->   BCL1  ->  FQ1-BCL1-GEX    ->   FBM1
 
 One sample is run in a 10x chip lane producing one GEX library and one TCR library. A pooled library is generated and sequenced twice (once for GEX and once for VDJ). The BCL files are 'de-multiplexed' into a single set of Seq-Run FASTQ Set per BCL (`FQ1-GEX1` and `FQ1-TCR`). Cell Ranger `count`/`vdj` are run on `FQ1-GEX1`/`FQ1-TCR` respectively to produce outputs (FBM/contigs). Note that two sequencing runs are performed on the pooled sample because sequencing conditions are different for GEX and VDJ.
 
-## 6. Multiple Lanes per Sample, TCR-seq, BCR-seq, Multiple Seq-Run
+### 6. Multiple Lanes per Sample, TCR-seq, BCR-seq, Multiple Seq-Run
 ```
   Make                 Make Pooled   Seq Pooled     Demulti               Calc
   Libraries            Library       Library        BCL                   FBM/VDJ
@@ -457,7 +456,7 @@ S1   -|->   L1-XL1-TCR    -|            |            |->  FQ1-XL1-BCL1-BCR    ->
 
 One sample is run in two lanes. One lane includes TCR and BCR sequencing (`XL1`) and the other includes GEX only (`XL2`). A pooled library is generated and sequenced two times (once for GEX and once for VDJ). The BCL files are de-multiplexed. Cell Ranger `count` and `vdj` are run for thier respective FASTQs. 
 
-## 7. One Lane per Sample, ADT, Single Seq-Run
+### 7. One Lane per Sample, ADT, Single Seq-Run
 ```
  Make           Make Pooled   Seq Pooled    Demulti         Calc
  Libraries      Library       Library       BCL             FBMs
@@ -482,7 +481,7 @@ S3   -|->  L3-GEX  -|                        |->  FQ3-GEX  -|->  FBM3
 
 Three ADT samples are run in three lanes producing three GEX and three ADT libraries. These libraries are pooled and sequenced once. The BCL file is de-multiplexed into six Seq-Run FASTQ Sets and three FBM FASTQ Sets (each containing GEX and ADT FASTQs). Cell Ranger `count` (using feature barcoding) is run three times to produce three FBMs containing both GEX and ADT data. 
 
-## 8. One Lane per Sample, ADT, Multiple Seq-Run
+### 8. One Lane per Sample, ADT, Multiple Seq-Run
 ```
  Make           Make Pooled   Seq Pooled    Demulti            Calc
  Libraries      Library       Library       BCL                FBMs
@@ -519,7 +518,7 @@ S3   -|->  L3-GEX  -|                        |->  FQ3-BCL1-GEX  -|
 
 Three biological samples are run in three lanes producing three GEX and three ADT libraries. These libraries are pooled and sequenced twice. The BCL files are de-multiplexed into twelve Seq-Run FASTQ Sets and three FBM FASTQ Sets (each containing GEX and ADT FASTQs). Cell Ranger `count` (using feature barcoding) is run three times to produce three FBMs containing both GEX and ADT data. 
 
-## 9. Hashed-ADT, One Lane per Sample, Single Seq-Run
+### 9. Hashed-ADT, One Lane per Sample, Single Seq-Run
 ```
  Hash      Make             Pool        Seq Pooled   Demulti       Calc       De-hash 
  Samples   Libraries        Libraries   Library      BCL           FBM        Samples
@@ -537,7 +536,7 @@ S4 -|                                                                           
 
 This is the same as the default example used earlier in the documentation. Four ADT samples are hashed into a single Loading Sample (`H1`) and run in a single 10x lane, which generates three libraries. The libraries are pooled and sequenced once. The BCL files are de-multiplexed into three Seq-Run FASTQ Sets and one FBM FASTQ Set. Cell Ranger `count` (using feature barcoding) is run once to produce one FBM containing GEX, ADT, and HTO data. De-hashing is manually run after the Processing Run to obtain sample level FBMs. 
 
-## 10. Hashed-ADT, Multiple Lanes per Sample, ADT, Single Seq-Run
+### 10. Hashed-ADT, Multiple Lanes per Sample, ADT, Single Seq-Run
 ```
  Hash      Make             Pool         Seq Pooled     Demulti           Calc       De-hash 
  Samples   Libraries        Libraries    Library        BCL               FBM        Samples
@@ -564,7 +563,7 @@ S4 -|         |->   L1-XL2-GEX   -|                     |->  FQ1-XL2-GEX  -|    
 
 Four ADT samples are hashed into a single Loading Sample (`H1`) and run in two 10x lanes (to get more cells), which generates six libraries. The libraries are pooled and sequenced once. The BCL files are de-multiplexed into six Seq-Run FASTQ Sets and two FBM FASTQ Set. Cell Ranger `count` (using feature barcoding) is run twice to produce two FBMs containing GEX, ADT, and HTO data. De-hashing is manually run twice after the Processing Run to obtain sample level FBMs. 
 
-# Glossary
+## Glossary
 
 The relationships between components in 10x single cell assay can be complicated. As a first step, we define a common vocabulary for ourselves below. We have ordered entities based on their natural progression during the experiment and data-processing steps.  
 
@@ -614,3 +613,4 @@ The relationships between components in 10x single cell assay can be complicated
 [Features Table]: #4-features-table
 [HIMC Sample Sheet]: #1-himc-sample-sheet
 [Seq-Run-FASTQ set]: TODO
+[Example Experimental Scenarios]: #Example-Experimental-Scenarios
