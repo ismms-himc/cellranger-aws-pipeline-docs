@@ -8,7 +8,7 @@ This document proposes schemas and vocabulary to be used across:
 Below are schemas and example data for various spreadsheets used by all parties, and [a glossary](#glossary) of relevant terms. This document heavily references the [10x documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/mkfastq) as well.
 
 ## TODO
-* look into Multi-Library Sample workflow (https://support.10xgenomics.com/single-cell-vdj/software/pipelines/latest/advanced/multi-library-samples)
+* look into [Multi-Library Sample workflow](https://support.10xgenomics.com/single-cell-vdj/software/pipelines/latest/advanced/multi-library-samples)
 
 ## Examples from 10x Documentation
 Below are two experimental scenarios from 10x that have been paraphrased into our vocabulary (see [Glossary]). 
