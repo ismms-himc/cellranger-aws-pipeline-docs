@@ -295,7 +295,7 @@ A single processing run will produce the following spreadsheets:
 | Job  | Status  | Job Dependencies | Output Path  | 
 |---|---|---|---|
 | mkfastq_BCL1  | Finished   | - | s3/path/to/zipped/fastqs  | 
-| count_FBM1  | Pending Job  | mkfastq_BCL1 | s3/path/to/fbm  |
+| count_FBM1  | Pending Job  | [mkfastq_BCL1] | s3/path/to/fbm  |
 
 #### Columns
 - `Job`: the name of the job
@@ -309,6 +309,8 @@ A single processing run will produce the following spreadsheets:
    - `In-Progress`: a job that is currently running
    - `Finished`: a successfully completed job
    - `Failed`: a job that has failed (does not include informaiton on why it failed)
+   
+- `Job Dependencies`: a list of all dependent jobs (e.g. jobs that need to be completed before this job runs
 - `Output Path`: S3 path to the FASTQs, FBM, or TCR/BCR (we may drop this column when we share with researchers, but it is good for internal use)
 
 This spreadsheet shows the status of the jobs associated with a single Processing-Run. This spreadsheet serves two purposes: 
