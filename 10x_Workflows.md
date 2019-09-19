@@ -303,7 +303,7 @@ A single processing run will produce the following spreadsheets:
   - `count` jobs' names will include the output FBM name
   - `vdj` jobs' names will include the output TCR/BCR name
 - `Status`: current status of the job: 
-   - 'Not Submitted`: has not been submitted for running
+   - `Not Submitted`: has not been submitted for running
    - `Pending Data`: a `mkfastq` job that is waiting on `bcl` data
    - `Pending Job`: a `count` or `vdj` job that is waiting on the completion of a dependent job (e.g. a `count` run waiting on the completion of a `mkfastq` run)
    - `In-Progress`: a job that is currently running
