@@ -9,6 +9,7 @@ Below are schemas and example data for various spreadsheets used by all parties,
 
 ## TODO
 * look into [Multi-Library Sample workflow](https://support.10xgenomics.com/single-cell-vdj/software/pipelines/latest/advanced/multi-library-samples)
+* look into potential [index hopping issues](https://community.10xgenomics.com/t5/10x-Idea-Exchange/Index-hopping-is-a-serious-problem-whose-effects-can-be/idi-p/68421)
 
 ## Examples from 10x Documentation
 Below are two experimental scenarios from 10x that have been paraphrased into our vocabulary (see [Glossary]). 
