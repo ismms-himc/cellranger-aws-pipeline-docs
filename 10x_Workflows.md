@@ -292,17 +292,23 @@ A single processing run will produce the following spreadsheets:
 
 ### 1. Job Meta-Data CSV
 
-| Job  | Status  | Output Path  | 
-|---|---|---|
-| mkfastq_BCL1  | Finished  | s3/path/to/zipped/fastqs  | 
-| count_FBM1  | Pending  | s3/path/to/fbm  |
+| Job  | Status  | Job Dependencies | Output Path  | 
+|---|---|---|---|
+| mkfastq_BCL1  | Finished   | - | s3/path/to/zipped/fastqs  | 
+| count_FBM1  | Pending Job  | mkfastq_BCL1 | s3/path/to/fbm  |
 
 #### Columns
 - `Job`: the name of the job
   - `mkfastq` jobs' names will include the input BCL name
   - `count` jobs' names will include the output FBM name
   - `vdj` jobs' names will include the output TCR/BCR name
-- `Status`: current status of the job (`Pending`, `In-Progress`, `Finished`, or `Failed`)
+- `Status`: current status of the job: 
+   - 'Not Submitted`: has not been submitted for running
+   - `Pending Data`: a `mkfastq` job that is waiting on `bcl` data
+   - `Pending Job`: a `count` or `vdj` job that is waiting on the completion of a dependent job (e.g. a `count` run waiting on the completion of a `mkfastq` run)
+   - `In-Progress`: a job that is currently running
+   - `Finished`: a successfully completed job
+   - `Failed`: a job that has failed (does not include informaiton on why it failed)
 - `Output Path`: S3 path to the FASTQs, FBM, or TCR/BCR (we may drop this column when we share with researchers, but it is good for internal use)
 
 This spreadsheet shows the status of the jobs associated with a single Processing-Run. This spreadsheet serves two purposes: 
