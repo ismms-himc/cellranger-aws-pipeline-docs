@@ -156,6 +156,8 @@ A `Processing-Run` takes as input two spreadsheets and one or more BCLs. These t
 
 This CSV is similar to the simple CSV sample sheet passed to `mkfastq`, but includes additional information required to perform multiple jobs within a Processing Run (e.g. multiple `mkfastq` and `count` jobs). This CSV will be used to construct both [the sample sheet CSV inputs for multiple `mkfastq` runs][10X Sample Sheet CSV] and [the library CSVs for multiple `count` runs][10X Libraries CSV]. The `Reference Transcriptome` and `Number of Cells` columns will be used to construct additional arguments for `cellranger count`. Additionally, the `Index Name` value will be used for GEX libraries, while the `Index Oligo` value will be used for Custom libraries (ADT/HTO).
 
+**Note:** for all rows in the `HIMC Feature Reference CSV` file, the value for the column `feature_type` can be set to `Custom` only. It is not necessary that any other row exists with the value `Antibody Capture` or `Gene Expression` in this column.
+
 ### 2. HIMC Feature Reference CSV 
 
 | Library Features | id | name | read | pattern | sequence | feature_type | 
